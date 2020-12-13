@@ -1,0 +1,8 @@
+.container{text-align: center; padding-top: 200px;}
+	.col-4 { margin:auto; width: 300px;}
+	.logo img{ width:250px; }
+	.bg-ogran{ background-color: #f80; }
+	.card{ box-shadow: 0 0 20px 10px rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;}
+	.card input{ border: none; border-radius: 3px; margin: 5px; height: 30px; padding-left: 10px;}
+	.card button{ margin: 5px;  height: 30px; background-color: #000; color: #fff; border:none; border-radius: 5px; }
+	.card button:hover{ margin: 5px;  height: 30px; background-color: #999; color: #000; border:none; border-radius: 5px; }

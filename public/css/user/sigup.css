@@ -1,0 +1,20 @@
+
+	.col-7{ margin:0 auto;}
+	.title{ font-size: 40px; color: #000; text-transform: uppercase; stroke: 1px solid #f80;}
+	.card{ text-align: center; padding: 10px;  border-radius: 10px; box-shadow: 0 0 10px 5px rgba(0,0,0,0.3);  background-color: #f80;}
+	.card div{ margin: 8px; }	
+	.card div input{ width: 80%; border: none; border: 1px solid #f80; border-radius: 3px; font-size: 12px; height:30px; padding: 0 10px;}
+
+
+	.grid-photo{ text-align: center; padding: 0 190px;  }
+	.user_file{ position: relative; margin-left: auto;}
+	.user_file:hover img{ opacity: 0.3; }
+	.user_file:hover strong{opacity: 100;}
+	.user_file input[type=file]{ display: none; }
+
+	.user_file label img{ width: 100px; margin: 5px; appearance:button; border-right: 50%; }
+	.user_file label strong{font-weight: bold; font-size: 14px; position: absolute; color: #191919; opacity: 0;}
+	.user_file label strong { transition: .5s ease; opacity: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);}
+	
+
+	.bg-ogran{background-color: #f80;}

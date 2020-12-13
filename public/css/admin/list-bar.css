@@ -1,0 +1,42 @@
+.list-bar{ width: 270px; position: fixed; height: 100%; overflow: auto; background-color: #363636; }
+.title{ text-align: center; margin-top:10px;  color: #fff;}
+.title p strong{margin: 10px; }
+.title p span{font-size: 12px; }
+.profile{ background-color: #4c4c4c; padding: 10px;}
+.profile img{ width: 100px; height: auto; }
+/* dropmenu*/
+.function{margin: 0; padding: 0; color: #f80;}
+.icon-ft img{ width: 20px; height: 20px; float: right; }
+.caret{ float: right;margin: 8px;}
+
+.items{ height: 40px; padding: 10px ; border-bottom: 1px solid #000; box-sizing: border-box; font-size: 14px;
+		font-weight: bold;}
+.items a{text-decoration: none; color: #f80;}
+.items:hover{ background-color: #191919; }
+
+.items-on{ height: 40px; padding: 10px ; border-bottom: 1px solid #000; box-sizing: border-box; background-color: #666;}
+.items-on:hover{background-color: #333;}
+.items-on a{ margin-left: 30px; color:#fff; text-decoration: none;}
+
+/* custom scrollbar*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 3px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #666; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #999; 
+
+}
