@@ -35,7 +35,7 @@
 			<div class="col-ft">
 				<p><a href="">Gọi mua hàng miễn phí: <strong>0126.126.126</strong></a></p>
 				<p><a href="">Gọi bảo hành & khiếu nại: <strong>0123.123.123</strong></a></p>
-				<p><a href="">Gọi hợp tác kinh doanh: <strong>1900.1612</strong></a></p>
+				<p><a href="">Gọi hợp tác kinh doanh:  <strong>1900.1612</strong></a></p>
 			</div>
 		</div>
 	</div>
