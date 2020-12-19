@@ -61,7 +61,8 @@
 							<img src="/image/product/{{$new->image}}" />
 							<p>{{$new->name}}</p>
 							<div class="price">
-							<strong>{{number_format($new->unit_price,0,',','.')}}<u>đ</u></strong><span>26.000.000<u>đ</u></span>
+							<span>{{number_format($new->promotion_price,0,',','.')}}<u>đ</u></span>
+							<strong>{{number_format($new->unit_price,0,',','.')}}<u>đ</u></strong>
 							</div>
 							</a>
 						</div>
