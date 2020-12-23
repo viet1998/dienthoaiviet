@@ -12,10 +12,12 @@
 						</section>
 						
 						<section class="nav-col2">
+							<div class="search-form">
 							<form action="" method="post">
 								<input type="text" placeholder="Bạn muốn tìm gì?">
-								<button class="btn-search" type="submit"><i class="fas fa-search"></i></button>
+								<button type="submit"><i class="fas fa-search"></i></button>
 							</form>
+							</div>
 						</section>
 						<section class="nav-col2-hidden">
 							
