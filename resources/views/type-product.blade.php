@@ -59,7 +59,7 @@
 					<a href="realme"><img src="/image/logo/realme42.png" /></a>
 				</div>
 				<div class="column">
-					<a href="oneplus"><img src="/image/logo/oneplus42.jpg" /></a>
+					<a href="oneplus"><img src="/image/logo/oneplus42.jpg" style="height: 86%;" /></a>
 				</div>
 			</div>
 		</section>

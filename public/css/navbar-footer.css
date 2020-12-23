@@ -64,18 +64,23 @@ float: right; margin-top: 3px; }
 .row-2{background-color: #f80;}
 .row-2 a{ color: #fff; }
 .row-2 a:hover{ color: #000; text-decoration: none; }
+
+.row-rps{display: none;}
 /*end footer*/
 
 /*table display*/
 @media only screen and (max-width: 1024px){
+	/*header*/
 	.nbar-style{ width: 98%;}
 	.nav-btn i{cursor: pointer;}
-	.nav-col2{ display: none;}
+	/*.nav-col2{ display: none;}*/
 	.nav-col2-hidden{ display: block; flex-grow: 1;}
 	.nav-btn{display: block;}
 	.checkbtn{ flex-basis: 5%; color: #fff; font-size: 30px; padding: 5px 0; }
 
 	#check{display: none;}
+	/*end header*/
+	/*menu*/
 	.bg-top_menu{ display: none;}
 	
 	.grid-top_menu{height: 100%; width: 100%; }
@@ -85,26 +90,37 @@ float: right; margin-top: 3px; }
  	.grid-top_menu ul li:hover { transition: .5s;  background-color: #666; height: 80px; padding: 20px 0; display: block;
  	 text-align: center;}
  	 .grid-top_menu ul li a{font-size: 14px;}
+ 	 /*end menu*/
+ 	 /*footer*/
+ 	.row-1{display: none;}
 
- 	 .block-px{ width: 100%; display: flex; margin: 0 auto;}
+ 	.footer{ width: 100%;}
+ 	.block-px{ width: 100%; display: flex; margin: 0 auto; flex-direction: column; text-align: center;}
+ 	.row-rps{display: block;width: 100%; height: 60px; background-color: #f0f0f0;
+ 	 padding-top: 10px; border-radius: 20px;}
+ 	.row-rps img {width: 45px; height: 45px; margin-right: 5px;}
+ 	.row-rps a{ color: #f80; }
+	.row-rps a:hover{ text-decoration: none; color: #f80;}
+	/*end footer*/
 }
 /*mobile display*/
 @media only screen and (max-width: 768px){
+	/*menu*/
 	.nbar-style{ width: 96%;}
 	.nav-col3{display: none;}
-
-
 	.grid-top_menu ul{float: left; }
 	.grid-top_menu ul li{ list-style-type: none; width: 50%; height: 80px; padding: 20px 0;  flex-basis:50%;
  display: block;border-bottom: none;}
  	.grid-top_menu ul li:hover { list-style-type: none; height: 80px; padding: 20px 0; color: #FFF; flex-basis:15%;
  display: block; text-align: center;border-bottom: none; border-radius: 10px;}
-
+/* end menu*/
  /*footer*/
  	.row-1{display: none;}
  	.footer{ width: 100%; height: auto;font-size: 18px; text-align: center;}
 
  	.col-ft{ flex-basis: 100%; height:auto; }
+
+
  /*end footer*/
 }
 

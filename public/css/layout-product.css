@@ -5,7 +5,7 @@
 .title-product{ display: block; width: 100%;height: 60px; margin: 0; padding: 0 15px; }
 /* row 2 hien thi phan chinh cua san pham */
 .main{	width: 100%; color: #000; flex: unset; display: flex; }
-.item-1{ height: auto; flex-basis: 33.3333%; box-sizing: border-box; max-width: 33.3333%; position: relative;
+.item-1{ height: auto; flex-basis: 33.3333%; box-sizing: border-box;  position: relative;
 		-webkit-font-smoothing: antialliased; margin: 0px; padding: 15px; border-right: 1px solid #f0f0f0;}
 .item-1 img{ vertical-align: middle; width: 100%;}
 .caption-container{ margin: 20px; border: 1px solid #f0f0f0; padding: 10px; overflow: auto;}
@@ -27,6 +27,7 @@
 .btn-buynow button{ height: 40px; width: 100px ;	border:none;border-radius: 5px; background-color: #ff8000; margin-bottom: 15px;}
 .btn-buynow button:hover{ box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);	background-color: #FFBF00; }
 .btn-buynow button a{ text-decoration: none; color: #fff;font-size: 20px;}
+/*end button mua ngay*/
 /*button nhan tin qua mess*/
 .btn-messbox button{ height: 40px;	width: 100%; border:none; border-radius: 5px; background-color: #0080FF;margin-bottom: 15px;}
 .btn-messbox button:hover{ box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);	background-color: #0080FF;}
@@ -48,8 +49,22 @@
 .border p{ font-size: 14px; color: #2e2e2e;}
 
 
-/* Hiển thị thông tin mô tả */
+/* show description*/
 .row-desc{	max-width: 75%;	flex-basis:75%;	height: auto; background-color: #f0f0f0;margin-top: 20px;}
 .row-desc-title table{	margin: 15px;padding: 2px;box-sizing: content-box;border: 1px solid #fff;}
 .row-desc-title table tr{ border-bottom: 1px solid #fff;margin: 5px;}
 .row-desc-title table tr td{ width: 300px;height: 40px;	padding-left: 10px;	border-left: 1px solid #fff;}
+/* end description*/
+/*tablet*/
+@media only screen and (max-width: 1024px){
+
+	.container-body{ margin-top: 60px; width: 98%; }
+	.grid{ width: 100%;}
+	.main{ flex-direction: column;width: 98%;}
+
+	.title-product{width: 98%}
+	.item-1{flex-basis: 98%; padding: 15px 0; border-right:none;}
+	.item-1 img{ vertical-align: middle; width: 98%;}
+	
+	.caption-container{margin: 0;}
+}
