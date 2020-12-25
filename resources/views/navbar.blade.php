@@ -74,10 +74,10 @@
 					<section class="grid-top_menu">
 						<ul>
 							<div></div>
-							<li><i class="icon"><img src="/image/icon/smartphone.png"/></i><a href="{{route('type-product')}}">ĐIỆN THOẠI </a></li>	
-							<li><i class="icon"><img src="/image/icon/tablet.png"/><a href="/list-product"></i>TABLET</a></li>	
-							<li><i class="icon"><img src="/image/icon/headphones.png"/><a href="PHUKIEN"></i>PHỤ KIỆN</a></li>	
-							<li><i class="icon"><img src="/image/icon/smartwatch.png"/><a href="DONGHO"></i>ĐỒNG HỒ</a></li>	
+							<li><i class="icon"><img src="/image/icon/smartphone.png"/></i><a href="{{route('phone')}}">ĐIỆN THOẠI </a></li>	
+							<li><i class="icon"><img src="/image/icon/tablet.png"/><a href="{{route('tablet')}}"></i>TABLET</a></li>	
+							<li><i class="icon"><img src="/image/icon/headphones.png"/><a href="{{route('accessories')}}"></i>PHỤ KIỆN</a></li>	
+							<li><i class="icon"><img src="/image/icon/smartwatch.png"/><a href="{{route('watch')}}"></i>ĐỒNG HỒ</a></li>	
 							<li><i class="icon"><img src="/image/icon/sim-card.png"/><a href="THESIM"></i>THẺ SIM</a></li>	
 							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href="TRAGOP"></i>TRẢ GÓP</a></li>	
 							<li><i class="icon"><img src="/image/icon/settings.png"/><a href="SUACHUA"></i>SỬA CHỮA</a></li>

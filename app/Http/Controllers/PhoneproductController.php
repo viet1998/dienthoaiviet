@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TypeproductController extends Controller
+class PhoneproductController extends Controller
 {
-    public function showTypeProduct(){
+    public function showDTV(){
     	return view('type-product');
     }
 }

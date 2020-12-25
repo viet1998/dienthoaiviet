@@ -88,7 +88,7 @@
 	<!-- danh sách điện thoại nổi bật nhất -->
 	<section class="list-listphone">
 		<div class="title-lpd">
-			<span>Điện thoại nổi bật nhất</span>
+			<span>phụ kiện</span>
 		</div>
 		<div class="col-listphone">
 			<div class="card-listphone">
