@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Admin</title>
-	<link rel="stylesheet" type="text/css" href="/css/admin/login.css">
-
-</head>
-<body>
-
-	<div class="container">
-		<div class="col-4">
-			<div class="card bg-ogran">
-				<form>
-					<div class="logo"><img src="/image/logo/LOGO.png"></div>
-					<p><strong>ADMIN</strong></p>
-					<div><input type="text" name="user" placeholder="Nhập tài khoản!" required /></div>
-					<div><input type="password" name="pass" placeholder="Nhập mật khẩu!"  required/></div>
-					<div><button type="submit" name="login">Đăng nhập</button> </div>
-				</form>
-			</div>
-		</div>
-	</div>
-</body>
-</html>
+@extends('admin.master-admin')
+@section('content')
+<div class="log-w3">
+<div class="w3layouts-main">
+	<h2>DĂNG NHẬP ADMIN</h2>
+		<form action="#" method="post">
+			<input type="email" class="ggg" name="Email" placeholder="E-MAIL" required="">
+			<input type="password" class="ggg" name="Password" placeholder="MẬT KHẨU" required="">
+			<span><input type="checkbox" />Lưu tài khoản</span>
+			<h6><a href="#">Quên mật khẩu?</a></h6>
+				<div class="clearfix"></div>
+				<input type="submit" value="ĐĂNG NHẬP" name="login">
+		</form>
+		
+</div>
+</div>
+<script src="js/bootstrap.js"></script>
+<script src="js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="js/scripts.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="js/jquery.scrollTo.js"></script>
+@endsection

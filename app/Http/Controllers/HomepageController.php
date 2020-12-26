@@ -12,4 +12,5 @@ class HomepageController extends Controller
     	$new_product = Product::where('new',1) -> paginate(5);
     	return view('trangchu', compact('slide', 'new_product'));
     }
+    
 }

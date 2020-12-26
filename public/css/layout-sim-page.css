@@ -1,0 +1,18 @@
+
+
+.menu-sim-type{ width: 100%;overflow: auto; padding: 5px;margin: 0;}
+
+	.title-menu-sim{ width: 50%; height: auto; background-color: #ff7700; text-align: center; border-top-left-radius: 20px;
+		border-top-right-radius: 20px; padding: 8px 10px; margin: 5px auto; color: #fff; text-transform: uppercase; }
+
+	.list-menu-card{width: 100%;height: auto; border: 2px solid #ff7700; padding:10px;margin:-5px 0 0 0;float: left;
+		display: block;}
+
+		.card-mobile-network{ display: flex; width: 46%; border: 1px solid #999; border-radius: 10px; margin: 10px 20px;
+			font-size: 14px; float: left; max-height: 200px; background-color: #fff;}
+		.card-mobile-network:hover {box-shadow: 0 0 10px 5px rgba(0,0,0,0.2);}
+		.card-mobile-network .col-img{flex-basis:30%;margin-right: 10px;}
+		.card-mobile-network .col-sub{flex-grow: 70%;margin: 5px;}
+		.card-mobile-network img{width: 100%;height: 100%; margin: 0; border-top-left-radius: 8px;border-bottom-left-radius: 8px;
+			}
+		

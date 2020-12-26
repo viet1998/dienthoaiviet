@@ -78,9 +78,9 @@
 							<li><i class="icon"><img src="/image/icon/tablet.png"/><a href="{{route('tablet')}}"></i>TABLET</a></li>	
 							<li><i class="icon"><img src="/image/icon/headphones.png"/><a href="{{route('accessories')}}"></i>PHỤ KIỆN</a></li>	
 							<li><i class="icon"><img src="/image/icon/smartwatch.png"/><a href="{{route('watch')}}"></i>ĐỒNG HỒ</a></li>	
-							<li><i class="icon"><img src="/image/icon/sim-card.png"/><a href="THESIM"></i>THẺ SIM</a></li>	
-							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href="TRAGOP"></i>TRẢ GÓP</a></li>	
-							<li><i class="icon"><img src="/image/icon/settings.png"/><a href="SUACHUA"></i>SỬA CHỮA</a></li>
+							<li><i class="icon"><img src="/image/icon/sim-card.png"/><a href="{{route('sim')}}"></i>THẺ SIM</a></li>	
+							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href="{{route('hirepurchase')}}"></i>TRẢ GÓP</a></li>	
+							<li><i class="icon"><img src="/image/icon/settings.png"/><a href="{{route('service')}}"></i>SỬA CHỮA</a></li>
 							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
 							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">TÀI KHOẢN</a>
 								<div class="dropdown-menu" aria-labelledby="dropdowntk">

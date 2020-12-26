@@ -8,6 +8,13 @@ use App\Http\Controllers\PhoneproductController;
 use App\Http\Controllers\TabletproductController;
 use App\Http\Controllers\AccessoriesproductController;
 use App\Http\Controllers\WatchproductController;
+use App\Http\Controllers\SimproductController;
+// blog controller
+use App\Http\Controllers\HirepurchaseBlogController;
+use App\Http\Controllers\ServiceBlogController;
+// Quan ly admin
+use App\Http\Controllers\AdminDashboardController;
+
 
 use App\Http\Controllers\UserController;
 
@@ -41,10 +48,12 @@ Route::get('Phu-kien',[AccessoriesproductController::class, 'showAccessories'])-
 // show trang đồng hồ
 Route::get('dong-ho-deo-tay',[WatchproductController::class, 'showWatch'])->name('watch');
 // show trang bán sim
+Route::get('sim-so-dep', [SimproductController::class, 'showSim'])->name('sim');
 // show trang thông tin trả góp
+Route::get('thanh-toan-tra-gop', [HirepurchaseBlogController::class, 'showBlogHps'])->name('hirepurchase');
 // show trang sửa chữa
 // show trang khuyễn mãi
-
+Route::get('dich-vu', [ServiceBlogController::class, 'showBlogService'])->name('service');
 // goi trang đăng nhập người dùng
 Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
@@ -53,3 +62,5 @@ Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 //--------------------------------------
 // show trang đăng nhập Admin
 Route::get('admin/login',[AdminController::class, 'showLoginAdmin'])->name('admin-login');
+//show trang dashboard
+Route::get('admin/thong-ke',[AdminDashboardController::class, 'showindex'])->name('admin-doasboard');
