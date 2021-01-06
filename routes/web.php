@@ -59,7 +59,7 @@ Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 
-//--------------------------------------
+//-------------------Quản Lý Admin-------------------
 // show trang đăng nhập Admin
 Route::get('admin/login',[AdminController::class, 'showLoginAdmin'])->name('admin-login');
 //show trang dashboard
