@@ -27,39 +27,30 @@
 							<!-- giỏ hàng -->
 						</section>
 						<section class="nav-col4">
-							<div class="dropdown"><a class="icon-sping" id="drd-shopping" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false"  href="Giohang"><img  src="/image/icon/shopping-cart.png" /></a><span class="notif-shipping">5</span>
-								<div class="dropdown-menu">
-									<div class="tab-sping"  aria-labelledby="drd-shopping">
+							<div class="dropdown"><a class="icon-sping" id="drd-shopping" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false"  href="Giohang"><img  src="/image/icon/shopping-cart.png" /></a><span class="notif-shipping">
+										@if(Session::has('cart'))
+										({{count($product_cart)}})
+										@endif </span>
+										<div class="dropdown-menu">
+										<div class="tab-sping"  aria-labelledby="drd-shopping">
+											<i class="fa fa-chevron-down"></i>
 										<table>
+											@if(Session::has('cart'))
+											@foreach($product_cart as $product)
 											<tr>
-												
-												<td class="img-prd"><img src="/image/product/iphone-11-pro-max-green.jpg" /></td>
-												<td class="name_product"><p>Iphone 11 Pro max(green) 64GB - Chính hãng</p></td>
-												<td class="price">25.000.000<u>đ</u></td>
-												<td class="sl">2</td>
-												<td class="btn-del"><button >X</button></td>
+												<td class="img-prd">
+													<a class="pull-left" href="{{route('sanpham',$product['item']['id'])}}">
+														<img src="/image/product/iphone-11-pro-max-green.jpg" /></a></td>
+												<td class="name_product"><p>{{$product['item']['name']}}</p></td>
+												<td class="price">{{$product['price']}}<u>đ</u></td>
+												<td class="sl">{{$product['qty']}}</td>
+												<td class="btn-del"><button onclick="{{route('xoagiohang',$product['item']['id'])}}">X</button></td>
 											</tr>
-											<tr>
-												
-												<td class="img-prd"><img src="/image/product/iphone-11-pro-max-green.jpg" /></td>
-												<td class="name_product"><p>Iphone 11 Pro max(green) 64GB - Chính hãng</p></td>
-												<td class="price">25.000.000<u>đ</u></td>
-												<td class="sl">2</td>
-												<td class="btn-del"><button >X</button></td>
-											</tr>
-											<tr>
-												
-												<td class="img-prd"><img src="/image/product/mi-10-lite.jpg" /></td>
-												<td class="name_product"><p>Xiaomi MI 10 Lite</p></td>
-												<td class="price">6.700.000<u>đ</u></td>
-												<td class="sl">1</td>
-												<td class="btn-del"><button >X</button></td>
-											</tr>
-											
-					
+											@endforeach
+											@endif
 										</table>
 										<div>
-											<strong>Tạm tính:  56.700.000<u>đ</u></strong>
+											<strong>Tạm tính:  @if(Session::has('cart')){{$totalPrice}} <u>đ</u> @endif</strong>
 											<button class="btn-pay"><a href="#">Thanh toán</a></button>
 										</div>
 									</div>
