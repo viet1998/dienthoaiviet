@@ -38,15 +38,18 @@ Route::resource('product', ProductController::class);
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
+//đăng ký thành viên
+Route::post('dangky',[PageController::class,'postSignup'])->name('dangky');
+Route::post('dangnhap',[PageController::class,'postLogin'])->name('dangnhap');
+Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
 // show trang chu
 Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 //show danh sách sản phẩm điện thoại
-
 Route::get('smartphone', [PageController::class,'getSmartphone'])->name('smartphone');
-// show danh sach tablet
+// show danh sach hãng
 Route::get('smartphone/apple', [PageController::class,'getAppleSmartphone'])->name('apple_smartphone');
 Route::get('smartphone/samsung', [PageController::class,'getSamsungSmartphone'])->name('samsung_smartphone');
 Route::get('smartphone/oppo', [PageController::class,'getOppoSmartphone'])->name('oppo_smartphone');

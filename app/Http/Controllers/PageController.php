@@ -246,7 +246,7 @@ class PageController extends Controller
 
     // Phần đăng nhập
 
-    public function Login(Request $req)                             
+    public function postLogin(Request $req)                             
     {
         $this->validate($req,
             [
@@ -272,7 +272,7 @@ class PageController extends Controller
 
     public function postLogout(){
         Auth::logout();
-        return redirect('dangnhap');
+        return redirect('dang-nhap');
     }
 
     
