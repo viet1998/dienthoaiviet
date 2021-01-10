@@ -45,18 +45,56 @@ class PageController extends Controller
         return view('page.gioithieu');
     }
     
-    public function getProductType($id)
+    public function getSmartphone()
     {
-        $products=Product::where('id_type',$id)->get();
-        $type_product=Type_product::find($id);
+        $products=Product::where('id_type',8)->get();
+        $type_product=Type_product::find(8);
         return view('type-product',compact('products','type_product'));
     }
 
-    public function getProductCompany($id)
+    
+
+    public function getAppleSmartphone()
     {
-        $products=Product::where('id_company',$id)->get();
-        $company=Company::find($id);
-        return view('company_product',compact('products','company'));
+        $products=Product::where('id_company',1)->get();
+        $company=Company::find(1);
+        return view('company-product',compact('products','company'));
+    }
+    public function getSamsungSmartphone()
+    {
+        $products=Product::where('id_company',2)->get();
+        $company=Company::find(2);
+        return view('company-product',compact('products','company'));
+    }
+    public function getOppoSmartphone()
+    {
+        $products=Product::where('id_company',3)->get();
+        $company=Company::find(3);
+        return view('company-product',compact('products','company'));
+    }
+    public function getXiaomiSmartphone()
+    {
+        $products=Product::where('id_company',4)->get();
+        $company=Company::find(4);
+        return view('company-product',compact('products','company'));
+    }
+    public function getVivoSmartphone()
+    {
+        $products=Product::where('id_company',5)->get();
+        $company=Company::find(5);
+        return view('company-product',compact('products','company'));
+    }
+    public function getOneplusSmartphone()
+    {
+        $products=Product::where('id_company',7)->get();
+        $company=Company::find(7);
+        return view('company-product',compact('products','company'));
+    }
+    public function getRealmeSmartphone()
+    {
+        $products=Product::where('id_company',6)->get();
+        $company=Company::find(6);
+        return view('company-product',compact('products','company'));
     }
 
     public function getCheckout()

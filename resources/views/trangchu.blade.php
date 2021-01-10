@@ -57,7 +57,7 @@
 					@foreach($new_product as $new)
 					<div class="col-product" >
 						<div class="card-product" align="center">
-							<a href="/dienthoaiviet/1">
+							<a href="{{route('product.show',$new->id)}}">
 							<img src="/image/product/{{$new->image}}" />
 							<p>{{$new->name}}</p>
 							<div class="price" >

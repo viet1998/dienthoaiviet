@@ -41,25 +41,25 @@
 		<section class="lg-brand">
 			<div class="row-lg-brand">
 				<div class="column">
-					<a href="Apple"><img src="/image/logo/iphone-apple.jpg" /></a>
+					<a href="{{route('apple_smartphone')}}"><img src="/image/logo/iphone-apple.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="samsung"><img src="/image/logo/samsung.jpg" /></a>
+					<a href="{{route('samsung_smartphone')}}"><img src="/image/logo/samsung.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="oppo"><img src="/image/logo/oppo42.png" /></a>
+					<a href="{{route('oppo_smartphone')}}"><img src="/image/logo/oppo42.png" /></a>
 				</div>
 				<div class="column">
-					<a href="xiaomi"><img src="/image/logo/xiaomi42.jpg" /></a>
+					<a href="{{route('xiaomi_smartphone')}}"><img src="/image/logo/xiaomi42.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="vivo"><img src="/image/logo/vivo42.jpg" /></a>
+					<a href="{{route('vivo_smartphone')}}"><img src="/image/logo/vivo42.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="realme"><img src="/image/logo/realme42.png" /></a>
+					<a href="{{route('realme_smartphone')}}"><img src="/image/logo/realme42.png" /></a>
 				</div>
 				<div class="column">
-					<a href="oneplus"><img src="/image/logo/oneplus42.jpg" style="height: 86%;" /></a>
+					<a href="{{route('oneplus_smartphone')}}"><img src="/image/logo/oneplus42.jpg" style="height: 86%;" /></a>
 				</div>
 			</div>
 		</section>

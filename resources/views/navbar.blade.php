@@ -65,7 +65,8 @@
 					<section class="grid-top_menu">
 						<ul>
 							<div></div>
-							<li><a href="{{route('type_product',8)}}"><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </a></li>	
+							<li></li>
+							<li><a href="{{route('smartphone')}}"><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </a></li>	
 							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href=""></i>TRẢ GÓP</a></li>	
 							<li><i class="icon"><img src="/image/icon/settings.png"/><a href=""></i>SỬA CHỮA</a></li>
 							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
@@ -75,7 +76,7 @@
 									<a class=" dropdown-item"href="{{route('sigup')}}">Đăng ký</a>
 								</div>
 							</li>
-							<li></li>
+							
 							<li></li>
 
 						</ul>

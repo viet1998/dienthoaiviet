@@ -59,7 +59,7 @@
 					<h3><strong> {{$product["name"]}}</strong></h3>
 					<!-- giá sản phẩm -->
 					<p style="color: #f00;"><strong>{{number_format($product["unit_price"])}}</strong><u>đ</u></p>
-					<div class="btn-buynow"><button ><a href="buy">Mua ngay</a></button></div>
+					<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
 					<div class="card bg-light" style="padding: 10px;">

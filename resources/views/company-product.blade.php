@@ -41,25 +41,25 @@
 		<section class="lg-brand">
 			<div class="row-lg-brand">
 				<div class="column">
-					<a href="Apple"><img src="/image/logo/iphone-apple.jpg" /></a>
+					<a href="{{route('apple_smartphone')}}"><img src="/image/logo/iphone-apple.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="samsung"><img src="/image/logo/samsung.jpg" /></a>
+					<a href="{{route('samsung_smartphone')}}"><img src="/image/logo/samsung.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="oppo"><img src="/image/logo/oppo42.png" /></a>
+					<a href="{{route('oppo_smartphone')}}"><img src="/image/logo/oppo42.png" /></a>
 				</div>
 				<div class="column">
-					<a href="xiaomi"><img src="/image/logo/xiaomi42.jpg" /></a>
+					<a href="{{route('xiaomi_smartphone')}}"><img src="/image/logo/xiaomi42.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="vivo"><img src="/image/logo/vivo42.jpg" /></a>
+					<a href="{{route('vivo_smartphone')}}"><img src="/image/logo/vivo42.jpg" /></a>
 				</div>
 				<div class="column">
-					<a href="realme"><img src="/image/logo/realme42.png" /></a>
+					<a href="{{route('realme_smartphone')}}"><img src="/image/logo/realme42.png" /></a>
 				</div>
 				<div class="column">
-					<a href="oneplus"><img src="/image/logo/oneplus42.jpg" style="height: 86%;" /></a>
+					<a href="{{route('oneplus_smartphone')}}"><img src="/image/logo/oneplus42.jpg" style="height: 86%;" /></a>
 				</div>
 			</div>
 		</section>
@@ -91,47 +91,21 @@
 			<span>Điện thoại nổi bật nhất</span>
 		</div>
 		<div class="col-listphone">
-			<div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+			@foreach($products as $product)
+			<div class="card-listphone" align="center">
+				<a href="{{route('product.show',$product['id'])}}">
+				<img src="/image/product/{{$product['image']}}" />
+				<p>{{$product['name']}}</p>
+				@if($product['promotion_price']==0)
+				<div class="price"><strong>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
+				@else
+				<div class="price" style="width: auto"><strong>{{number_format($product['promotion_price'], 0, '', '.')}}<u>đ</u></strong><span>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></span>
+				</div>
+				@endif
+				<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
 				</a>
 			</div>
-			<div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
-				</a>
-			</div>
-			<div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
-				</a>
-			</div>
-			<div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
-				</a>
-			</div>
-			<div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
-				</a>
-			</div><div class="card-listphone">
-				<a href="/dienthoaiviet/1">
-				<img src="/image/product/iphone-11-pro-max-green.jpg" />
-				<p>Iphone 11 pro max(64gb Chính hảng)</p>
-				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
-				</a>
-			</div>
+			@endforeach
 		</div>		
 	</section>
 	</section>
