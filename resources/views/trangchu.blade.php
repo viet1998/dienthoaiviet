@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-	Trang chủ
+	Trang chủ Test git
 @endsection
 @section('content')
 		<section class="contai-grid">
@@ -55,16 +55,17 @@
 				</div>
 				<div class="row-subtitel">
 					@foreach($new_product as $new)
-					<div class="col-product">
-						<div class="card-product">
-							<a href="/dienthoaiviet/1">
+					<div class="col-product" >
+						<div class="card-product" align="center">
+							<a href="{{route('product.show',$new->id)}}">
 							<img src="/image/product/{{$new->image}}" />
 							<p>{{$new->name}}</p>
-							<div class="price">
-							<span>{{number_format($new->promotion_price,0,',','.')}}<u>đ</u></span>
-							<strong>{{number_format($new->unit_price,0,',','.')}}<u>đ</u></strong>
+							<div class="price" >
+								<span>{{number_format($new->promotion_price,0,',','.')}}<u>đ</u></span>
+								<strong>{{number_format($new->unit_price,0,',','.')}}<u>đ</u></strong>
 							</div>
 							</a>
+							<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$new['id'],'qty'=>1])}}">Mua Ngay</a></button></div>
 						</div>
 					</div>
 					@endforeach

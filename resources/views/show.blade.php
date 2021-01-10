@@ -23,7 +23,7 @@
 			<div class="main">
 				<div class="item-1"> 
 					<div class="mySlides">
-						<img src="/image/product/realme-7-pro.jpg" />
+						<img src="/image/product/{{$product['image']}}" />
 					</div>
 					<div class="mySlides">
 						<img src="/image/product/mi-10-lite.jpg" />
@@ -39,7 +39,7 @@
 					<div class="caption-container">
 					    <div class="row-gar">
 					    <div class="column">
-					    <img class="demo cursor" src="/image/product/realme-7-pro.jpg" style="width:100%" onclick="currentSlide(1)" />
+					    <img class="demo cursor" src="/image/product/{{$product['image']}}" style="width:100%" onclick="currentSlide(1)" />
 					    </div>
 					    <div class="column">
 					    <img class="demo cursor" src="/image/product/mi-10-lite.jpg" style="width:100%" onclick="currentSlide(2)" />
@@ -56,10 +56,10 @@
 				<!-- phan noi dung san pham ten vs gia -->
 				<div class="item-2">
 					<!-- tên sản phẩm -->
-					<h3><strong> Xiaomi note 10 lite</strong></h3>
+					<h3><strong> {{$product["name"]}}</strong></h3>
 					<!-- giá sản phẩm -->
-					<p style="color: #f00;"><strong>9.490.000</strong><u>đ</u></p>
-					<div class="btn-buynow"><button ><a href="buy">Mua ngay</a></button></div>
+					<p style="color: #f00;"><strong>{{number_format($product["unit_price"])}}</strong><u>đ</u></p>
+					<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
 					<div class="card bg-light" style="padding: 10px;">
@@ -116,7 +116,8 @@
 			<div class="row-desc card">
 					<div class=" row-desc-title">
 						<div class="card-header">Mô tả</div>
-						<table>
+						{{$product["description"]}}
+						<!-- <table>
 							<tr>
 								<td>Màn hình</td>
 								<td>AMOLED, 6.47", Full HD+</td>
@@ -141,8 +142,8 @@
 								<td>Dung lượng pin</td>
 								<td>5260 mAh</td>
 							</tr>
-						</table>
-						</div>
+						</table> -->
+						
 					</div>
 			</div>
 

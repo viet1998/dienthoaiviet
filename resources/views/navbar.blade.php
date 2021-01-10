@@ -27,39 +27,30 @@
 							<!-- giỏ hàng -->
 						</section>
 						<section class="nav-col4">
-							<div class="dropdown"><a class="icon-sping" id="drd-shopping" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false"  href="Giohang"><img  src="/image/icon/shopping-cart.png" /></a><span class="notif-shipping">5</span>
-								<div class="dropdown-menu">
-									<div class="tab-sping"  aria-labelledby="drd-shopping">
+							<div class="dropdown"><a class="icon-sping" id="drd-shopping" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false"  href="Giohang"><img  src="/image/icon/shopping-cart.png" /></a><span class="notif-shipping">
+										@if(Session::has('cart'))
+										({{count($product_cart)}})
+										@endif </span>
+										<div class="dropdown-menu">
+										<div class="tab-sping"  aria-labelledby="drd-shopping">
+											<i class="fa fa-chevron-down"></i>
 										<table>
+											@if(Session::has('cart'))
+											@foreach($product_cart as $product)
 											<tr>
-												
-												<td class="img-prd"><img src="/image/product/iphone-11-pro-max-green.jpg" /></td>
-												<td class="name_product"><p>Iphone 11 Pro max(green) 64GB - Chính hãng</p></td>
-												<td class="price">25.000.000<u>đ</u></td>
-												<td class="sl">2</td>
-												<td class="btn-del"><button >X</button></td>
+												<td class="img-prd">
+													<a class="pull-left" href="{{route('product.show',$product['item']['id'])}}">
+														<img src="/image/product/iphone-11-pro-max-green.jpg" /></a></td>
+												<td class="name_product"><p>{{$product['item']['name']}}</p></td>
+												<td class="price">{{number_format($product['price'])}}<u>đ</u></td>
+												<td class="sl">{{$product['qty']}}</td>
+												<td class="btn-del"><a href="{{route('del_cart',$product['item']['id'])}}"><button >X</button></a></td>
 											</tr>
-											<tr>
-												
-												<td class="img-prd"><img src="/image/product/iphone-11-pro-max-green.jpg" /></td>
-												<td class="name_product"><p>Iphone 11 Pro max(green) 64GB - Chính hãng</p></td>
-												<td class="price">25.000.000<u>đ</u></td>
-												<td class="sl">2</td>
-												<td class="btn-del"><button >X</button></td>
-											</tr>
-											<tr>
-												
-												<td class="img-prd"><img src="/image/product/mi-10-lite.jpg" /></td>
-												<td class="name_product"><p>Xiaomi MI 10 Lite</p></td>
-												<td class="price">6.700.000<u>đ</u></td>
-												<td class="sl">1</td>
-												<td class="btn-del"><button >X</button></td>
-											</tr>
-											
-					
+											@endforeach
+											@endif
 										</table>
 										<div>
-											<strong>Tạm tính:  56.700.000<u>đ</u></strong>
+											<strong>Tạm tính:  @if(Session::has('cart')){{number_format($totalPrice)}} <u>đ</u> @endif</strong>
 											<button class="btn-pay"><a href="#">Thanh toán</a></button>
 										</div>
 									</div>
@@ -74,20 +65,33 @@
 					<section class="grid-top_menu">
 						<ul>
 							<div></div>
-							<li><i class="icon"><img src="/image/icon/smartphone.png"/></i><a href="{{route('phone')}}">ĐIỆN THOẠI </a></li>	
-							<li><i class="icon"><img src="/image/icon/tablet.png"/><a href="{{route('tablet')}}"></i>TABLET</a></li>	
-							<li><i class="icon"><img src="/image/icon/headphones.png"/><a href="{{route('accessories')}}"></i>PHỤ KIỆN</a></li>	
-							<li><i class="icon"><img src="/image/icon/smartwatch.png"/><a href="{{route('watch')}}"></i>ĐỒNG HỒ</a></li>	
-							<li><i class="icon"><img src="/image/icon/sim-card.png"/><a href="{{route('sim')}}"></i>THẺ SIM</a></li>	
-							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href="{{route('hirepurchase')}}"></i>TRẢ GÓP</a></li>	
-							<li><i class="icon"><img src="/image/icon/settings.png"/><a href="{{route('service')}}"></i>SỬA CHỮA</a></li>
+							<li></li>
+							<li><a href="{{route('smartphone')}}"><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </a></li>	
+							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href=""></i>TRẢ GÓP</a></li>	
+							<li><i class="icon"><img src="/image/icon/settings.png"/><a href=""></i>SỬA CHỮA</a></li>
 							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
-							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">TÀI KHOẢN</a>
+							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
+								@if(Auth::check())
+									@if(Auth::user()->level=='admin')
+									<div class="dropdown-menu" aria-labelledby="dropdowntk">
+										<a class="dropdown-item" href="{{route('login')}}">Trang Quản Lý</a>
+										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
+									</div>
+									@else
+									<div class="dropdown-menu" aria-labelledby="dropdowntk">
+										<a class="dropdown-item" href="{{route('login')}}">Trang Cá Nhân</a>
+										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
+									</div>
+									@endif
+								@else
 								<div class="dropdown-menu" aria-labelledby="dropdowntk">
 									<a class="dropdown-item" href="{{route('login')}}">Đăng nhập</a>
 									<a class=" dropdown-item"href="{{route('sigup')}}">Đăng ký</a>
 								</div>
+								@endif
 							</li>
+							
+							<li></li>
 
 						</ul>
 					</section>	

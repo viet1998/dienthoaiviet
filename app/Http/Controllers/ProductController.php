@@ -46,9 +46,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        // $product = Product::find($id);
-        // return view('show',['product'=>$product]); 
-        return view('show');
+        $product = Product::find($id);
+        return view('show',compact('product'));
     }
     // public function navbar(){
     //     return view('navbar');
