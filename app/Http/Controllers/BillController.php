@@ -97,6 +97,81 @@ class BillController extends Controller
         //
     }
 
+    public function getDelItemCart($id)
+    {
+        $oldcart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldcart);
+        $cart->removeItem($id);
+        if(count($cart->items)>0){
+            Session::put('cart',$cart);
+        }
+        else{
+            Session::forget('cart');
+        }
+        
+        return redirect()->back();
+    }
+
+    public function getAddtoCart(Request $req,$id,$qty)
+    {
+        $product=Product::find($id);
+        $oldcart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldcart);
+        if(isset($req->unit))
+            $cart->add($product,$id,$req->unit);
+        else
+            $cart->add($product,$id,$qty);
+        $req->session()->put('cart',$cart);
+        return redirect()->back();
+    }
+    
+    public function postCheckout(Request $req)              /*Đặt Hàng*/
+    {
+        if(Session::has('cart')){
+        $cart=Session::get('cart');
+        $customer=Customer::where('phone_number',$req->phone)->get();
+        if($customer->count()==0){
+            $customer=new Customer;
+            $customer->name=$req->name;
+            $customer->gender=$req->gender;
+            $customer->email=$req->email;
+            $customer->address=$req->address;
+            $customer->phone_number=$req->phone;
+            $customer->note=$req->note;
+            $customer->save();
+            $id=$customer->id;
+        }
+        else
+        {
+            foreach ($customer as $value) {
+                $id=$value->id;
+            }
+        }
+        
+        $bill=new Bill;
+        $bill->id_customer=$id;
+        $bill->date_order=date('Y-m-d');
+        $bill->total=$cart->totalPrice;
+        $bill->payment=$req->payment;
+        $bill->note=$req->note;
+        $bill->save();
+
+        foreach($cart->items as $key => $value)
+        {
+            $bill_detail=new Bill_detail;
+            $bill_detail->id_bill=$bill->id;
+            $bill_detail->id_product=$key;
+            $bill_detail->quantity=$value['qty'];
+            $bill_detail->unit_price=$value['price'];
+            $bill_detail->save();
+        }
+        Session::forget('cart');
+
+        return redirect()->back()->with('thanhcong','Đặt hàng thành công');
+        }
+        return redirect()->back()->with('thatbai','Hãy chọn sản phẩm vào giỏ hàng');
+    }
+
     public function getSort($id)
     {
         

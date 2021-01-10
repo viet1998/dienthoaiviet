@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PhoneproductController;
@@ -33,16 +34,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 // show trong dien thoai
-Route::resource('dienthoaiviet', ProductController::class);
+Route::resource('product', ProductController::class);
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
+//Xử lý giỏ hàng
+Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
+Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
 // show trang chu
 Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 //show danh sách sản phẩm điện thoại
-Route::get('dtv', [PhoneproductController::class,'showDTV'])->name('phone');
+Route::get('type_product/{id}', [PageController::class,'getProductType'])->name('type_product');
 // show danh sach tablet
-Route::get('may-tinh-bang', [TabletproductController::class,'showTablet'])->name('tablet');
+Route::get('company_product/{id}', [PageController::class,'getProductCompany'])->name('company_product');
 // show trang phụ kiện
 Route::get('Phu-kien',[AccessoriesproductController::class, 'showAccessories'])->name('accessories');
 // show trang đồng hồ

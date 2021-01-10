@@ -91,21 +91,47 @@
 			<span>Điện thoại nổi bật nhất</span>
 		</div>
 		<div class="col-listphone">
-			@foreach($products as $product)
-			<div class="card-listphone" align="center">
-				<a href="{{route('product.show',$product['id'])}}">
-				<img src="/image/product/{{$product['image']}}" />
-				<p>{{$product['name']}}</p>
-				@if($product['promotion_price']==0)
-				<div class="price"><strong>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
-				@else
-				<div class="price" style="width: auto"><strong>{{number_format($product['promotion_price'], 0, '', '.')}}<u>đ</u></strong><span>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></span>
-				</div>
-				@endif
-				<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
+			<div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
 				</a>
 			</div>
-			@endforeach
+			<div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+				</a>
+			</div>
+			<div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+				</a>
+			</div>
+			<div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+				</a>
+			</div>
+			<div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+				</a>
+			</div><div class="card-listphone">
+				<a href="/dienthoaiviet/1">
+				<img src="/image/product/iphone-11-pro-max-green.jpg" />
+				<p>Iphone 11 pro max(64gb Chính hảng)</p>
+				<div class="price"><strong>23.000.000<u>đ</u></strong><span>26.000.000<u>đ</u></span></div>
+				</a>
+			</div>
 		</div>		
 	</section>
 	</section>

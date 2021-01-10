@@ -39,18 +39,18 @@
 											@foreach($product_cart as $product)
 											<tr>
 												<td class="img-prd">
-													<a class="pull-left" href="{{route('sanpham',$product['item']['id'])}}">
+													<a class="pull-left" href="{{route('product.show',$product['item']['id'])}}">
 														<img src="/image/product/iphone-11-pro-max-green.jpg" /></a></td>
 												<td class="name_product"><p>{{$product['item']['name']}}</p></td>
-												<td class="price">{{$product['price']}}<u>đ</u></td>
+												<td class="price">{{number_format($product['price'])}}<u>đ</u></td>
 												<td class="sl">{{$product['qty']}}</td>
-												<td class="btn-del"><button onclick="{{route('xoagiohang',$product['item']['id'])}}">X</button></td>
+												<td class="btn-del"><a href="{{route('del_cart',$product['item']['id'])}}"><button >X</button></a></td>
 											</tr>
 											@endforeach
 											@endif
 										</table>
 										<div>
-											<strong>Tạm tính:  @if(Session::has('cart')){{$totalPrice}} <u>đ</u> @endif</strong>
+											<strong>Tạm tính:  @if(Session::has('cart')){{number_format($totalPrice)}} <u>đ</u> @endif</strong>
 											<button class="btn-pay"><a href="#">Thanh toán</a></button>
 										</div>
 									</div>
@@ -65,13 +65,9 @@
 					<section class="grid-top_menu">
 						<ul>
 							<div></div>
-							<li><i class="icon"><img src="/image/icon/smartphone.png"/></i><a href="{{route('phone')}}">ĐIỆN THOẠI </a></li>	
-							<li><i class="icon"><img src="/image/icon/tablet.png"/><a href="{{route('tablet')}}"></i>TABLET</a></li>	
-							<li><i class="icon"><img src="/image/icon/headphones.png"/><a href="{{route('accessories')}}"></i>PHỤ KIỆN</a></li>	
-							<li><i class="icon"><img src="/image/icon/smartwatch.png"/><a href="{{route('watch')}}"></i>ĐỒNG HỒ</a></li>	
-							<li><i class="icon"><img src="/image/icon/sim-card.png"/><a href="{{route('sim')}}"></i>THẺ SIM</a></li>	
-							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href="{{route('hirepurchase')}}"></i>TRẢ GÓP</a></li>	
-							<li><i class="icon"><img src="/image/icon/settings.png"/><a href="{{route('service')}}"></i>SỬA CHỮA</a></li>
+							<li><a href="{{route('type_product',8)}}"><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </a></li>	
+							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href=""></i>TRẢ GÓP</a></li>	
+							<li><i class="icon"><img src="/image/icon/settings.png"/><a href=""></i>SỬA CHỮA</a></li>
 							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
 							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">TÀI KHOẢN</a>
 								<div class="dropdown-menu" aria-labelledby="dropdowntk">
@@ -79,6 +75,8 @@
 									<a class=" dropdown-item"href="{{route('sigup')}}">Đăng ký</a>
 								</div>
 							</li>
+							<li></li>
+							<li></li>
 
 						</ul>
 					</section>	

@@ -3,15 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Slide;
-use App\Product;
-use App\Bill;
-use App\Bill_detail;
-use App\Customer;
-use App\News;
-use App\Type_product;
-use App\User;
-use App\Cart;
+use App\Models\Slide;
+use App\Models\Product;
+use App\Models\Bill;
+use App\Models\Bill_detail;
+use App\Models\Customer;
+use App\Models\News;
+use App\Models\Type_product;
+use App\Models\User;
+use App\Models\Cart;
+use App\Models\Company;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -47,8 +48,15 @@ class PageController extends Controller
     public function getProductType($id)
     {
         $products=Product::where('id_type',$id)->get();
-        $type_name=Type_product::find($id);
-        return view('page.loai-sanpham',compact('products','type_name'));
+        $type_product=Type_product::find($id);
+        return view('type-product',compact('products','type_product'));
+    }
+
+    public function getProductCompany($id)
+    {
+        $products=Product::where('id_company',$id)->get();
+        $company=Company::find($id);
+        return view('company_product',compact('products','company'));
     }
 
     public function getCheckout()
