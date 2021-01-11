@@ -14,13 +14,13 @@ class AdminController extends Controller
     	return view('admin.dashboard');
     }
 
-    public function getStatistical(){
+    public function getAdminDashboard(){
         $bills_dagiao=Bill::where('status','Đã Giao Hàng')->get();
         $bills_chuagiao=Bill::where('status','Chưa Giao Hàng')->get();
         $bills_huy=Bill::where('status','Hủy')->get();
         $bills=Bill::all();
         $chart_bill=[($bills_dagiao->count()*100)/$bills->count(),($bills_chuagiao->count()*100)/$bills->count(),($bills_huy->count()*100)/$bills->count()];
-        return view('page.quanly.bangthongke',compact('chart_bill'));
+        return view('admin.dashboard',compact('chart_bill'));
     }
 
     public function getDataStatistical(Request $req){
@@ -45,5 +45,8 @@ class AdminController extends Controller
         : <?php echo number_format($value->tongtien); ?> VNĐ
         <?php
         }
+    }
+    public function getAdminDashboard(){
+        return view('admin.dashboard');
     }
 }

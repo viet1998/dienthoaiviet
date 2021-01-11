@@ -15,7 +15,7 @@ use App\Http\Controllers\HirepurchaseBlogController;
 use App\Http\Controllers\ServiceBlogController;
 // Quan ly admin
 use App\Http\Controllers\AdminDashboardController;
-
+use App\Http\Middleware;
 
 use App\Http\Controllers\UserController;
 
@@ -77,12 +77,12 @@ Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 
 //-------------------Quản Lý Admin-------------------
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
-	Route::resource('product', ProductController::class);
+	
 	Route::resource('customer', CustomerController::class);
 	Route::resource('bill', BillController::class);
 	Route::resource('user', UserController::class);
 	// show trang đăng nhập Admin
-	Route::get('login',[AdminController::class, 'showLoginAdmin'])->name('admin-login');
+	
 	//show trang dashboard
-	Route::get('thong-ke',[AdminDashboardController::class, 'showindex'])->name('admin-doasboard');
-}
+	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_doasboard');
+});

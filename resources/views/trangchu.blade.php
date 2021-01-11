@@ -1,6 +1,6 @@
 @extends('master')
 @section('title')
-	Trang chủ Test git
+	Trang chủ
 @endsection
 @section('content')
 		<section class="contai-grid">
