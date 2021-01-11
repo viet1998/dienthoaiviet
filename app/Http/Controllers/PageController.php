@@ -274,5 +274,9 @@ class PageController extends Controller
         $user->save();
         return redirect()->back()->with('thanhcong','Tạo tài khoản thành công');
     }
+
+    public function getCheckout1(){
+        return view('checkout');
+    }
     
 }

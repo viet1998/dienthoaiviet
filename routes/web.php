@@ -45,6 +45,7 @@ Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
+Route::get('checkout/{id}',[PageController::class,'getCheckout1'])->name('checkout');
 // show trang chu
 Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 //show danh sách sản phẩm điện thoại
@@ -85,4 +86,5 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	
 	//show trang dashboard
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_doasboard');
+
 });
