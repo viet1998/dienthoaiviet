@@ -38,7 +38,7 @@ Route::resource('product', ProductController::class);
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
-//đăng ký thành viên
+//Xử lý user
 Route::post('dangky',[PageController::class,'postSignup'])->name('dangky');
 Route::post('dangnhap',[PageController::class,'postLogin'])->name('dangnhap');
 Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
@@ -76,7 +76,13 @@ Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 
 //-------------------Quản Lý Admin-------------------
-// show trang đăng nhập Admin
-Route::get('admin/login',[AdminController::class, 'showLoginAdmin'])->name('admin-login');
-//show trang dashboard
-Route::get('admin/thong-ke',[AdminDashboardController::class, 'showindex'])->name('admin-doasboard');
+Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
+	Route::resource('product', ProductController::class);
+	Route::resource('customer', CustomerController::class);
+	Route::resource('bill', BillController::class);
+	Route::resource('user', UserController::class);
+	// show trang đăng nhập Admin
+	Route::get('login',[AdminController::class, 'showLoginAdmin'])->name('admin-login');
+	//show trang dashboard
+	Route::get('thong-ke',[AdminDashboardController::class, 'showindex'])->name('admin-doasboard');
+}
