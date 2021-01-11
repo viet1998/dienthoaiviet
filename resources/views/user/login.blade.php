@@ -7,6 +7,11 @@
   	<section class="container">
   		<section class="col-5"> 
   			<div class="logo-login"><img src="/image/logo/LOGO.png" alt="LOGO"></div>
+  			@if(Auth::check())
+  				<?php
+					echo '<script type="text/javascript"> window.location.href ="'.route('trangchu').'"; </script>';
+				?>
+  			@endif
   			@if(count($errors)>0)
 					@foreach($errors->all() as $err)
 					<?php

@@ -74,7 +74,7 @@
 								@if(Auth::check())
 									@if(Auth::user()->level=='admin')
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
-										<a class="dropdown-item" href="{{route('login')}}">Trang Quản Lý</a>
+										<a class="dropdown-item" href="{{route('admin_doasboard')}}">Trang Quản Lý</a>
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@else

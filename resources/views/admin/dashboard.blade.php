@@ -16,9 +16,9 @@
 						<i class="fa fa-eye"> </i>
 					</div>
 					 <div class="col-md-8 market-update-left">
-					 <h4>Truy cập</h4>
-					<h3>13,500</h3>
-					<p>Đã truy cập vào website</p>
+					 <h4>Tổng Số</h4>
+					<h3>{{$products_count}}</h3>
+					<p>Sản Phẩm</p>
 				  </div>
 				  <div class="clearfix"> </div>
 				</div>
@@ -30,7 +30,7 @@
 					</div>
 					<div class="col-md-8 market-update-left">
 					<h4>Thành viên</h4>
-						<h3>1,250</h3>
+						<h3>{{$users_count}}</h3>
 						<p>Tổng người dùng</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Đã bán</h4>
-						<h3>1,500</h3>
+						<h3>{{$bills_count}}</h3>
 						<p>Đơn dàng đã bán ra</p>
 					</div>
 				  <div class="clearfix"> </div>
