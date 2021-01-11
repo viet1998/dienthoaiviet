@@ -34,7 +34,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 // show trong dien thoai
-Route::resource('product', ProductController::class);
+Route::get('smartphone/{id}',[PageController::class,'getProduct'])->name('show');
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
@@ -42,6 +42,11 @@ Route::resource('product', ProductController::class);
 Route::post('dangky',[PageController::class,'postSignup'])->name('dangky');
 Route::post('dangnhap',[PageController::class,'postLogin'])->name('dangnhap');
 Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
+// goi trang đăng nhập người dùng
+Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
+// goi trang đăng ký người dùng
+Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
+
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
@@ -77,12 +82,14 @@ Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 
 //-------------------Quản Lý Admin-------------------
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
-	
+	Route::resource('product', ProductController::class);
 	Route::resource('customer', CustomerController::class);
 	Route::resource('bill', BillController::class);
 	Route::resource('user', UserController::class);
 	// show trang đăng nhập Admin
 	
 	//show trang dashboard
-	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_doasboard');
+	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');
+	Route::get('tinhtongtien',[AdminController::class,'getSumTotalForDay']);
+	Route::get('thongkedoanhthu',[AdminController::class,'getDataStatistical']);
 });

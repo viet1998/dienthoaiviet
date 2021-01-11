@@ -1,5 +1,5 @@
-@extends('admin.admin')
-	@section('manager-product')
+@extends('admin.master-admin')
+@section('content')
 <style type="text/css">
 	*{
 		margin: 0;
@@ -31,11 +31,19 @@
 
 	.row-sub ul { display: flex; }*/
 </style>
-	<section class="container">
+<script src="/adminjs/jquery2.0.3.min.js"></script>
+<script src="js/jquery2.0.3.min.js"></script>
+<script src="js/raphael-min.js"></script>
+<script src="js/morris.js"></script>
 
+	<section class="container">
+		<section id="main-content">
+			<section class="wrapper">
+				<div class="row">
+			<div class="panel-body">
 		<h2 style="text-align: center; background-color: #9999CC; border-top-right-radius: 20px; border-bottom-left-radius: 20px; color: #fff; padding: 10px 0; "><b>DANH SÁCH SẢN PHẨM</b></h2>
 		<div class="row">
-			<form style="margin-left: 20px;" role="search" method="get" id="searchform" action="{{route('search-product')}}">
+			<form style="margin-left: 20px;" role="search" method="get" id="searchform" action="">
 					        <input type="text" value="" name="key" id="key" placeholder="Nhập từ khóa..." />
 					        <button class="btn-info" type="submit" ><i class="fa fa-search"></i></button>
 				</form>
@@ -58,7 +66,7 @@
 
 			</ul>
 		</div>
-			@foreach($product as $pdt)
+			@foreach($products as $pdt)
 		<div class="row-sub">
 			<ul>
 				<li class="col1">{{$pdt->id}}</li>
@@ -82,8 +90,22 @@
 		</div>
 			@endforeach
 		
-		<div class="row" style=" text-align: center; margin: 20px;">{{$product->links('vendor.pagination.bootstrap-4')}}</div>
+		<div class="row" style=" text-align: center; margin: 20px;">{{$products->links('vendor.pagination.bootstrap-4')}}</div>
+	</div>
+</div>
 	</section>
+	</section>
+
+	<section>
+	 <!-- footer -->
+			  <div class="footer">
+				<div class="wthree-copyright">
+				  <!-- <p>© 2017 Visitors. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p> -->
+				</div>
+			  </div>
+	  <!-- / footer -->
+	</section>
+</section>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
 		$("document").ready(function(){
@@ -92,4 +114,4 @@
 		});
 	});
 </script>
-	@endsection
+@endsection

@@ -26,7 +26,7 @@ class PageController extends Controller
     	$new_product=Product::where('new',1)->paginate(4);
     	$khuyenmai=Product::where('promotion_price','<>',0)->get();
     	$loai_sanpham=Type_product::all();
-        return view('page.trangchu',compact('slides','new_product','khuyenmai','loai_sanpham'));
+        return view('trangchu',compact('slides','new_product','khuyenmai','loai_sanpham'));
     }
     public function getProduct($id)
     {
@@ -34,7 +34,7 @@ class PageController extends Controller
         $sp_lienquan=Product::where('id_type',$product->id_type)->paginate(3);
         $new_product=Product::where('new',1)->paginate(4);
         $promo_product=Product::where('promotion_price','<>',0)->paginate(4);
-        return view('page.sanpham',compact('product','sp_lienquan','new_product','promo_product'));
+        return view('show',compact('product','sp_lienquan','new_product','promo_product'));
     }
     public function getContact()
     {

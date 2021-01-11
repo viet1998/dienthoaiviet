@@ -3,6 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Slide;
+use App\Models\Product;
+use App\Models\Bill;
+use App\Models\Bill_detail;
+use App\Models\Customer;
+use App\Models\News;
+use App\Models\Type_product;
+use App\Models\User;
+use App\Models\Cart;
+use App\Models\Company;
+use Session;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
+
 
 class AdminController extends Controller
 {
@@ -14,7 +29,7 @@ class AdminController extends Controller
     	return view('admin.dashboard');
     }
 
-    public function getAdminDashboard(){
+    public function getStatistical(){
         $bills_dagiao=Bill::where('status','Đã Giao Hàng')->get();
         $bills_chuagiao=Bill::where('status','Chưa Giao Hàng')->get();
         $bills_huy=Bill::where('status','Hủy')->get();
@@ -36,7 +51,7 @@ class AdminController extends Controller
         $days = $req->input('days');
         $range = Carbon::now()->subDays($days);
         $to = Carbon::now();
-        $bill_total=Bill::select('id',Bill::raw('sum(total) as tongtien'))->where('date_order','>=',$range)->where('date_order','<=',$to)->get();
+        $bill_total=Bill::select(Bill::raw('sum(total) as tongtien'))->where('date_order','>=',$range)->where('date_order','<=',$to)->get();
         
         foreach ($bill_total as $key => $value) {
             # code...
