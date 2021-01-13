@@ -1,4 +1,11 @@
 
+	@if(Session::has('flag'))
+	@if(Session::get('flag')=='admin_danger')
+	 	<?php
+			echo '<script type="text/javascript"> window.alert("'.Session::get('thongbao').'"); </script>';
+		?>
+  	@endif
+  	@endif
 	@extends('master')
 	@section('title')
 		Đăng nhập tài khoản
@@ -7,7 +14,9 @@
   	<section class="container">
   		<section class="col-5"> 
   			<div class="logo-login"><img src="/image/logo/LOGO.png" alt="LOGO"></div>
+
   			@if(Auth::check())
+
   				<?php
 					echo '<script type="text/javascript"> window.location.href ="'.route('trangchu').'"; </script>';
 				?>
@@ -32,6 +41,7 @@
 						echo '<script type="text/javascript"> window.alert("'.Session::get('thongbao').'"); </script>';
 					?>
 				@endif
+
 			@endif
 			<form action="{{route('dangnhap')}}" method="post" class="form-style">
 				@csrf

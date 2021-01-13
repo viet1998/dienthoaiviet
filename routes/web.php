@@ -33,6 +33,8 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+// show trang chu
+Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 // show trong dien thoai
 Route::get('smartphone/{id}',[PageController::class,'getProduct'])->name('show');
 // Route::resource('navbar', ProductController::class);
@@ -46,12 +48,16 @@ Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
 Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
+// trang cá nhân
+Route::get('profile',[PageController::class,'getProfile'])->name('profile');
 
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
-// show trang chu
-Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
+Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
+Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
+
+
 //show danh sách sản phẩm điện thoại
 Route::get('smartphone', [PageController::class,'getSmartphone'])->name('smartphone');
 // show danh sach hãng

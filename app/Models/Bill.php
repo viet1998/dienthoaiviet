@@ -9,9 +9,9 @@ class Bill extends Model
     protected $table ="bills";
 
     public function customer(){
-    	return $this->belongsTo('App\Customer','id_customer','id');
+    	return $this->belongsTo('App\Models\Customer','id_customer','id');
     }
     public function bill_detail(){
-    	return $this->hasMany('App\Bill_detail','id_bill','id');
+    	return $this->hasMany('App\Models\Bill_detail','id_bill','id');
     }
 }

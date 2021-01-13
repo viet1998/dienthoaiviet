@@ -51,7 +51,7 @@
 										</table>
 										<div>
 											<strong>Tạm tính:  @if(Session::has('cart')){{number_format($totalPrice)}} <u>đ</u> @endif</strong>
-											<button class="btn-pay"><a href="#">Thanh toán</a></button>
+											<button class="btn-pay"><a href="{{route('checkout')}}">Thanh toán</a></button>
 										</div>
 									</div>
 								</div>
@@ -79,7 +79,7 @@
 									</div>
 									@else
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
-										<a class="dropdown-item" href="{{route('login')}}">Trang Cá Nhân</a>
+										<a class="dropdown-item" href="{{route('profile')}}">Trang Cá Nhân</a>
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@endif

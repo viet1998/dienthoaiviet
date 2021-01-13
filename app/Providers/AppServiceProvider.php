@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Bill_detail;
 use Session;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -76,7 +77,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
             }
         });
-        view()->composer('page.dathang',function($view){
+        view()->composer('checkout',function($view){
             
             if(Session('cart')){
                 $oldcart= Session::get('cart');
@@ -106,11 +107,13 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('page.quanly.themsanpham',function($view){
             $product_types=Type_product::all();
-            $view->with('product_types',$product_types);
+            $companies=Company::all();
+            $view->with(['product_types'=>$product_types,'companies'=>$companies]);
         });
-        view()->composer('page.quanly.suasanpham',function($view){
+        view()->composer('admin.edit_product',function($view){
             $product_types=Type_product::all();
-            $view->with('product_types',$product_types);
+            $companies=Company::all();
+            $view->with(['product_types'=>$product_types,'companies'=>$companies]);
         });
         view()->composer('page.quanly.bangthongke',function($view){
             $products=Product::join('bill_detail', 'products.id', '=', 'bill_detail.id_product')
@@ -133,6 +136,25 @@ class AppServiceProvider extends ServiceProvider
             $customers=Customer::all();
             $users=User::all();
             $view->with(['bills_count'=>$bills->count(),'products_count'=>$products->count(),'customers_count'=>$customers->count(),'users_count'=>$users->count()]);
+        });
+        view()->composer('customer.profile',function($view){
+            if(Auth::check())
+            {   $carts=null;
+                $bills=Bill::where('id_user',Auth::user()->id)->get();
+                foreach ($bills as $key => $valuebill) {
+                    $bill_detail=Bill_detail::where('id_bill',$valuebill->id)->get();
+                    $carts[$valuebill->id]=new Cart(null);
+                    foreach ($bill_detail as $key => $value) {
+                        $product=Product::find($value->id_product);
+
+                        $carts[$valuebill->id]->add($product,$value->id,$value->quantity);
+
+                    }
+                }
+                $view->with(['carts'=>$carts,'bills'=> $bills]);
+            }
+            $view->with('notthing','nothing');
+            
         });
     }
 }
