@@ -5,7 +5,7 @@
 @section('content')
 		<section class="contai-grid">
 			<!-- slide vs banner trang chủ -->
-			<section class="row-slide-banner">
+			<section class="slide-banner">
 				<div class="col-slide">
 					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 						  <div class="carousel-inner">

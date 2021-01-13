@@ -75,6 +75,8 @@ Route::get('dich-vu', [ServiceBlogController::class, 'showBlogService'])->name('
 Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
+// goi trang profile  người dùng
+Route::get('trang-ca-nhan', [UserController::class,'showProfileUser'])->name('profile_user');
 
 //-------------------Quản Lý Admin-------------------
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){

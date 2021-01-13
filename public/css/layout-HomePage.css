@@ -1,7 +1,7 @@
 /*body{ margin: 0; padding: 0; font-family: sans-serif;} 
 */.contai-grid{ width: 1050px; margin: auto; ; height: auto; }
   /*row slide vs banner */
-.ulide-banner{width: 100%; height: auto; flex: unset; margin-top: 130px;  display: flex;}
+.slide-banner{width: 100%; height: auto; flex: unset; margin-top: 130px;  display: flex;}
 .col-slide{ width: 75%; max-width: 70%; margin-right: 5px; margin-top: 0;border: 1px solid #f80; box-sizing: border-box;}
 .col-banner{ flex-grow:1; max-width: 30%; height: 100%; margin-left: 5px; } 
 .col-banner img{ width: 100%; height: auto; padding: 0; border: 1px solid #f80; }
@@ -76,3 +76,5 @@
 		.price span{ font-size:14px;}
 		.card-product{ height: 290px;padding-top: 10px;}
 }
+
+.top-130{ margin-top: 130px;  }
