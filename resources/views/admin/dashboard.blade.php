@@ -56,7 +56,7 @@
 					</div>
 					<div class="col-md-8 market-update-left">
 						<h4>Đơn hàng</h4>
-						<h3>1,500</h3>
+						<h3>{{$newbills_count}}</h3>
 						<p>Đơn hàng mới</p>
 					</div>
 				  <div class="clearfix"> </div>
@@ -72,14 +72,22 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Thống kê truy cập</h3>
-										<div class="toolbar">
-											
-											
-										</div>
+									<h3>Thống Kê Doanh Thu <span id="getTotal"></span>
+									<div style="float:right">
+										<select id="dateselect">
+											<option value="30">Tháng</option>
+											<option value="90">Quý</option>
+											<option value="365">Năm</option>
+										</select>
+									</div>
+									</h3>
+									
+										
 								</header>
-								<div class="agileits-box-body clearfix">
-									<div id="hero-area"></div>
+								<div class="panel-body">
+									<div class="canvas-wrapper">
+										<div id="stats-container" style="height: 250px;"></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -484,4 +492,84 @@
 		});
 	</script>
 	<!-- //calendar -->
+
+	<!-- script đồ thị -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+
+		  // Create a function that will handle AJAX requests
+		  function requestTotal(days){
+		    $.ajax({
+		      type: "GET",
+		      dataType: 'html',
+		      url: "./tinhtongtien", // This is the URL to the API
+		      data: { days: days }
+		    })
+		    .done(function( data ) {
+		      // When the response to the AJAX request comes back render the chart with new data
+		      $("#getTotal").html(data);
+		      
+		    })
+		    .fail(function() {
+		      // If there is no communication between the server, show an error
+		      alert( "không thấy tổng tiền được" );
+		    });
+		  }
+		  function requestData(days, chart){
+		    $.ajax({
+		      type: "GET",
+		      dataType: 'json',
+		      url: "./thongkedoanhthu", // This is the URL to the API
+		      data: { days: days }
+		    })
+		    .done(function( data ) {
+		      // When the response to the AJAX request comes back render the chart with new data
+		      chart.setData(data);
+
+		    })
+		    .fail(function() {
+		      // If there is no communication between the server, show an error
+		      alert( "không lấy dử liệu được" );
+		    });
+		  }
+
+		  var chart = new Morris.Bar({
+		    // ID of the element in which to draw the chart.
+		    element: 'stats-container',
+		    data: [0, 0], // Set initial data (ideally you would provide an array of default data)
+		    xkey: 'date_order', // Set the key for X-axis
+		    ykeys: ['tongtien'], // Set the key for Y-axis
+		    labels: ['Doanh Thu'] // Set the label when bar is rolled over
+		  });
+
+		  // Request initial data for the past 7 days:
+		  requestData(30, chart);
+		  requestTotal(30);
+		  $("#dateselect").on('change',function(e){
+		  	console.log(e);
+			var days= e.target.value;
+			requestData(days, chart);
+			requestTotal(days);
+		  })
+		  
+		});
+		$("#search").on('click',function(){
+			console.log();
+			var searchname=document.getElementById("searchname").value;
+			$.get('timkhachhang/'+searchname,function(data){
+				$("#getProduct").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
+
+			$.get('lockhachhang/'+sort,function(data){
+				$("#getProduct").html(data);
+			});
+		});
+	</script>
 @endsection

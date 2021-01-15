@@ -26,7 +26,7 @@ class PageController extends Controller
     	$new_product=Product::where('new',1)->paginate(4);
     	$khuyenmai=Product::where('promotion_price','<>',0)->get();
     	$loai_sanpham=Type_product::all();
-        return view('page.trangchu',compact('slides','new_product','khuyenmai','loai_sanpham'));
+        return view('trangchu',compact('slides','new_product','khuyenmai','loai_sanpham'));
     }
     public function getProduct($id)
     {
@@ -34,7 +34,7 @@ class PageController extends Controller
         $sp_lienquan=Product::where('id_type',$product->id_type)->paginate(3);
         $new_product=Product::where('new',1)->paginate(4);
         $promo_product=Product::where('promotion_price','<>',0)->paginate(4);
-        return view('page.sanpham',compact('product','sp_lienquan','new_product','promo_product'));
+        return view('show',compact('product','sp_lienquan','new_product','promo_product'));
     }
     public function getContact()
     {
@@ -102,9 +102,9 @@ class PageController extends Controller
         if(Auth::check())
         {
             $user=Auth::user();
-            return view('page.dathang',compact('user'));
+            return view('checkout',compact('user'));
         }
-        return view('page.dathang');
+        return view('checkout');
     }
 
     public function get404()
@@ -136,6 +136,11 @@ class PageController extends Controller
         
         return view('page.dangky');
     }
+
+    public function getProfile(){
+        
+        return view('customer.profile');
+    }
     
 
     public function getAddtoCart(Request $req,$id,$qty)
@@ -154,46 +159,50 @@ class PageController extends Controller
     public function postCheckout(Request $req)              /*Đặt Hàng*/
     {
         if(Session::has('cart')){
-        $cart=Session::get('cart');
-        $customer=Customer::where('phone_number',$req->phone)->get();
-        if($customer->count()==0){
-            $customer=new Customer;
-            $customer->name=$req->name;
-            $customer->gender=$req->gender;
-            $customer->email=$req->email;
-            $customer->address=$req->address;
-            $customer->phone_number=$req->phone;
-            $customer->note=$req->note;
-            $customer->save();
-            $id=$customer->id;
-        }
-        else
-        {
-            foreach ($customer as $value) {
-                $id=$value->id;
+            $cart=Session::get('cart');
+            $customer=Customer::where('phone_number',$req->phone_number)->get();
+            if($customer->count()==0){
+                $customer=new Customer;
+                $customer->name=$req->name;
+                $customer->gender=$req->gender;
+                $customer->email=$req->email;
+                $customer->address=$req->address;
+                $customer->phone_number=$req->phone_number;
+                $customer->save();
+                $id=$customer->id;
             }
-        }
-        
-        $bill=new Bill;
-        $bill->id_customer=$id;
-        $bill->date_order=date('Y-m-d');
-        $bill->total=$cart->totalPrice;
-        $bill->payment=$req->payment;
-        $bill->note=$req->note;
-        $bill->save();
+            else
+            {
+                foreach ($customer as $value) {
+                    $id=$value->id;
+                }
+            }
+            
 
-        foreach($cart->items as $key => $value)
-        {
-            $bill_detail=new Bill_detail;
-            $bill_detail->id_bill=$bill->id;
-            $bill_detail->id_product=$key;
-            $bill_detail->quantity=$value['qty'];
-            $bill_detail->unit_price=$value['price'];
-            $bill_detail->save();
-        }
-        Session::forget('cart');
+            $bill=new Bill;
+            $bill->id_customer=$id;
+            $bill->date_order=date('Y-m-d');
+            $bill->total=$cart->totalPrice;
+            $bill->payment=$req->payment;
+            $bill->note=$req->note;
+            if(Auth::check())
+            {
+                $bill->id_user=Auth::user()->id;
+            }
+            $bill->save();
 
-        return redirect()->back()->with('thanhcong','Đặt hàng thành công');
+            foreach($cart->items as $key => $value)
+            {
+                $bill_detail=new Bill_detail;
+                $bill_detail->id_bill=$bill->id;
+                $bill_detail->id_product=$key;
+                $bill_detail->quantity=$value['qty'];
+                $bill_detail->unit_price=$value['price'];
+                $bill_detail->save();
+            }
+            Session::forget('cart');
+
+            return redirect()->back()->with('thanhcong','Đặt hàng thành công');
         }
         return redirect()->back()->with('thatbai','Hãy chọn sản phẩm vào giỏ hàng');
     }

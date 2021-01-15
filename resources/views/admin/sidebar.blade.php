@@ -2,9 +2,7 @@
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-    <a href="index.html" class="logo">
-        VISITORS
-    </a>
+    <a class="logo" href="{{route('trangchu')}}"><img src="/image/logo/LOGO.png" alt="" width="150px" height="auto" /></a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>
     </div>
@@ -198,13 +196,13 @@
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">John Doe</span>
+                <span class="username">{{Auth::user()->full_name}}</span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
                 <li><a href="#"><i class=" fa fa-suitcase"></i>Profile</a></li>
                 <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                <li><a href="login.html"><i class="fa fa-key"></i> Log Out</a></li>
+                <li><a href="{{route('dangxuat')}}"><i class="fa fa-key"></i> Log Out</a></li>
             </ul>
         </li>
         <!-- user login dropdown end -->
@@ -221,7 +219,7 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="index.html">
+                    <a class="active" href="{{route('admin_dashboard')}}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
@@ -233,10 +231,8 @@
                         <span>Quản lý sản phẩm</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="#">Điện Thoại</a></li>
-                        <li><a href="#">Máy tinh bản</a></li>
-                        <li><a href="#">Đồng hồ đeo tay</a></li>
-                        <li><a href="#">Thẻ Sim</a></li>
+                        <li><a href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
+                        <li><a href="{{route('product.create')}}">Thêm sản phẩm</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -250,63 +246,36 @@
                         <li><a href="responsive_table.html">Khuyến mãi</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-list-alt"></i>
-                        <span>Quản lý đơn hàng </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-users"></i>
-                        <span>Quản lý khách hàng </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-user"></i>
-                        <span>Quản lý nhân viên </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-user"></i>
-                        <span>Quản lý Admin </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-archive"></i>
-                        <span>Quản lý cửa hàng </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="fontawesome.html">
-                        <i class="fa fa-ticket"></i>
-                        <span>Quản lý voucher </span>
-                    </a>
-                </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-envelope"></i>
-                        <span>Mail </span>
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý đơn hàng</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="mail.html">Hộp thư đến</a></li>
-                        <li><a href="mail_compose.html">Soạn mail</a></li>
+                        <li><a href="{{route('bill.index')}}">Danh sách đơn hàng</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-tasks"></i>
+                        <i class="fa fa-book"></i>
                         <span>Quản lý khách hàng</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="form_component.html">Form Elements</a></li>
-                        <li><a href="form_validation.html">Form Validation</a></li>
-						<li><a href="dropzone.html">Dropzone</a></li>
+                        <li><a href="{{route('customer.index')}}">Danh sách khách hàng</a></li>
+                        <li><a href="{{route('customer.create')}}">Thêm khách hàng</a></li>
                     </ul>
                 </li>
+                <li class="sub-menu">
+                    <a href="javascript:;">
+                        <i class="fa fa-book"></i>
+                        <span>Quản lý tài khoản</span>
+                    </a>
+                    <ul class="sub">
+                        <li><a href="{{route('user.index')}}">Danh sách tài khoản</a></li>
+                        <li><a href="{{route('user.create')}}">Thêm tài khoản</a></li>
+                    </ul>
+                </li>
+                
                 
                 <li class="sub-menu">
                     <a href="javascript:;">
@@ -340,9 +309,9 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <a href="{{route('dangxuat')}}">
                         <i class="fa fa-user"></i>
-                        <span>Login Page</span>
+                        <span>Log Out</span>
                     </a>
                 </li>
             </ul>            </div>

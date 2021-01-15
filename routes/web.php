@@ -33,8 +33,10 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+// show trang chu
+Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 // show trong dien thoai
-Route::resource('product', ProductController::class);
+Route::get('smartphone/{id}',[PageController::class,'getProduct'])->name('show');
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
@@ -42,12 +44,22 @@ Route::resource('product', ProductController::class);
 Route::post('dangky',[PageController::class,'postSignup'])->name('dangky');
 Route::post('dangnhap',[PageController::class,'postLogin'])->name('dangnhap');
 Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
+// goi trang đăng nhập người dùng
+Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
+// goi trang đăng ký người dùng
+Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
+// trang cá nhân
+Route::get('profile',[PageController::class,'getProfile'])->name('profile');
+
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
-Route::get('checkout/{id}',[PageController::class,'getCheckout1'])->name('checkout');
-// show trang chu
-Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
+
+Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
+Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
+
+
+
 //show danh sách sản phẩm điện thoại
 Route::get('smartphone', [PageController::class,'getSmartphone'])->name('smartphone');
 // show danh sach hãng
@@ -80,13 +92,16 @@ Route::get('trang-ca-nhan', [UserController::class,'showProfileUser'])->name('pr
 
 //-------------------Quản Lý Admin-------------------
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
-	
+	Route::resource('product', ProductController::class);
 	Route::resource('customer', CustomerController::class);
 	Route::resource('bill', BillController::class);
 	Route::resource('user', UserController::class);
 	// show trang đăng nhập Admin
 	
 	//show trang dashboard
-	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_doasboard');
+
+	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');
+	Route::get('tinhtongtien',[AdminController::class,'getSumTotalForDay']);
+	Route::get('thongkedoanhthu',[AdminController::class,'getDataStatistical']);
 
 });

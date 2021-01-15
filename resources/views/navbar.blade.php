@@ -51,7 +51,7 @@
 										</table>
 										<div>
 											<strong>Tạm tính:  @if(Session::has('cart')){{number_format($totalPrice)}} <u>đ</u> @endif</strong>
-											<button class="btn-pay"><a href="#">Thanh toán</a></button>
+											<button class="btn-pay"><a href="{{route('checkout')}}">Thanh toán</a></button>
 										</div>
 									</div>
 								</div>
@@ -74,12 +74,14 @@
 								@if(Auth::check())
 									@if(Auth::user()->level=='admin')
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
-										<a class="dropdown-item" href="{{route('admin_doasboard')}}">Trang Quản Lý</a>
+										<a class="dropdown-item" href="{{route('admin_dashboard')}}">Trang Quản Lý</a>
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@else
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
-										<a class="dropdown-item" href="{{route('profile_user')}}">Trang Cá Nhân</a>
+
+										<a class="dropdown-item" href="{{route('profile')}}">Trang Cá Nhân</a>
+
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@endif

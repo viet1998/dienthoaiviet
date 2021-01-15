@@ -93,7 +93,7 @@
 		<div class="col-listphone">
 			@foreach($products as $product)
 			<div class="card-listphone" align="center">
-				<a href="{{route('product.show',$product['id'])}}">
+				<a href="{{route('show',$product['id'])}}">
 				<img src="/image/product/{{$product['image']}}" />
 				<p>{{$product['name']}}</p>
 				@if($product['promotion_price']==0)

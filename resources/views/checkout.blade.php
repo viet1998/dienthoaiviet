@@ -34,99 +34,120 @@
 			<div class="col">
 				<div class="row">
 					<ul class="title-checkout">
-						<li><a href="" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></li>
+
+						<li><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></li>
+
 						<li><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></li>
 					</ul>
 				</div>
 				<hr width="100%" align="center">
-				<!-- hiển thi sản phẩm trong giỏ hàng giỏ hàng  -->
-				<div class="row product-item-cart">
-					<div class="col-3 img-item">
-						<img src="/image/product/iphone-11-pro-max-green.jpg" alt="loading"><br>
-						<button style="border: none;"><i class="fas fa-times-circle"></i> xóa</button>
-					</div>
-					<div class="col-6">
-						<strong>iphone 11 pro max</strong><br>
-						<span>Phiên bản: 32GB</span><br>
-						<span>Màu: Xanh</span>
-					</div>
-					<div class="col-3">
-						<div class="price-product"><strong style="color: #f80;">giá sản phẩm<u>đ</u></strong><br>
-							<s>Giá khuyến mãi<u>đ</u></s>
-						</div>
-						<div class="buttons_added">
-							<input class="minus is-form" type="button" value="-">
-							<input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
-							<input class="plus is-form" type="button" value="+">
-						</div>
-					</div>
-				</div>
-				<!-- end -->
-				<hr  width="100%" align="center" />
-				<!-- Tổng giá trong giỏ -->
-				
-				<div class="price-product">
-					<table>
-						<tr>
-							<td>Tạm tính:</td>
-							<td>25.690.000<u>đ</u></td>
-						</tr>
-						<tr>
-							<td><strong>Tổng tiền:</strong></td>
-							<td><strong style="color: #f00;">25.690.000<u>đ</u></strong></td>
-						</tr>
-					</table>
-				</div>
-				
-				<!-- end -->
-				<hr  width="100%" align="center" />
-				<!-- Phần điền thông tin đặt hàng -->
-				<div class="row">
-						<h5>THÔNG TIN KHÁCH HÀNG</h5>
-					<div style="width: 80%; margin: 0 auto;">
-						<div class="form-block">
-							<input id="gender" type="radio" class="input-radio" name="gender" value="nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Anh</span>
-							<input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>Chị</span>			
-						</div>
-						<div class="form-block">							
-							<label for="name">Họ tên*</label>
-							<input type="text" id="name" name="name" value="" placeholder="Họ tên" required>
-						</div>
-						
-						<div class="form-block">
-							<label for="email">Email*</label>
-							<input type="email" id="email" name="email" value="" required placeholder="expample@gmail.com">
-						</div>
 
-						<div class="form-block">
-							<label for="adress">Địa chỉ*</label>
-							<input type="text" id="address" name="address" value="" placeholder="Tên đường" required>
+				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
+					@csrf
+					<div class="row">
+						@if(Session::has('thanhcong'))
+						<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
+						@endif
+						@if(Session::has('thatbai'))
+						<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
+						@endif
+					</div>
+					@if(Session::has('cart'))
+					@foreach($product_cart as $item)
+						<div class="row product-item-cart">
+							<div class="col-3 img-item">
+								<img src="/image/product/{{$item['item']['image']}}" alt="loading"><br>
+								<a href="{{route('del_cart',$item['item']['id'])}}"><i class="fas fa-times-circle"></i> xóa</a>
+							</div>
+							<div class="col-6">
+								<strong>{{$item['item']['name']}}</strong><br>
+								<span>Phiên bản: 32GB</span><br>
+								<span>Màu: Xanh</span>
+							</div>
+							<div class="col-3">
+								<div class="price-product"><strong style="color: #f80;">{{number_format($item['totalPriceItem'], 0, '', '.')}}<u>đ</u></strong><br>
+									
+								</div>
+								<div class="buttons_added">
+									<a href="{{route('addtocart',['id'=>$item['item']['id'],'qty'=>-1])}}"><input class="minus is-form" type="button" value="-"></a>
+									<input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="{{$item['qty']}}">
+									<a href="{{route('addtocart',['id'=>$item['item']['id'],'qty'=>1])}}"><input class="plus is-form" type="button" value="+"></a>
+								</div>
+							</div>
 						</div>
-						
+					@endforeach
+					@else 
+						Hãy chọn sản phẩm
+					@endif
 
-						<div class="form-block">
-							<label for="phone">Điện thoại*</label>
-							<input type="text" id="phone" name="phone" value="" required>
-						</div>
-						
-						<div class="form-block">
-							<label for="notes">Ghi chú</label>
-							<textarea id="notes" name="notes" ></textarea>
-						</div>
-						<div class="form-block">
-							<label>Phương thức thanh toán</label>	<br>
-							<input id="gender" type="radio" class="input-radio" name="gender" value="nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Khi nhận hàng</span>
-							<input id="gender" type="radio" class="input-radio" name="gender" value="nữ" style="width: 10%"><span>ATM</span>			
-						</div>
-					</div>
-					</div>
+					<!-- end -->
 					<hr  width="100%" align="center" />
-				<!-- nút đặt hàng -->
-				<div class="row book-now" style="text-align: center;">
-					<p>Tổng tiền: <strong style="color: #f00;">25.690.000<u>đ</u></strong></p><br>
-					<button >Đặt ngay</button>
-				</div>
-				<!-- end -->				
+					<!-- Tổng giá trong giỏ -->
+					
+					<div class="price-product">
+						<table >
+							<tr>
+								<td style="width: 200px">Tạm tính:</td>
+								<td style="text-align: center;width: 200px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></td>
+							</tr>
+							<tr>
+								<td><strong>Tổng tiền:</strong></td>
+								<td align="center"><strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></strong></td>
+							</tr>
+						</table>
+					</div>
+					
+					<!-- end -->
+					<hr  width="100%" align="center" />
+					<!-- Phần điền thông tin đặt hàng -->
+					<div class="row">
+							<h5>THÔNG TIN KHÁCH HÀNG</h5>
+						<div style="width: 80%; margin: 0 auto;">
+							<div class="form-block">
+								<input id="gender" type="radio" class="input-radio" name="gender" value="Nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Anh</span>
+								<input id="gender" type="radio" class="input-radio" name="gender" value="Nữ" style="width: 10%"><span>Chị</span>			
+							</div>
+							<div class="form-block">							
+								<label for="name">Họ tên*</label>
+								<input type="text" id="name" name="name" @if(Auth::check()) value="{{Auth::user()->full_name}}" @endif placeholder="Họ tên" required>
+							</div>
+							
+							<div class="form-block">
+								<label for="email">Email*</label>
+								<input type="email" id="email" name="email" @if(Auth::check()) value="{{Auth::user()->email}}" @endif required placeholder="expample@gmail.com">
+							</div>
+
+							<div class="form-block">
+								<label for="adress">Địa chỉ*</label>
+								<input type="text" id="address" name="address" @if(Auth::check()) value="{{Auth::user()->address}}" @endif placeholder="Tên đường" required>
+							</div>
+							
+
+							<div class="form-block">
+								<label for="phone">Điện thoại*</label>
+								<input type="text" id="phone" name="phone_number" @if(Auth::check()) value="{{Auth::user()->phone}}" @endif required>
+							</div>
+							
+							<div class="form-block">
+								<label for="notes">Ghi chú</label>
+								<textarea id="notes" name="note" ></textarea>
+							</div>
+							<div class="form-block">
+								<label>Phương thức thanh toán</label>	<br>
+								<input id="gender" type="radio" class="input-radio" name="payment" value="COD" checked="checked" style="width: 10%"><span style="margin-right: 10%">Khi nhận hàng</span>
+								<input id="gender" type="radio" class="input-radio" name="payment" value="ATM" style="width: 10%"><span>ATM</span>			
+							</div>
+						</div>
+						</div>
+						<hr  width="100%" align="center" />
+					<!-- nút đặt hàng -->
+					<div class="row book-now" style="text-align: center;">
+						<p>Tổng tiền: <strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></strong></p><br>
+						@if(Session::has('cart')) @if($totalQty>0) <button type="submit">Đặt ngay</button> @endif @endif
+					</div>
+					<!-- end -->	
+				</form>			
+
 			</div>
 		</section>
 	</section>

@@ -22,8 +22,8 @@ class AdminLoginMiddleware
             if($user->level=='admin')
                 return $next($request);
             else
-                return redirect('dang-nhap')->with(['thongbao'=>'Hãy đăng nhập tài khoản admin','flag'=>'danger']);
+                return redirect('dang-nhap')->with(['thongbao'=>'Hãy đăng nhập tài khoản admin','flag'=>'admin_danger']);
         }
-        return redirect('dang-nhap')->with(['thongbao'=>'Hãy đăng nhập tài khoản admin','flag'=>'danger']);
+        return redirect('dang-nhap')->with(['thongbao'=>'Hãy đăng nhập tài khoản admin','flag'=>'admin_danger']);
     }
 }
