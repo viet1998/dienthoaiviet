@@ -12,7 +12,8 @@
 	@endsection
 	@section('content')
   	<section class="container">
-  		<section class="col-5"> 
+  		
+  		<section class="bg-login col-12 col-sm-8  col-md-8 col-lg-5"> 
   			<div class="logo-login"><img src="/image/logo/LOGO.png" alt="LOGO"></div>
 
   			@if(Auth::check())

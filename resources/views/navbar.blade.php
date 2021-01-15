@@ -70,7 +70,7 @@
 							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href=""></i>TRẢ GÓP</a></li>	
 							<li><i class="icon"><img src="/image/icon/settings.png"/><a href=""></i>SỬA CHỮA</a></li>
 							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
-							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
+							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a  style="font-size: 10px;" class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
 								@if(Auth::check())
 									@if(Auth::user()->level=='admin')
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
@@ -79,7 +79,9 @@
 									</div>
 									@else
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
+
 										<a class="dropdown-item" href="{{route('profile')}}">Trang Cá Nhân</a>
+
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@endif

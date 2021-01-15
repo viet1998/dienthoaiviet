@@ -54,8 +54,10 @@ Route::get('profile',[PageController::class,'getProfile'])->name('profile');
 //Xử lý giỏ hàng
 Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
+
 Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
 Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
+
 
 
 //show danh sách sản phẩm điện thoại
@@ -85,6 +87,8 @@ Route::get('dich-vu', [ServiceBlogController::class, 'showBlogService'])->name('
 Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
+// goi trang profile  người dùng
+Route::get('trang-ca-nhan', [UserController::class,'showProfileUser'])->name('profile_user');
 
 //-------------------Quản Lý Admin-------------------
 Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
@@ -95,7 +99,9 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	// show trang đăng nhập Admin
 	
 	//show trang dashboard
+
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');
 	Route::get('tinhtongtien',[AdminController::class,'getSumTotalForDay']);
 	Route::get('thongkedoanhthu',[AdminController::class,'getDataStatistical']);
+
 });

@@ -34,12 +34,14 @@
 			<div class="col">
 				<div class="row">
 					<ul class="title-checkout">
+
 						<li><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></li>
+
 						<li><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></li>
 					</ul>
 				</div>
 				<hr width="100%" align="center">
-				<!-- hiển thi sản phẩm trong giỏ hàng giỏ hàng  -->
+
 				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
 					@csrf
 					<div class="row">
@@ -145,6 +147,7 @@
 					</div>
 					<!-- end -->	
 				</form>			
+
 			</div>
 		</section>
 	</section>
