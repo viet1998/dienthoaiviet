@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Slide;
 use App\Models\Product;
+use App\Models\Product_variant;
 use App\Models\Bill;
 use App\Models\Bill_detail;
 use App\Models\Customer;
@@ -31,10 +32,11 @@ class PageController extends Controller
     public function getProduct($id)
     {
         $product=Product::find($id);
+        $product_variant=Product_variant::where('id_product',$id)->get();
         $sp_lienquan=Product::where('id_type',$product->id_type)->paginate(3);
         $new_product=Product::where('new',1)->paginate(4);
         $promo_product=Product::where('promotion_price','<>',0)->paginate(4);
-        return view('show',compact('product','sp_lienquan','new_product','promo_product'));
+        return view('show',compact('product','sp_lienquan','new_product','promo_product','product_variant'));
     }
     public function getContact()
     {
@@ -141,17 +143,32 @@ class PageController extends Controller
         
         return view('customer.profile');
     }
-    
 
-    public function getAddtoCart(Request $req,$id,$qty)
-    {
-        $product=Product::find($id);
+    // Phần xử lý giỏ hàng và thanh toán
+
+    public function getReduceItemCart(Request $req,$id){
+        $product_variant=Product_variant::find($id);
         $oldcart=Session('cart')?Session::get('cart'):null;
         $cart=new Cart($oldcart);
-        if(isset($req->unit))
-            $cart->add($product,$id,$req->unit);
-        else
-            $cart->add($product,$id,$qty);
+        $cart->add($product_variant,$id,-1);
+        $req->session()->put('cart',$cart);
+        return redirect()->back();
+    }
+    public function getIncreaseItemCart(Request $req,$id){
+        $product_variant=Product_variant::find($id);
+        $oldcart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldcart);
+        $cart->add($product_variant,$id,1);
+        $req->session()->put('cart',$cart);
+        return redirect()->back();
+    }
+
+    public function getAddtoCart(Request $req)
+    {
+        $product_variant=Product_variant::find($req->id_product_variant);
+        $oldcart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldcart);
+        $cart->add($product_variant,$req->id_product_variant,1);
         $req->session()->put('cart',$cart);
         return redirect()->back();
     }
@@ -195,7 +212,7 @@ class PageController extends Controller
             {
                 $bill_detail=new Bill_detail;
                 $bill_detail->id_bill=$bill->id;
-                $bill_detail->id_product=$key;
+                $bill_detail->id_product_variant=$key;
                 $bill_detail->quantity=$value['qty'];
                 $bill_detail->unit_price=$value['price'];
                 $bill_detail->save();

@@ -88,7 +88,7 @@
 	<!-- danh sách điện thoại nổi bật nhất -->
 	<section class="list-listphone">
 		<div class="title-lpd">
-			<span>Điện thoại nổi bật nhất</span>
+			<span>Điện Thoại - {{$company->name}}</span>
 		</div>
 		<div class="col-listphone">
 			@foreach($products as $product)
@@ -99,10 +99,10 @@
 				@if($product['promotion_price']==0)
 				<div class="price"><strong>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
 				@else
-				<div class="price" style="width: auto"><strong>{{number_format($product['promotion_price'], 0, '', '.')}}<u>đ</u></strong><span>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u></span>
+				<div class="price" style="width: auto"><strong>{{number_format($product['unit_price'], 0, '', '.')}}<u>đ</u> (-{{$product['promotion_price']}}%)</strong>
 				</div>
 				@endif
-				<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
+				<div class="btn-buynow"><a href="{{route('show',$product->id)}}" class="addtocart"><button >Mua ngay</button></a></div>
 				</a>
 			</div>
 			@endforeach

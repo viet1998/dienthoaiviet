@@ -36,15 +36,21 @@
 											<i class="fa fa-chevron-down"></i>
 										<table>
 											@if(Session::has('cart'))
-											@foreach($product_cart as $product)
+											@foreach($product_cart as $product_variant)
 											<tr>
 												<td class="img-prd">
-													<a class="pull-left" href="{{route('product.show',$product['item']['id'])}}">
-														<img src="/image/product/iphone-11-pro-max-green.jpg" /></a></td>
-												<td class="name_product"><p>{{$product['item']['name']}}</p></td>
-												<td class="price">{{number_format($product['price'])}}<u>đ</u></td>
-												<td class="sl">{{$product['qty']}}</td>
-												<td class="btn-del"><a href="{{route('del_cart',$product['item']['id'])}}"><button >X</button></a></td>
+													<a class="pull-left" href="{{route('show',$product_variant['item']['id_product'])}}">
+														<img src="/image/product/{{$product_variant['item']['image']['link']}}" />
+													</a>
+												</td>
+												<td class="name_product">
+													<a class="pull-left" href="{{route('show',$product_variant['item']['id_product'])}}">
+														<p>{{$product_variant['item']['product']['name']}} {{$product_variant['item']['version']}} {{$product_variant['item']['color']}}</p>
+													</a>
+												</td>
+												<td class="price">{{number_format($product_variant['totalPriceItem'])}}<u>đ</u></td>
+												<td class="sl">{{$product_variant['qty']}}</td>
+												<td class="btn-del"><a href="{{route('del_cart',$product_variant['item']['id'])}}"><button >X</button></a></td>
 											</tr>
 											@endforeach
 											@endif
@@ -66,13 +72,13 @@
 						<ul>
 							<div></div>
 							<li></li>
-							<li><a href="{{route('smartphone')}}"><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </a></li>	
-							<li><i class="icon"><img src="/image/icon/piggy-bank.png"/><a href=""></i>TRẢ GÓP</a></li>	
-							<li><i class="icon"><img src="/image/icon/settings.png"/><a href=""></i>SỬA CHỮA</a></li>
-							<li><i class="icon"><img src="/image/icon/giftbox.png"/><a href="KHUYENMAI"></i>KHUYẾN MÃI</a></li>
+							<li><a href="{{route('smartphone')}}"><div><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </div></a></li>	
+							<li><a href=""><div><i class="icon"><img src="/image/icon/piggy-bank.png"/></i>TRẢ GÓP</div></a></li>	
+							<li><a href=""><div><i class="icon"><img src="/image/icon/settings.png"/></i>SỬA CHỮA</div></a></li>
+							<li><a href=""><div><i class="icon"><img src="/image/icon/giftbox.png"/></i>KHUYẾN MÃI</div></a></li>
 							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a  style="font-size: 10px;" class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
 								@if(Auth::check())
-									@if(Auth::user()->level=='admin')
+									@if(Auth::user()->level>0)
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
 										<a class="dropdown-item" href="{{route('admin_dashboard')}}">Trang Quản Lý</a>
 										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>

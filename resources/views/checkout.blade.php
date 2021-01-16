@@ -41,10 +41,9 @@
 					</ul>
 				</div>
 				<hr width="100%" align="center">
-
 				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
 					@csrf
-					<div class="row">
+					<div class="row product-item-cart">
 						@if(Session::has('thanhcong'))
 						<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 						@endif
@@ -56,22 +55,22 @@
 					@foreach($product_cart as $item)
 						<div class="row product-item-cart">
 							<div class="col-3 img-item">
-								<img src="/image/product/{{$item['item']['image']}}" alt="loading"><br>
+								<img src="/image/product/{{$item['item']['image']['link']}}" alt="loading"><br>
 								<a href="{{route('del_cart',$item['item']['id'])}}"><i class="fas fa-times-circle"></i> xóa</a>
 							</div>
 							<div class="col-6">
 								<strong>{{$item['item']['name']}}</strong><br>
-								<span>Phiên bản: 32GB</span><br>
-								<span>Màu: Xanh</span>
+								<span>Phiên bản: {{$item['item']['version']}}</span><br>
+								<span>Màu: {{$item['item']['color']}}</span>
 							</div>
 							<div class="col-3">
 								<div class="price-product"><strong style="color: #f80;">{{number_format($item['totalPriceItem'], 0, '', '.')}}<u>đ</u></strong><br>
 									
 								</div>
 								<div class="buttons_added">
-									<a href="{{route('addtocart',['id'=>$item['item']['id'],'qty'=>-1])}}"><input class="minus is-form" type="button" value="-"></a>
+									<a href="{{route('reduceitemcart',$item['item']['id'])}}"><input class="minus is-form" type="button" value="-"></a>
 									<input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="{{$item['qty']}}">
-									<a href="{{route('addtocart',['id'=>$item['item']['id'],'qty'=>1])}}"><input class="plus is-form" type="button" value="+"></a>
+									<a href="{{route('increaseitemcart',$item['item']['id'])}}"><input class="plus is-form" type="button" value="+"></a>
 								</div>
 							</div>
 						</div>
@@ -88,11 +87,11 @@
 						<table >
 							<tr>
 								<td style="width: 200px">Tạm tính:</td>
-								<td style="text-align: center;width: 200px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></td>
+								<td style="text-align: center;width: 200px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</td>
 							</tr>
 							<tr>
 								<td><strong>Tổng tiền:</strong></td>
-								<td align="center"><strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></strong></td>
+								<td align="center"><strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</strong></td>
 							</tr>
 						</table>
 					</div>
@@ -142,7 +141,7 @@
 						<hr  width="100%" align="center" />
 					<!-- nút đặt hàng -->
 					<div class="row book-now" style="text-align: center;">
-						<p>Tổng tiền: <strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}}  @endif<u>đ</u></strong></p><br>
+						<p>Tổng tiền: <strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</strong></p><br>
 						@if(Session::has('cart')) @if($totalQty>0) <button type="submit">Đặt ngay</button> @endif @endif
 					</div>
 					<!-- end -->	

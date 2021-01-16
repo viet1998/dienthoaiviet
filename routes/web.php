@@ -36,7 +36,7 @@ Route::get('/', function () {
 // show trang chu
 Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
 // show trong dien thoai
-Route::get('smartphone/{id}',[PageController::class,'getProduct'])->name('show');
+Route::get('smartphones/{id}',[PageController::class,'getProduct'])->name('show');
 // Route::resource('navbar', ProductController::class);
 
 // ------------ giao diện người dùng
@@ -52,7 +52,9 @@ Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 Route::get('profile',[PageController::class,'getProfile'])->name('profile');
 
 //Xử lý giỏ hàng
-Route::get('addtocart/{id}/{qty}',[PageController::class,'getAddtoCart'])->name('addtocart');
+Route::get('addtocart',[PageController::class,'getAddtoCart'])->name('addtocart');
+Route::get('reduceitemcart/{id}',[PageController::class,'getReduceItemCart'])->name('reduceitemcart');
+Route::get('increaseitemcart/{id}',[PageController::class,'getIncreaseItemCart'])->name('increaseitemcart');
 Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_cart');
 
 Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');

@@ -15,9 +15,16 @@ class Product extends Model
     public function company(){
     	return $this->belongsTo('App\Models\Company','id_company','id'); //id của type product
     }
-    
 
-    public function bill_detail(){
-    	return $this->hasMany('App\Models\Bill_detail','id_product','id');
+    public function user(){
+        return $this->belongsTo(User::class,'last_modified_by_user','id'); //id của type product
+    }
+    
+    public function product_variants(){
+        return $this->hasMany(Product_variant::class,'id_product','id');
+    }
+
+    public function image(){
+    	return $this->hasMany(Image::class,'id_product','id');
     }
 }

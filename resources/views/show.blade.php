@@ -21,45 +21,46 @@
 		<div class="grid">
 			<!-- row 2 thông tin sản phẩm -->
 			<div class="main">
-				<div class="item-1"> 
-					<div class="mySlides">
-						<img src="/image/product/{{$product['image']}}" />
-					</div>
-					<div class="mySlides">
-						<img src="/image/product/mi-10-lite.jpg" />
-					</div>
-					<div class="mySlides">
-						<img src="/image/product/mi-10-lite2.jpg" />
-					</div>
-					<div class="mySlides">
-						<img src="/image/product/mi-10-lite-3.png" />
-					</div>
+				<div class="item-1">
+						@foreach($product_variant as $pv)
+						<div class="mySlides">
+							<img src="/image/product/{{$pv['image']['link']}}" />
+						</div>
+						@endforeach
 					<a class="prev" onclick="plusSlides(-1)"> ❮ </a>
 					<a class="next" onclick="plusSlides(1)"> ❯ </a>
 					<div class="caption-container">
 					    <div class="row-gar">
-					    <div class="column">
-					    <img class="demo cursor" src="/image/product/{{$product['image']}}" style="width:100%" onclick="currentSlide(1)" />
-					    </div>
-					    <div class="column">
-					    <img class="demo cursor" src="/image/product/mi-10-lite.jpg" style="width:100%" onclick="currentSlide(2)" />
-					    </div>
-					    <div class="column">
-					    <img class="demo cursor" src="/image/product/mi-10-lite2.jpg" style="width:100%" onclick="currentSlide(3)" />
-					    </div>
-					    <div class="column">
-					    <img class="demo cursor" src="/image/product/mi-10-lite-3.png" style="width:100%" onclick="currentSlide(4)" />
-					    </div>
+					    	<?php $num=0; ?>
+						    @foreach($product_variant as $pv)
+							<div class="column">
+						    <img class="demo cursor" src="/image/product/{{$pv['image']['link']}}" style="width:100%" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
+						    </div>
+							@endforeach
 					 	 </div>
 					</div>
 				</div>
 				<!-- phan noi dung san pham ten vs gia -->
 				<div class="item-2">
+					<form method="get" action="{{route('addtocart')}}">
+					@csrf
 					<!-- tên sản phẩm -->
 					<h3><strong> {{$product["name"]}}</strong></h3>
 					<!-- giá sản phẩm -->
-					<p style="color: #f00;"><strong>{{number_format($product["unit_price"])}}</strong><u>đ</u></p>
-					<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$product['id'],'qty'=>1])}}">Mua ngay</a></button></div>
+					<p style="color: #f00;"><strong id="product_price">{{number_format($product["unit_price"])}}<u>đ</u> (-{{$product["promotion_price"]}}%)</strong></p>
+					<p>Version - Color: 
+						
+						<select name="id_product_variant">
+							@foreach($product_variant as $pv)
+							<option value="{{$pv->id}}">
+								{{$pv->version}} - {{$pv->color}}
+							</option>
+							@endforeach
+						</select>
+						
+					</p>
+					<div class="btn-buynow"><button type="submit">Mua ngay</button></div>
+					</form>
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
 					<div class="card bg-light" style="padding: 10px;">
@@ -116,7 +117,9 @@
 			<div class="row-desc card">
 					<div class=" row-desc-title">
 						<div class="card-header">Mô tả</div>
-						{{$product["description"]}}
+						<div class="card-body">
+						<?php echo $product['description']; ?>
+						</div>
 						<!-- <table>
 							<tr>
 								<td>Màn hình</td>
@@ -175,7 +178,6 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
 }
 </script>	
 		<!-- row 3 phần thông tin địa chỉ v...vvv -->

@@ -60,12 +60,14 @@
 							<a href="{{route('show',$new->id)}}">
 							<img src="/image/product/{{$new->image}}" />
 							<p>{{$new->name}}</p>
-							<div class="price" >
-								<span>{{number_format($new->promotion_price,0,',','.')}}<u>đ</u></span>
-								<strong>{{number_format($new->unit_price,0,',','.')}}<u>đ</u></strong>
+							@if($new['promotion_price']==0)
+							<div class="price"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
+							@else
+							<div class="price" style="width: auto"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u> (-{{$new['promotion_price']}}%)</strong>
 							</div>
+							@endif
 							</a>
-							<div class="btn-buynow"><button ><a href="{{route('addtocart',['id'=>$new['id'],'qty'=>1])}}">Mua Ngay</a></button></div>
+							<div class="btn-buynow"><a href="{{route('show',$new->id)}}" class="addtocart"><button >Mua Ngay</button></a></div>
 						</div>
 					</div>
 					@endforeach
