@@ -17,12 +17,26 @@ class Cart
 	}
 
 	public function add($item, $id,$qty){
-		$price=$item->product->unit_price+$item->bonus_price;
+		$price=$item->unit_price;
 		if($item->product->promotion_price==0)
 			$giohang = ['qty'=>0, 'price' => $price,'totalPriceItem'=>0, 'item' => $item];
 		else 
 			$giohang = ['qty'=>0, 'price' => ($price*(100-$item->product->promotion_price))/100,'totalPriceItem'=>0, 'item' => $item];
 
+		if($this->items){
+			if(array_key_exists($id, $this->items)){
+				$giohang = $this->items[$id];
+			}
+		}
+		$this->totalQty+=$qty;
+		$giohang['qty']+=$qty;
+		$giohang['totalPriceItem']=$giohang['price']*$giohang['qty'];
+		$this->items[$id] = $giohang;
+		$this->totalPrice += ($giohang['price']*$qty);
+	}
+	public function addtopurcharged($item, $id,$qty,$unit_price){
+		$price=$unit_price;
+		$giohang = ['qty'=>0, 'price' => $price,'totalPriceItem'=>0, 'item' => $item];
 		if($this->items){
 			if(array_key_exists($id, $this->items)){
 				$giohang = $this->items[$id];

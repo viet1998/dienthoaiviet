@@ -16,7 +16,7 @@ class Product extends Model
     	return $this->belongsTo('App\Models\Company','id_company','id'); //id của type product
     }
 
-    public function user(){
+    public function user_modified(){
         return $this->belongsTo(User::class,'last_modified_by_user','id'); //id của type product
     }
     

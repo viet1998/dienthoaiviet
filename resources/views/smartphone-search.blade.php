@@ -88,7 +88,7 @@
 	<!-- danh sách điện thoại nổi bật nhất -->
 	<section class="list-listphone">
 		<div class="title-lpd">
-			<span>Điện Thoại</span>
+			<span>Tìm Kiếm : {{$key}}</span>
 		</div>
 		<div class="col-listphone">
 			@foreach($products as $product)

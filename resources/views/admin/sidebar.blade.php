@@ -196,7 +196,13 @@
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <img alt="" src="images/2.png">
-                <span class="username">{{Auth::user()->full_name}}</span>
+                <span class="username">{{Auth::user()->full_name}} - 
+                    @switch(Auth::user()->level)
+                        @case(0) Khách Hàng @break
+                        @case(1) Nhân Viên @break
+                        @case(2) Quản Lý @break
+                    @endswitch
+                </span>
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu extended logout">
@@ -231,6 +237,7 @@
                         <span>Quản lý sản phẩm</span>
                     </a>
                     <ul class="sub">
+                        <li><a href="{{route('productvariants')}}">Danh sách sản phẩm trong kho</a></li>
                         <li><a href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
                         <li><a href="{{route('product.create')}}">Thêm sản phẩm</a></li>
                     </ul>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Product_variant;
 
 class ProductController extends Controller
 {
@@ -226,6 +227,11 @@ class ProductController extends Controller
         <?php } 
          // return $products;
         // return view('page.quanly.timkiemsanpham',compact('products','request')); onclick="return  confirm('Có xóa '+<?php $product['name']+' không?');"
+    }
+
+    public function getProductVariant(){
+        $product_variants=Product_variant::paginate(10);
+        return view('admin.product_variant_admin',compact('product_variants'));
     }
 
 }

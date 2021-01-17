@@ -43,12 +43,12 @@
 				<hr width="100%" align="center">
 				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
 					@csrf
-					<div class="row product-item-cart">
+					<div class="row">
 						@if(Session::has('thanhcong'))
-						<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
+						<div class="alert alert-success" style="width: 100%;">{{Session::get('thanhcong')}}</div>
 						@endif
 						@if(Session::has('thatbai'))
-						<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
+						<div class="alert alert-danger" style="width: 100%;">{{Session::get('thatbai')}}</div>
 						@endif
 					</div>
 					@if(Session::has('cart'))

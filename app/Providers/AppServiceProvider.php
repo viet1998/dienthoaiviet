@@ -7,6 +7,7 @@ use App\Models\Type_product;
 use App\Models\Company;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Product_variant;
 use App\Models\Bill;
 use App\Models\Customer;
 use App\Models\User;
@@ -48,14 +49,22 @@ class AppServiceProvider extends ServiceProvider
                 $view->with(['cart'=>Session::get('cart'),'product_cart'=>$cart->items,'totalPrice'=>$cart->totalPrice,'totalQty'=>$cart->totalQty]);
             }
         });
+        //-----------------------quản lý admin-----------
         view()->composer('admin.dashboard',function($view){
             $bills=Bill::all();
-            $products=Product::all();
-            $now = Carbon::now();
+            $products=Product_variant::all();
+            $now = date("Y/m/d");
             $newbills=Bill::where('date_order',$now)->get();
             $users=User::all();
             $view->with(['bills_count'=>$bills->count(),'products_count'=>$products->count(),'newbills_count'=>$newbills->count(),'users_count'=>$users->count()]);
         });
+
+        view()->composer('admin.product_admin',function($view){
+            $products=Product::paginate(10);
+            $view->with('products',$products);
+        });
+
+        //----------------------------------------------
 
         view()->composer('header',function($view){
             $loai_sp=Type_product::all();
@@ -89,10 +98,7 @@ class AppServiceProvider extends ServiceProvider
             $loai_sp=Type_product::all();
             $view->with('loai_sp',$loai_sp);
         });
-        view()->composer('admin.product_admin',function($view){
-            $products=Product::paginate(10);
-            $view->with('products',$products);
-        });
+        
         view()->composer('page.quanly.quanlydonhang',function($view){
             $bills=Bill::orderBy('date_order','DESC')->get();
             $view->with('bills',$bills);
@@ -139,15 +145,15 @@ class AppServiceProvider extends ServiceProvider
         });
         view()->composer('customer.profile',function($view){
             if(Auth::check())
-            {   $carts=null;
-                $bills=Bill::where('id_user',Auth::user()->id)->get();
+            {   
+                $carts=null;
+                $bills=Bill::where('id_user',Auth::user()->id)->orderBy('id','DESC')->get();
                 foreach ($bills as $key => $valuebill) {
                     $bill_detail=Bill_detail::where('id_bill',$valuebill->id)->get();
                     $carts[$valuebill->id]=new Cart(null);
                     foreach ($bill_detail as $key => $value) {
-                        $product=Product::find($value->id_product);
-
-                        $carts[$valuebill->id]->add($product,$value->id,$value->quantity);
+                        $product_variant=Product_variant::find($value->id_product_variant);
+                        $carts[$valuebill->id]->addtopurcharged($product_variant,$value->id,$value->quantity,$value->unit_price);
 
                     }
                 }

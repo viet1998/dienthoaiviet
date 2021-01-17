@@ -74,6 +74,8 @@ Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('tran
 // show trong dien thoai
 Route::get('dtdd/{id}',[PageController::class,'getProduct'])->name('show');
 Route::get('dtdd/getbonusprice/{id}',[PageController::class,'getBonusPrice'])->name('getbonusprice');
+Route::get('dtdd/checkoutofstock/{id}',[PageController::class,'getCheckOutOfStock'])->name('getbonusprice');
+Route::get('search',[PageController::class,'getSearch'])->name('search');
 
 // ---------------------------
 
@@ -102,7 +104,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('bill', BillController::class);
 	Route::resource('user', UserController::class);
 	// show trang đăng nhập Admin
-	
+	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
 	//show trang dashboard
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');

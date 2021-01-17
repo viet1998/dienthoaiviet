@@ -21,6 +21,7 @@ use Carbon\Carbon;
 
 class PageController extends Controller
 {
+    //-------------------load các trang web-----------------
     public function getIndex()
     {
     	$slides=Slide::all();
@@ -41,8 +42,21 @@ class PageController extends Controller
     public function getBonusPrice($id)
     {
         $product_variant=Product_variant::find($id);
-        $price=$product_variant->product->unit_price+$product_variant->bonus_price;
-        echo number_format($price,0,'','.');
+        $price=$product_variant->unit_price;
+        $promotion_price=$price*(100-$product_variant->product->promotion_price)/100;
+        if($product_variant->quantity<=0)
+            echo number_format($promotion_price,0,'','.').'<u>đ</u> (-'.$product_variant->product->promotion_price.'%) <strike>'.number_format($price,0,'','.').'</strike><u>đ</u> <span style="color:red;">(Đã hết hàng)</span>';
+        else
+            echo number_format($promotion_price,0,'','.').'<u>đ</u> (-'.$product_variant->product->promotion_price.'%) <strike>'.number_format($price,0,'','.').'</strike><u>đ</u>';
+    }
+    public function getCheckOutOfStock($id)
+    {
+        $product_variant=Product_variant::find($id);
+        if($product_variant->quantity<=0)
+            echo '<button type="submit" style="color:white;background: #636362;" disabled="disabled">Mua ngay</button>';
+        else 
+            echo '<button type="submit" style="color:white;" >Mua ngay</button>';
+
     }
     public function getContact()
     {
@@ -59,9 +73,6 @@ class PageController extends Controller
         $type_product=Type_product::find(8);
         return view('type-product',compact('products','type_product'));
     }
-
-    
-
     public function getAppleSmartphone()
     {
         $products=Product::where('id_company',1)->get();
@@ -133,8 +144,9 @@ class PageController extends Controller
         return view('page.quanly.quanly');
     }
     public function getSearch(Request $req){
-        $product=Product::where('name','like','%'.$req->key.'%')->orWhere('unit_price',$req->key)->paginate(8);
-        return view('page.search',compact('product'));
+        $products=Product::where('name','like','%'.$req->key.'%')->get();
+        $key=$req->key;
+        return view('smartphone-search',compact('products','key'));
     }
     public function getTest(){
         
@@ -149,6 +161,7 @@ class PageController extends Controller
         
         return view('customer.profile');
     }
+    //------------------------------------------------------
 
     // Phần xử lý giỏ hàng và thanh toán
 
@@ -179,10 +192,41 @@ class PageController extends Controller
         return redirect()->back();
     }
     
+    public function getDelItemCart($id)
+    {
+        $oldcart=Session('cart')?Session::get('cart'):null;
+        $cart=new Cart($oldcart);
+        $cart->removeItem($id);
+        if(count($cart->items)>0){
+            Session::put('cart',$cart);
+        }
+        else{
+            Session::forget('cart');
+        }
+        
+        return redirect()->back();
+    }
+
     public function postCheckout(Request $req)              /*Đặt Hàng*/
     {
         if(Session::has('cart')){
             $cart=Session::get('cart');
+            foreach($cart->items as $key => $value)
+            {
+                $product_variant=Product_variant::find($key);
+                $product_variant->quantity-=$value['qty'];
+                if($product_variant->quantity<0)
+                {
+                    $cart->removeItem($key);
+                    if(count($cart->items)>0){
+                        Session::put('cart',$cart);
+                    }
+                    else{
+                        Session::forget('cart');
+                    }
+                    return redirect()->back()->with('thatbai','Sản phẩm '.$product_variant->product->name.' '.$product_variant->version.' '.$product_variant->color.' đã hết hàng');
+                }
+            }
             $customer=Customer::where('phone_number',$req->phone_number)->get();
             if($customer->count()==0){
                 $customer=new Customer;
@@ -216,6 +260,9 @@ class PageController extends Controller
 
             foreach($cart->items as $key => $value)
             {
+                $product_variant=Product_variant::find($key);
+                $product_variant->quantity-=$value['qty'];
+                $product_variant->save();
                 $bill_detail=new Bill_detail;
                 $bill_detail->id_bill=$bill->id;
                 $bill_detail->id_product_variant=$key;
@@ -225,25 +272,12 @@ class PageController extends Controller
             }
             Session::forget('cart');
 
-            return redirect()->back()->with('thanhcong','Đặt hàng thành công');
+            return redirect()->back()->with('thanhcong','Đặt hàng thành công sử dụng số điện thoại để kiểm tra');
         }
         return redirect()->back()->with('thatbai','Hãy chọn sản phẩm vào giỏ hàng');
     }
 
-    public function getDelItemCart($id)
-    {
-        $oldcart=Session('cart')?Session::get('cart'):null;
-        $cart=new Cart($oldcart);
-        $cart->removeItem($id);
-        if(count($cart->items)>0){
-            Session::put('cart',$cart);
-        }
-        else{
-            Session::forget('cart');
-        }
-        
-        return redirect()->back();
-    }
+    
 
     // Phần đăng nhập
 
@@ -311,4 +345,5 @@ class PageController extends Controller
         return view('checkout');
     }
     
+
 }

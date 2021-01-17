@@ -13,8 +13,8 @@
 						
 						<section class="nav-col2">
 							<div class="search-form">
-							<form action="" method="post">
-								<input type="text" placeholder="Bạn muốn tìm gì?">
+							<form action="{{route('search')}}" role="search" method="get" >
+								<input type="text" name="key" placeholder="Bạn muốn tìm gì?">
 								<button type="submit"><i class="fas fa-search"></i></button>
 							</form>
 							</div>
@@ -24,7 +24,7 @@
 						</section>
 						<section class="nav-col3" >
 							<a class="btn btn-outline-light" href="call">Hotline: 19001080</a>
-							<!-- giỏ hàng -->
+		<!-- ---------------------giỏ hàng--------------- -->
 						</section>
 						<section class="nav-col4">
 							<div class="dropdown"><a class="icon-sping" id="drd-shopping" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false"  href="Giohang"><img  src="/image/icon/shopping-cart.png" /></a><span class="notif-shipping">
@@ -53,6 +53,12 @@
 												<td class="btn-del"><a href="{{route('del_cart',$product_variant['item']['id'])}}"><button >X</button></a></td>
 											</tr>
 											@endforeach
+											@else
+											<tr style="width: 100%">
+												<td>
+													Giỏ Hàng Trống
+												</td>
+											</tr>
 											@endif
 										</table>
 										<div>

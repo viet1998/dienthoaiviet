@@ -19,7 +19,7 @@ class AdminLoginMiddleware
         if(Auth::check())
         {
             $user=Auth::user();
-            if($user->level=='admin')
+            if($user->level>=1)
                 return $next($request);
             else
                 return redirect('dang-nhap')->with(['thongbao'=>'Hãy đăng nhập tài khoản admin','flag'=>'admin_danger']);

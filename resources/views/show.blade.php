@@ -24,7 +24,7 @@
 				<div class="item-1">
 						@foreach($product->images as $pv)
 						<div class="mySlides">
-							<img src="/image/product/{{$pv['link']}}" />
+							<img src="/image/product/{{$pv['link']}}" style="height:300px"/>
 						</div>
 						@endforeach
 					<a class="prev" onclick="plusSlides(-1)"> ❮ </a>
@@ -34,7 +34,7 @@
 					    	<?php $num=0; ?>
 						    @foreach($product->images as $pv)
 						    <div class="column">
-						    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
+						    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%;height:50px" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
 						    </div>
 							@endforeach
 					 	 </div>
@@ -47,7 +47,13 @@
 					<!-- tên sản phẩm -->
 					<h3><strong> {{$product["name"]}}</strong></h3>
 					<!-- giá sản phẩm -->
-					<p style="color: #f00;"><strong id="product_price"><span id="variant_price">{{number_format($product["unit_price"],0,'','.')}}</span><u>đ</u> (-{{$product["promotion_price"]}}%)</strong></p>
+					<p style="color: #f00;">
+						<strong id="product_price">
+							<span id="variant_price">
+								{{number_format(($product["unit_price"]*(100-$product["promotion_price"])/100),0,'','.')}}<u>đ</u> (-{{$product["promotion_price"]}}%) <strike>{{number_format($product["unit_price"],0,'','.')}}</strike><u>đ</u>
+							</span>
+						</strong>
+					</p>
 					<p>Phiên Bản - Màu: 
 						<select name="id_product_variant" id="id_product_variant">
 							@foreach($product_variant as $pv)
@@ -58,7 +64,7 @@
 						</select>
 					</p>
 
-					<div class="btn-buynow"><button type="submit" style="color:white;">Mua ngay</button></div>
+					<div class="btn-buynow" id="clickbuy"><button type="submit"  style="color:white;">Mua ngay</button></div>
 					</form>
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
@@ -159,7 +165,9 @@
 			$.get('getbonusprice/'+id,function(data){
 				$("#variant_price").html(data);
 			});
-			
+			$.get('checkoutofstock/'+id,function(data){
+				$("#clickbuy").html(data);
+			});
 		});
 								
 	</script>	
