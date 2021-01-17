@@ -33,14 +33,11 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
-// show trang chu
-Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
-// show trong dien thoai
-Route::get('smartphones/{id}',[PageController::class,'getProduct'])->name('show');
+
 // Route::resource('navbar', ProductController::class);
 
-// ------------ giao diện người dùng
-//Xử lý user
+// ------------ Xử lý user-----------
+//
 Route::post('dangky',[PageController::class,'postSignup'])->name('dangky');
 Route::post('dangnhap',[PageController::class,'postLogin'])->name('dangnhap');
 Route::get('dangxuat',[PageController::class,'postLogout'])->name('dangxuat');
@@ -60,19 +57,25 @@ Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_
 Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
 Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
 
+// ---------------------------
 
-
-//show danh sách sản phẩm điện thoại
-Route::get('smartphone', [PageController::class,'getSmartphone'])->name('smartphone');
+// ------------ Hiển thị sản phẩm-----------
+Route::get('dtdd', [PageController::class,'getSmartphone'])->name('smartphone');
 // show danh sach hãng
-Route::get('smartphone/apple', [PageController::class,'getAppleSmartphone'])->name('apple_smartphone');
-Route::get('smartphone/samsung', [PageController::class,'getSamsungSmartphone'])->name('samsung_smartphone');
-Route::get('smartphone/oppo', [PageController::class,'getOppoSmartphone'])->name('oppo_smartphone');
-Route::get('smartphone/xiaomi', [PageController::class,'getXiaomiSmartphone'])->name('xiaomi_smartphone');
-Route::get('smartphone/vivo', [PageController::class,'getVivoSmartphone'])->name('vivo_smartphone');
-Route::get('smartphone/realme', [PageController::class,'getRealmeSmartphone'])->name('realme_smartphone');
-Route::get('smartphone/oneplus', [PageController::class,'getOneplusSmartphone'])->name('oneplus_smartphone');
+Route::get('dtdd-apple', [PageController::class,'getAppleSmartphone'])->name('apple_smartphone');
+Route::get('dtdd-samsung', [PageController::class,'getSamsungSmartphone'])->name('samsung_smartphone');
+Route::get('dtdd-oppo', [PageController::class,'getOppoSmartphone'])->name('oppo_smartphone');
+Route::get('dtdd-xiaomi', [PageController::class,'getXiaomiSmartphone'])->name('xiaomi_smartphone');
+Route::get('dtdd-vivo', [PageController::class,'getVivoSmartphone'])->name('vivo_smartphone');
+Route::get('dtdd-realme', [PageController::class,'getRealmeSmartphone'])->name('realme_smartphone');
+Route::get('dtdd-oneplus', [PageController::class,'getOneplusSmartphone'])->name('oneplus_smartphone');
+// show trang chu
+Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
+// show trong dien thoai
+Route::get('dtdd/{id}',[PageController::class,'getProduct'])->name('show');
+Route::get('dtdd/getbonusprice/{id}',[PageController::class,'getBonusPrice'])->name('getbonusprice');
 
+// ---------------------------
 
 // show trang phụ kiện
 Route::get('Phu-kien',[AccessoriesproductController::class, 'showAccessories'])->name('accessories');

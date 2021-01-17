@@ -7,10 +7,10 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	<!-- java script -->
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!-- <script type="text/javascript" src="/js/gallery-product.js"></script>
- --><!-- link CSS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<!-- <script type="text/javascript" src="/js/gallery-product.js"></script>
+	 --><!-- link CSS -->
 	<link rel="stylesheet" type="text/css" href="/css/layout-product.css">
 	<link rel="stylesheet" type="text/css" href="/css/navbar-footer.css">
 </head>
@@ -22,9 +22,9 @@
 			<!-- row 2 thông tin sản phẩm -->
 			<div class="main">
 				<div class="item-1">
-						@foreach($product_variant as $pv)
+						@foreach($product->images as $pv)
 						<div class="mySlides">
-							<img src="/image/product/{{$pv['image']['link']}}" />
+							<img src="/image/product/{{$pv['link']}}" />
 						</div>
 						@endforeach
 					<a class="prev" onclick="plusSlides(-1)"> ❮ </a>
@@ -32,9 +32,9 @@
 					<div class="caption-container">
 					    <div class="row-gar">
 					    	<?php $num=0; ?>
-						    @foreach($product_variant as $pv)
-							<div class="column">
-						    <img class="demo cursor" src="/image/product/{{$pv['image']['link']}}" style="width:100%" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
+						    @foreach($product->images as $pv)
+						    <div class="column">
+						    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
 						    </div>
 							@endforeach
 					 	 </div>
@@ -47,19 +47,18 @@
 					<!-- tên sản phẩm -->
 					<h3><strong> {{$product["name"]}}</strong></h3>
 					<!-- giá sản phẩm -->
-					<p style="color: #f00;"><strong id="product_price">{{number_format($product["unit_price"])}}<u>đ</u> (-{{$product["promotion_price"]}}%)</strong></p>
-					<p>Version - Color: 
-						
-						<select name="id_product_variant">
+					<p style="color: #f00;"><strong id="product_price"><span id="variant_price">{{number_format($product["unit_price"],0,'','.')}}</span><u>đ</u> (-{{$product["promotion_price"]}}%)</strong></p>
+					<p>Phiên Bản - Màu: 
+						<select name="id_product_variant" id="id_product_variant">
 							@foreach($product_variant as $pv)
 							<option value="{{$pv->id}}">
 								{{$pv->version}} - {{$pv->color}}
 							</option>
 							@endforeach
 						</select>
-						
 					</p>
-					<div class="btn-buynow"><button type="submit">Mua ngay</button></div>
+
+					<div class="btn-buynow"><button type="submit" style="color:white;">Mua ngay</button></div>
 					</form>
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
@@ -120,66 +119,50 @@
 						<div class="card-body">
 						<?php echo $product['description']; ?>
 						</div>
-						<!-- <table>
-							<tr>
-								<td>Màn hình</td>
-								<td>AMOLED, 6.47", Full HD+</td>
-							</tr>
-							<tr>
-								<td>CPU</td>
-								<td>Snapdragon 730G 8 nhân</td>
-							</tr>
-							<tr>
-								<td>Hệ điều hành</td>
-								<td>Android 10</td>
-							</tr>
-							<tr>
-								<td>Camera trước</td>
-								<td>16 MP</td>
-							</tr>
-							<tr>
-								<td>Ram/Bộ nhớ</td>
-								<td>8GB/128GB</td>
-							</tr>
-							<tr>
-								<td>Dung lượng pin</td>
-								<td>5260 mAh</td>
-							</tr>
-						</table> -->
-						
 					</div>
 			</div>
 
 	</section>
-<script>
-var slideIndex = 1;
-showSlides(slideIndex);
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+	var slideIndex = 1;
+	showSlides(slideIndex);
 
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
 
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
 
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
-  }
-  for (i = 0; i < dots.length; i++) {
-      dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-}
-</script>	
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("demo");
+	  var captionText = document.getElementById("caption");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";
+	  dots[slideIndex-1].className += " active";
+	}
+									
+		$("#id_product_variant").on('change',function(e){
+			console.log(e);
+			var id= e.target.value;
+			$.get('getbonusprice/'+id,function(data){
+				$("#variant_price").html(data);
+			});
+			
+		});
+								
+	</script>	
 		<!-- row 3 phần thông tin địa chỉ v...vvv -->
 		@include('footer')
 	

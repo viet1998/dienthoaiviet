@@ -38,6 +38,12 @@ class PageController extends Controller
         $promo_product=Product::where('promotion_price','<>',0)->paginate(4);
         return view('show',compact('product','sp_lienquan','new_product','promo_product','product_variant'));
     }
+    public function getBonusPrice($id)
+    {
+        $product_variant=Product_variant::find($id);
+        $price=$product_variant->product->unit_price+$product_variant->bonus_price;
+        echo number_format($price,0,'','.');
+    }
     public function getContact()
     {
         return view('page.lienhe');
