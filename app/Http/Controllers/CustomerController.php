@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
-use App\Bill;
+use App\Models\Customer;
+use App\Models\Bill;
 use Collective\Html\FormFacade as Form;
 
 class CustomerController extends Controller
@@ -16,7 +16,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('page.quanly.quanlykhachhang');
+        $customers=Customer::paginate(10);
+        return view('admin.customer_admin',compact('customers'));
     }
 
     /**

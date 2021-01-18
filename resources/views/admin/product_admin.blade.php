@@ -41,7 +41,7 @@
 													<th>Giá</th>
 													<th>Khuyến Mãi</th>
 													<th>Hình Ảnh</th>
-													<th>Trạng Thái</th>
+													<th>Trạng Thái Mới</th>
 													<th>Sửa Đổi Lần Cuối</th>
 													<th>Ngày Tạo</th>
 													<th>Ngày Sửa Đổi</th>

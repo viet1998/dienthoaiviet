@@ -24,6 +24,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" href="/admin/css/morris.css" type="text/css"/>
 <!-- //font-awesome icons -->
 
+
 </head>
 
 <body>

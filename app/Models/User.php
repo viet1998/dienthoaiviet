@@ -40,4 +40,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function bill(){
+        return $this->hasMany('App\Models\Bill','id_user','id');
+    }
+
+    
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\User','last_modified_by_user','id');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\User','last_modified_by_user','id');
+    }
+
 }

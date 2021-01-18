@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\BillController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AdminController;
