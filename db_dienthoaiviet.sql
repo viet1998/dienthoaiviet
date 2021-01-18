@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 18, 2021 lúc 12:17 PM
+-- Thời gian đã tạo: Th1 18, 2021 lúc 04:03 PM
 -- Phiên bản máy phục vụ: 10.4.6-MariaDB
 -- Phiên bản PHP: 7.3.9
 
@@ -166,6 +166,45 @@ INSERT INTO `customer` (`id`, `name`, `gender`, `email`, `address`, `phone_numbe
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `history_changes`
+--
+
+CREATE TABLE `history_changes` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `table_change` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_item` int(10) UNSIGNED NOT NULL,
+  `id_user` int(10) UNSIGNED NOT NULL,
+  `date_change` date NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `images`
+--
+
+CREATE TABLE `images` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_product` int(10) UNSIGNED NOT NULL,
+  `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `images`
+--
+
+INSERT INTO `images` (`id`, `id_product`, `link`, `created_at`, `updated_at`) VALUES
+(1, 70, 'iphone_11_pro_textured_matt_red_skins_2048x.jpg', '2021-01-16 17:26:20', '2021-01-16 17:26:20'),
+(2, 70, 'iphone11 black.jpg', '2021-01-16 17:42:44', '2021-01-16 17:42:44'),
+(3, 70, 'iphone-11-pro-max-silver-select-2019-4909.png', '2021-01-16 17:42:44', '2021-01-16 17:42:44'),
+(4, 70, 'iphone-11-pro-max-green.jpg', '2021-01-16 17:42:44', '2021-01-16 17:42:44'),
+(5, 70, 'iphone-11-pro-max-gold.jpeg', '2021-01-17 06:45:51', '2021-01-17 06:47:15');
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `news`
 --
 
@@ -220,6 +259,35 @@ INSERT INTO `products` (`id`, `name`, `id_type`, `id_company`, `description`, `u
 (69, 'Xiaomi Realmi 7 Pro', 8, 4, 'Màn hình:\r\nHệ điều hành:\r\nCamera sau:\r\nCamera trước:\r\nCPU:\r\nRAM:\r\nBộ nhớ trong:\r\nThẻ SIM:\r\nDung lượng pin:', 10000000, 0, 'realme-7-pro.jpg', 0, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43'),
 (70, 'iphone 11 pro max', 8, 1, 'Màn hình:<br>\r\nHệ điều hành:<br>\r\nCamera sau:<br>\r\nCamera trước:<br>\r\nCPU:<br>\r\nRAM:<br>\r\nBộ nhớ trong:<br>\r\nThẻ SIM:<br>\r\nDung lượng pin:<br>', 20000000, 20, 'iphone-11-pro-max-green.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43'),
 (71, 'Realme 7 pro', 8, 6, 'Điện thoại xiaomi', 12000000, 10, 'realme-7-pro.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `product_variants`
+--
+
+CREATE TABLE `product_variants` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_product` int(10) UNSIGNED NOT NULL,
+  `color` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `version` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `unit_price` float NOT NULL DEFAULT 0,
+  `id_image` int(10) UNSIGNED NOT NULL,
+  `quantity` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `last_modified_by_user` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `product_variants`
+--
+
+INSERT INTO `product_variants` (`id`, `id_product`, `color`, `version`, `unit_price`, `id_image`, `quantity`, `last_modified_by_user`, `created_at`, `updated_at`) VALUES
+(1, 70, 'Đỏ', '64GB', 20000000, 1, 19, 7, '2021-01-16 17:27:26', '2021-01-17 16:20:01'),
+(2, 70, 'Đen', '64GB', 21999000, 2, 0, 7, '2021-01-16 17:45:12', '2021-01-17 16:22:11'),
+(3, 70, 'Xanh Lá', '64GB', 22000000, 4, 10, 7, '2021-01-16 17:45:12', '2021-01-17 16:38:08'),
+(4, 70, 'Trắng', '64GB', 25000000, 3, 7, 7, '2021-01-16 17:45:12', '2021-01-17 16:20:01');
 
 -- --------------------------------------------------------
 
@@ -327,6 +395,20 @@ ALTER TABLE `customer`
   ADD KEY `last_modified_by_user` (`last_modified_by_user`);
 
 --
+-- Chỉ mục cho bảng `history_changes`
+--
+ALTER TABLE `history_changes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_user`);
+
+--
+-- Chỉ mục cho bảng `images`
+--
+ALTER TABLE `images`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_product` (`id_product`);
+
+--
 -- Chỉ mục cho bảng `news`
 --
 ALTER TABLE `news`
@@ -342,6 +424,15 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `products_id_type_foreign` (`id_type`),
   ADD KEY `id_company` (`id_company`),
+  ADD KEY `last_modified_by_user` (`last_modified_by_user`);
+
+--
+-- Chỉ mục cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_product` (`id_product`),
+  ADD KEY `id_image` (`id_image`),
   ADD KEY `last_modified_by_user` (`last_modified_by_user`);
 
 --
@@ -394,10 +485,22 @@ ALTER TABLE `customer`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
+-- AUTO_INCREMENT cho bảng `images`
+--
+ALTER TABLE `images`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT cho bảng `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `slide`
@@ -422,12 +525,32 @@ ALTER TABLE `users`
 --
 
 --
+-- Các ràng buộc cho bảng `history_changes`
+--
+ALTER TABLE `history_changes`
+  ADD CONSTRAINT `history_changes_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+
+--
+-- Các ràng buộc cho bảng `images`
+--
+ALTER TABLE `images`
+  ADD CONSTRAINT `images_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`);
+
+--
 -- Các ràng buộc cho bảng `products`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`id_company`) REFERENCES `companies` (`id`),
   ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`last_modified_by_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `products_id_type_foreign` FOREIGN KEY (`id_type`) REFERENCES `type_products` (`id`);
+
+--
+-- Các ràng buộc cho bảng `product_variants`
+--
+ALTER TABLE `product_variants`
+  ADD CONSTRAINT `product_variants_ibfk_1` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`),
+  ADD CONSTRAINT `product_variants_ibfk_2` FOREIGN KEY (`id_image`) REFERENCES `images` (`id`),
+  ADD CONSTRAINT `product_variants_ibfk_3` FOREIGN KEY (`last_modified_by_user`) REFERENCES `users` (`id`);
 
 --
 -- Các ràng buộc cho bảng `type_products`
