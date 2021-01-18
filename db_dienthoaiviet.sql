@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 17, 2021 lúc 07:49 AM
+-- Thời gian đã tạo: Th1 18, 2021 lúc 12:17 PM
 -- Phiên bản máy phục vụ: 10.4.6-MariaDB
 -- Phiên bản PHP: 7.3.9
 
@@ -52,7 +52,13 @@ INSERT INTO `bills` (`id`, `id_customer`, `id_user`, `date_order`, `total`, `pay
 (29, 25, NULL, '2021-01-16', 20800000, 'COD', 0, NULL, NULL, '2021-01-16 12:36:44', '2021-01-16 12:36:44'),
 (30, 23, NULL, '2021-01-17', 20000000, 'COD', 0, NULL, NULL, '2021-01-16 19:48:49', '2021-01-16 19:48:49'),
 (31, 22, NULL, '2021-01-17', 20000000, 'COD', 0, '2', NULL, '2021-01-16 19:49:35', '2021-01-16 19:49:35'),
-(32, 26, NULL, '2021-01-17', 20800000, 'COD', 0, NULL, NULL, '2021-01-16 19:50:25', '2021-01-16 19:50:25');
+(32, 26, NULL, '2021-01-17', 20800000, 'COD', 0, NULL, NULL, '2021-01-16 19:50:25', '2021-01-16 19:50:25'),
+(33, 23, NULL, '2021-01-17', 20800000, 'COD', 0, NULL, NULL, '2021-01-17 08:26:08', '2021-01-17 08:26:08'),
+(34, 23, NULL, '2021-01-17', 44000000, 'COD', 0, NULL, NULL, '2021-01-17 09:08:53', '2021-01-17 09:08:53'),
+(35, 19, 8, '2021-01-17', 20000000, 'COD', 1, NULL, NULL, '2021-01-17 09:20:01', '2021-01-17 11:23:19'),
+(36, 19, 8, '2021-01-17', 21600000, 'COD', 2, NULL, NULL, '2021-01-17 10:30:01', '2021-01-17 11:23:19'),
+(37, 19, 8, '2021-01-17', 66400000, 'COD', 0, NULL, NULL, '2021-01-17 10:48:58', '2021-01-17 10:48:58'),
+(38, 19, 8, '2021-01-17', 35200000, 'COD', 0, NULL, NULL, '2021-01-17 16:38:08', '2021-01-17 16:38:08');
 
 -- --------------------------------------------------------
 
@@ -82,7 +88,15 @@ INSERT INTO `bill_detail` (`id`, `id_bill`, `id_product_variant`, `quantity`, `u
 (35, 29, 2, 1, 20800000, '2021-01-16 12:36:44', '2021-01-16 12:36:44'),
 (36, 30, 1, 1, 20000000, '2021-01-16 19:48:49', '2021-01-16 19:48:49'),
 (37, 31, 1, 1, 20000000, '2021-01-16 19:49:35', '2021-01-16 19:49:35'),
-(38, 32, 2, 1, 20800000, '2021-01-16 19:50:25', '2021-01-16 19:50:25');
+(38, 32, 2, 1, 20800000, '2021-01-16 19:50:25', '2021-01-16 19:50:25'),
+(39, 33, 2, 1, 20800000, '2021-01-17 08:26:08', '2021-01-17 08:26:08'),
+(40, 34, 3, 1, 21600000, '2021-01-17 09:08:53', '2021-01-17 09:08:53'),
+(41, 34, 4, 1, 22400000, '2021-01-17 09:08:53', '2021-01-17 09:08:53'),
+(42, 35, 1, 1, 20000000, '2021-01-17 09:20:01', '2021-01-17 09:20:01'),
+(43, 36, 3, 1, 21600000, '2021-01-17 10:30:01', '2021-01-17 10:30:01'),
+(44, 37, 3, 1, 21600000, '2021-01-17 10:48:58', '2021-01-17 10:48:58'),
+(45, 37, 4, 2, 22400000, '2021-01-17 10:48:58', '2021-01-17 10:48:58'),
+(46, 38, 3, 2, 17600000, '2021-01-17 16:38:08', '2021-01-17 16:38:08');
 
 -- --------------------------------------------------------
 
@@ -203,9 +217,9 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `id_type`, `id_company`, `description`, `unit_price`, `promotion_price`, `image`, `new`, `last_modified_by_user`, `created_at`, `updated_at`) VALUES
-(69, 'Xiaomi Realmi 7 Pro', 8, 4, 'Màn hình:\r\nHệ điều hành:\r\nCamera sau:\r\nCamera trước:\r\nCPU:\r\nRAM:\r\nBộ nhớ trong:\r\nThẻ SIM:\r\nDung lượng pin:', 6600000, 0, 'realme-7-pro.jpg', 0, 7, '2021-01-15 17:50:52', '2021-01-15 18:00:53'),
-(70, 'iphone 11 pro max', 8, 1, 'Màn hình:<br>\r\nHệ điều hành:<br>\r\nCamera sau:<br>\r\nCamera trước:<br>\r\nCPU:<br>\r\nRAM:<br>\r\nBộ nhớ trong:<br>\r\nThẻ SIM:<br>\r\nDung lượng pin:<br>', 25000000, 20, 'iphone-11-pro-max-green.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-16 18:25:11'),
-(71, 'Realme 7 pro', 8, 6, 'Điện thoại xiaomi', 7000000, 10, 'realme-7-pro.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-15 18:00:53');
+(69, 'Xiaomi Realmi 7 Pro', 8, 4, 'Màn hình:\r\nHệ điều hành:\r\nCamera sau:\r\nCamera trước:\r\nCPU:\r\nRAM:\r\nBộ nhớ trong:\r\nThẻ SIM:\r\nDung lượng pin:', 10000000, 0, 'realme-7-pro.jpg', 0, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43'),
+(70, 'iphone 11 pro max', 8, 1, 'Màn hình:<br>\r\nHệ điều hành:<br>\r\nCamera sau:<br>\r\nCamera trước:<br>\r\nCPU:<br>\r\nRAM:<br>\r\nBộ nhớ trong:<br>\r\nThẻ SIM:<br>\r\nDung lượng pin:<br>', 20000000, 20, 'iphone-11-pro-max-green.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43'),
+(71, 'Realme 7 pro', 8, 6, 'Điện thoại xiaomi', 12000000, 10, 'realme-7-pro.jpg', 1, 7, '2021-01-15 17:50:52', '2021-01-17 16:21:43');
 
 -- --------------------------------------------------------
 
@@ -278,7 +292,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `phone`, `level`, `address`, `remember_token`, `last_modified_by_user`, `created_at`, `updated_at`) VALUES
 (6, 'Hương Hương', 'huonghuong08.php@gmail.com', '$2y$10$rGY4KT6ZSMmLnxIbmTXrsu2xdgRxm8x0UTwCyYCAzrJ320kYheSRq', '23456789', 0, 'Hoàng Diệu 2', NULL, NULL, '2017-03-23 07:17:33', '2021-01-16 09:58:45'),
-(7, 'trần ca', 'taller.2910@gmail.com', '$2y$10$PuVYBGx0mYylnah7tB7n9OjQgU86oxqDFGpvBxUk7SlhCrG45wOS6', '0903831922', 0, 'đà nẵng', NULL, NULL, '2021-01-10 09:00:26', '2021-01-16 09:58:45'),
+(7, 'trần ca', 'taller.2910@gmail.com', '$2y$10$PuVYBGx0mYylnah7tB7n9OjQgU86oxqDFGpvBxUk7SlhCrG45wOS6', '0903831922', 1, 'đà nẵng', NULL, NULL, '2021-01-10 09:00:26', '2021-01-17 12:19:55'),
 (8, 'trần ca', 'tqcao2910@gmail.com', '$2y$10$6A8B3yfmmm32Fm3gu9AWd.mPiI1qIY8NMPpJN8oJviT6QnoLsYB6m', '0905123123', 0, 'dfgsdfgh', NULL, NULL, '2021-01-11 06:48:09', '2021-01-16 09:58:45');
 
 --
@@ -359,13 +373,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT cho bảng `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `bill_detail`
 --
 ALTER TABLE `bill_detail`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT cho bảng `companies`
