@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Product_variant;
+use App\Models\Image;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -25,7 +27,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.add_product_admin');
+    }
+
+    public function createVariant($id)
+    {
+        $product=Product::find($id);
+        return view('admin.add_product_variant_admin',compact('product'));
     }
 
     /**
@@ -36,7 +44,99 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request,
+            [
+                'name'=>'required',
+                'unit_price'=>'required',
+                'images'=>'required'
+            ],
+            [
+                'name.required'=>'nhập tên',
+                'unit_price.required'=>'nhập giá',
+                'images.required'=>'nhập ảnh'
+            ]);
+        
+        $product=new Product;
+        $product->name=$request->name;
+        $product->description=$request->description;
+        $product->id_type=$request->type;
+        $product->id_company=$request->company;
+        $product->promotion_price=$request->promotion_price;
+        $product->unit_price=$request->unit_price;
+        $product->new=1;
+        $product->last_modified_by_user=Auth::user()->id;
+        $files=$request->file('images');
+        $name=null;
+        if($request->hasFile('images'))
+        {
+            foreach ($files as $file) {
+                $name=$file->getClientOriginalName();
+                $destinationPath=public_path('image/product');
+                $file->move($destinationPath,$name);
+
+            }
+            
+        }
+        $product->image=$name;
+        $product->save();
+        if($request->hasFile('images'))
+        {
+            foreach ($files as $file) {
+                $name=$file->getClientOriginalName();
+                $image=new Image;
+                $image->id_product=$product->id;
+                $image->link=$name;
+                $image->save();
+            }
+        }   
+        return redirect()->back()->with('thanhcong','Thêm sản phẩm mới thành công');
+    }
+
+    public function storeVariant(Request $request)
+    {
+        $this->validate($request,
+            [
+                'version'=>'required',
+                'colors'=>'required',
+                'unit_price'=>'required',
+                'quantity'=>'required'
+            ],
+            [
+                'version.required'=>'Nhập phiên bản',
+                'unit_price.required'=>'Nhập giá',
+                'colors.required'=>'Chọn màu',
+                'quantity.required'=>'Nhập số lượng'
+            ]);
+        if($request->image_product==0 && !$request->hasFile('image')){
+            $error=null;
+            $error="Hãy nhập ảnh!";
+            return redirect()->back()->with('error',$error);
+        }
+        foreach ($request->colors as $key => $color) {
+            $product_variant=new Product_variant;
+            $product_variant->id_product=$request->id_product;
+            $product_variant->version=$request->version;
+            $product_variant->color=$color;
+            $product_variant->unit_price=$request->unit_price;
+            $product_variant->quantity=$request->quantity;
+            $product_variant->last_modified_by_user=Auth::user()->id;
+            $name=null;
+            if($request->image_product!=0){
+                $product_variant->id_image=$request->image_product;
+            }else{
+                $file=$request->file('image');
+                $name=$file->getClientOriginalName();
+                $image=new Image;
+                $image->id_product=$request->id_product;
+                $image->link=$name;
+                $image->save();
+                $product_variant->id_image=$image->id;
+            }
+            $product_variant->save();
+        }
+        
+             
+        return redirect()->back()->with('thanhcong','Thêm sản phẩm mới thành công');
     }
 
     /**

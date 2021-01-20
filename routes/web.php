@@ -107,6 +107,8 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('user', UserController::class);
 	// show trang đăng nhập Admin
 	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
+	Route::get('createvariant/{id}',[ProductController::class,'createVariant'])->name('product.createvariant');
+	Route::post('storevariant',[ProductController::class,'storeVariant'])->name('product.storevariant');
 	//show trang dashboard
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');

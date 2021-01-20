@@ -111,7 +111,7 @@ class AppServiceProvider extends ServiceProvider
             $users=User::paginate(10);
             $view->with('users',$users);
         });
-        view()->composer('page.quanly.themsanpham',function($view){
+        view()->composer('admin.add_product_admin',function($view){
             $product_types=Type_product::all();
             $companies=Company::all();
             $view->with(['product_types'=>$product_types,'companies'=>$companies]);
