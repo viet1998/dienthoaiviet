@@ -9,6 +9,7 @@ use App\Models\Bill;
 use App\Models\Bill_detail;
 use App\Models\Customer;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -19,7 +20,7 @@ class BillController extends Controller
      */
     public function index()
     {
-        $bills=Bill::orderBy('date_order','DESC')->paginate(10);
+        $bills=Bill::orderBy('created_at','DESC')->paginate(10);
         return view('admin.bill_admin',compact('bills'));
     }
 
@@ -65,7 +66,7 @@ class BillController extends Controller
     public function edit($id)
     {
         $bill=Bill::find($id);
-        return view('page.quanly.suadonhang',compact('bill'));
+        return view('admin.edit_bill',compact('bill'));
     }
 
     /**
@@ -86,9 +87,9 @@ class BillController extends Controller
             ]);
         $bill=Bill::find($id);
         $bill->status=$request->status;
-        $bill->note=$request->note;
+        $bill->last_modified_by_user=Auth::user()->id;
         $bill->update();
-        return redirect()->back()->with('thanhcong','Đơn hàng đã chuyển sang trạng thái '.$request->status);
+        return redirect()->back()->with('thanhcong','Đơn hàng đã được chuyển trạng thái');
     }
 
     /**

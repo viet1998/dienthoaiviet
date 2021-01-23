@@ -38,6 +38,9 @@
 												@if(Session::has('thanhcong'))
 												<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 												@endif
+												@if(Session::has('thatbai'))
+												<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
+												@endif
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Tên Sản Phẩm</label>
@@ -68,7 +71,7 @@
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Mô Tả</label>
 												<div class="col-sm-10">
-													<textarea name="description" class="form-control">{{$product->description}}</textarea>
+													<textarea name="description" class="form-control" style="height: 300px">{{$product->description}}</textarea>
 												</div>
 											</div>
 											<div class="form-group row">
@@ -94,10 +97,27 @@
 												</div>
 											</div>
 											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Hình Ảnh</label>
+												<label  class="col-sm-2 col-form-label">Ảnh Đại Diện</label>
 												<div class="col-sm-10">
-													<input type="file" name="image" class="form-control" placeholder="" >
-													<img src="/image/product/{{$product->image}}" width="100px" height="100px"/>
+													<table>
+														<tr>
+													@foreach($product->images as $image)
+														<td align="center">
+
+															<p><input type="radio" name="image" value="{{$image->link}}" @if($product->image==$image->link) checked @endif> </p>
+															<p><img src="/image/product/{{$image->link}}" width="100px" height="100px"/> </p>
+															<p><a href="{{route('remove_image',$image->id)}}" class="btn btn-danger">Xóa</a> </p>
+														</td>
+													@endforeach
+														</tr>
+													</table>
+													
+												</div>
+											</div>
+											<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Thêm Hình Ảnh</label>
+												<div class="col-sm-10">
+													<input type="file" name="addimage[]" class="form-control" placeholder="" multiple >
 												</div>
 											</div>
 

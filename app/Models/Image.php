@@ -14,7 +14,7 @@ class Image extends Model
         return $this->belongsTo(Product::class,'id_product','id'); //id của type product
     }
     
-    public function product_variants(){
-        return $this->hasOne(Product_variant::class,'id','id_image');
+    public function product_variant(){
+        return $this->hasOne(Product_variant::class,'id_image','id');
     }
 }

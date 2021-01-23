@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use App\Models\Bill;
 use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerController extends Controller
 {
@@ -85,7 +86,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer=Customer::find($id);
-        return view('page.quanly.suakhachhang',compact('customer'));
+        return view('admin.edit_customer',compact('customer'));
     }
 
     /**
@@ -132,7 +133,7 @@ class CustomerController extends Controller
                 ]);
         }
         $customer->address=$request->address;
-        
+        $customer->last_modified_by_user=Auth::user()->id;
         $customer->note=$request->note;
         $customer->update();
         return redirect()->back()->with('thanhcong','Sửa thông tin thành công');

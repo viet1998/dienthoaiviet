@@ -71,7 +71,7 @@ class ProductController extends Controller
         {
             foreach ($files as $file) {
                 $name=$file->getClientOriginalName();
-                $destinationPath=public_path('image/product');
+                $destinationPath=public_path('/image/product');
                 $file->move($destinationPath,$name);
 
             }
@@ -166,6 +166,12 @@ class ProductController extends Controller
         return view('admin.edit_product',['product'=>$product]);
     }
 
+    public function editVariant($id)
+    {
+        $product_variant=Product_variant::find($id);
+        return view('admin.edit_product_variant',['product_variant'=>$product_variant]);
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -178,36 +184,74 @@ class ProductController extends Controller
         $this->validate($request,
             [
                 'name'=>'required',
-                'type'=>'required',
-                'company'=>'required',
                 'unit_price'=>'required',
-                'promotion_price'=>'required',
             ],
             [
                 'name.required'=>'nhập tên',
-                'type.required'=>'nhập loại',
-                'type.required'=>'nhập hãng',
                 'unit_price.required'=>'nhập giá',
-                'promotion_price.required'=>'nhập giá khuyến mãi nhỏ nhất = 0',
             ]);
         $product=Product::find($id);
         $product->name=$request->name;
         $product->description=$request->description;
         $product->id_type=$request->type;
         $product->id_company=$request->company;
-        $product->unit_price=$request->unit_price;
         $product->promotion_price=$request->promotion_price;
+        $product->unit_price=$request->unit_price;
         $product->new=$request->new;
-        if($request->hasFile('image'))
+        $product->last_modified_by_user=Auth::user()->id;
+        $product->image=$request->image;
+        $files=$request->file('addimage');
+        $name=null;
+        if($request->hasFile('addimage'))
         {
-            $file=$request->file('image');
-            $name=$file->getClientOriginalName();
-            $destinationPath=public_path('/image/product');
-            $file->move($destinationPath,$name);
-            $product->image=$name;
+            foreach ($files as $file) {
+                $name=$file->getClientOriginalName();
+                $destinationPath=public_path('/image/product');
+                $file->move($destinationPath,$name);
+                $image=new Image;
+                $image->id_product=$product->id;
+                $image->link=$name;
+                $image->save();
+            }
         }
         $product->update();
         return redirect()->back()->with('thanhcong','Sửa thông tin thành công');
+    }
+
+    public function updateVariant(Request $request, $id){
+        $this->validate($request,
+            [
+                'version'=>'required',
+                'color'=>'required',
+                'unit_price'=>'required',
+                'quantity'=>'required'
+            ],
+            [
+                'version.required'=>'Nhập phiên bản',
+                'unit_price.required'=>'Nhập giá',
+                'color.required'=>'Chọn màu',
+                'quantity.required'=>'Nhập số lượng'
+            ]);
+        
+        $product_variant=Product_variant::find($id);
+        $product_variant->version=$request->version;
+        $product_variant->color=$request->color;
+        $product_variant->unit_price=$request->unit_price;
+        $product_variant->quantity=$request->quantity;
+        $product_variant->last_modified_by_user=Auth::user()->id;
+        $product_variant->id_image=$request->image;
+        $product_variant->save();
+        return redirect()->back()->with('thanhcong','Thêm sản phẩm mới thành công');
+    }
+
+    public function removeImage($id)
+    {
+        $image = Image::find($id);
+        $productvariant= Product_variant::where('id_image',$image->id)->get();
+        if(count($productvariant)>0)
+            return redirect()->back()->with('thatbai','Hãy thay đổi ảnh của sản phẩm: '.$image->product->name.' '.$image->product_variant->version.' '.$image->product_variant->color.' trước khi xóa'); 
+        $image->delete();
+        return redirect()->back()->with('thanhcong','Xóa ảnh thành công');
     }
 
     /**

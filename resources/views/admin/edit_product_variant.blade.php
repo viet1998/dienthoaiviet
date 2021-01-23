@@ -17,14 +17,14 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Thêm Sản Phẩm <span id="getTotal"></span>
+									<h3>Sửa Biến Thể Của Sản Phẩm {{$product_variant->product->name}} <span id="getTotal"></span>
 									</h3>
 									
 										
 								</header>
 								<div class="panel-body">
 									<div class="col-md-12">
-										<form action="{{route('product.storevariant')}}" method="post" enctype="multipart/form-data">
+										<form action="{{route('product.updatevariant',$product_variant->id)}}" method="post" enctype="multipart/form-data">
 											@csrf
 											<div class="form-group row">
 												@if(Session::has('error'))
@@ -44,64 +44,62 @@
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">ID Sản Phẩm</label>
 												<div class="col-sm-10">
-													<input type="number" name="id_product" class="form-control"  placeholder="" value="{{$product->id}}">
+													<input type="number" name="id_product" class="form-control"  placeholder="" value="{{$product_variant->product->id}}" disabled="disabled">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Tên Sản Phẩm</label>
 												<div class="col-sm-10">
-													<input type="text" name="name" class="form-control"  placeholder="" value="{{$product->name}}" disabled="" >
+													<input type="text" name="name" class="form-control"  placeholder="" value="{{$product_variant->product->name}}" disabled="" >
 												</div>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Phiên Bản</label>
 												<div class="col-sm-10">
-													<input type="text" name="version" class="form-control"  placeholder="Nhập phiên bản" >
+													<input type="text" name="version" class="form-control"  placeholder="Nhập phiên bản" value="{{$product_variant->version}}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Màu</label>
 												<div class="col-sm-10">
-													<input name="colors[]" type="checkbox" value="Đỏ" /> Đỏ
-													<input name="colors[]" type="checkbox" value="Vàng" /> Vàng
-													<input name="colors[]" type="checkbox" value="Trắng" /> Trắng
-													<input name="colors[]" type="checkbox" value="Đen" /> Đen
-													<input name="colors[]" type="checkbox" value="Xanh Lá" /> Xanh Lá
-													<input name="colors[]" type="checkbox" value="Xanh Dương" /> Xanh Dương
+													<input name="color" type="radio" value="Đỏ" @if($product_variant->color=='Đỏ') checked @endif/> Đỏ
+													<input name="color" type="radio" value="Vàng" @if($product_variant->color=='Vàng') checked @endif/> Vàng
+													<input name="color" type="radio" value="Trắng" @if($product_variant->color=='Trắng') checked @endif/> Trắng
+													<input name="color" type="radio" value="Đen" @if($product_variant->color=='Đen') checked @endif/> Đen
+													<input name="color" type="radio" value="Xanh Lá" @if($product_variant->color=='Xanh Lá') checked @endif/> Xanh Lá
+													<input name="color" type="radio" value="Xanh Dương" @if($product_variant->color=='Xanh Dương') checked @endif/> Xanh Dương
 												</div>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Giá</label>
 
 												<div class="col-sm-10">
-													<input type="number" name="unit_price" class="form-control"  placeholder="Nhập giá" >
+													<input type="number" name="unit_price" class="form-control"  placeholder="Nhập giá" value="{{$product_variant->unit_price}}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Hình Ảnh</label>
-												<div class="col-sm-10">
-													<SELECT class="form-control" name="image_product">
-														<option value="0">Không</option>
-														@foreach($product->images as $image)
-														<option value="{{$image->id}}" >{{$image->link}}</option>
-														@endforeach
-													</SELECT>
-
-												</div>
-												<div class="col-sm-10" style="float: right">
-													<input type="file" name="image" class="form-control" placeholder="">
-												</div>
+												<table>
+													<tr>
+													@foreach($product_variant->product->images as $image)
+														<td align="center">
+															<p><input type="radio" name="image" value="{{$image->id}}" @if($product_variant->id_image==$image->id) checked @endif> </p>
+															<p><img src="/image/product/{{$image->link}}" width="100px" height="100px"/> </p>
+														</td>
+													@endforeach
+													</tr>
+												</table>
 											</div>
 											<div class="form-group row">
 												<label  class="col-sm-2 col-form-label">Số Lượng</label>
 												<div class="col-sm-10">
-													<input type="number" name="quantity" class="form-control"  placeholder="Nhập số lượng" >
+													<input type="number" name="quantity" class="form-control"  placeholder="Nhập số lượng" value="{{$product_variant->quantity}}">
 												</div>
 											</div>
 											<div class="form-group row">
 												<div  align="center">
 													<input type="submit" class="btn btn-primary" value="Nhập">
-													<a href="{{route('product.index')}}" class="btn btn-primary">Quay Lại</a>
+													<a href="{{route('productvariants')}}" class="btn btn-primary">Quay Lại</a>
 												</div>
 
 											</div>

@@ -53,7 +53,7 @@
 												@foreach($product_variants as $product)
 												<tr>
 													<td>{{$product->id}}</td>
-													<td><a href="{{route('show',$product->id_product)}}">{{$product->product->name}}</a></td>
+													<td><a href="{{route('product.edit',$product->id_product)}}">{{$product->product->name}}</a></td>
 													<td>{{$product->version}}</td>
 													<td>{{$product->color}}</td>
 													<td>{{$product->product->product_type->name}}</td>
@@ -71,7 +71,7 @@
 														<form method="post" action="{{route('product.destroy',$product->id)}}">
 															@csrf
 															@method('DELETE')
-															<a href="{{route('product.edit',$product->id)}}"class="btn btn-primary">Sửa</a>
+															<a href="{{route('product.editvariant',$product->id)}}"class="btn btn-primary">Sửa</a>
 															<input type="submit" class="btn btn-primary" onclick="return confirm('Có xóa {{$product->name}} không?');"value="Xóa">
 														</form>
 													</td>

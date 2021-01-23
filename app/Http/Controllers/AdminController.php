@@ -13,6 +13,7 @@ use App\Models\Type_product;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Company;
+use App\Models\Visitor;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -54,14 +55,13 @@ class AdminController extends Controller
         $bill_total=Bill::select(Bill::raw('sum(total) as tongtien'))->where('date_order','>=',$range)->where('date_order','<=',$to)->get();
         
         foreach ($bill_total as $key => $value) {
-            # code...
-        
         ?>
         : <?php echo number_format($value->tongtien); ?> VNĐ
         <?php
         }
     }
     public function getAdminDashboard(){
+        // $user_ip_address = $request
         return view('admin.dashboard');
     }
 }
