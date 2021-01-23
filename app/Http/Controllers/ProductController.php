@@ -102,7 +102,7 @@ class ProductController extends Controller
         {
             $file=$request->file('image');
             $name=$file->getClientOriginalName();
-            $destinationPath=public_path('image/product');
+            $destinationPath=public_path('/image/product');
             $file->move($destinationPath,$name);
             $product->image=$name;
         }

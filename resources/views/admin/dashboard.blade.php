@@ -64,38 +64,72 @@
 			</div>
 		   <div class="clearfix"> </div>
 		</div>	
-		<!-- //market-->
+
 		<div class="row">
 			<div class="panel-body">
 				<div class="col-md-12 w3ls-graph">
-					<!--agileinfo-grap-->
-						<div class="agileinfo-grap">
-							<div class="agileits-box">
-								<header class="agileits-box-header clearfix">
-									<h3>Thống Kê Doanh Thu <span id="getTotal"></span>
-									<div style="float:right">
-										<select id="dateselect">
-											<option value="30">Tháng</option>
-											<option value="90">Quý</option>
-											<option value="365">Năm</option>
-										</select>
-									</div>
-									</h3>
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Thống Kê Doanh Thu <span id="getTotal"></span>
+								<div style="float:right">
+									<select id="dateselect">
+										<option value="30">Tháng</option>
+										<option value="90">Quý</option>
+										<option value="365">Năm</option>
+									</select>
+								</div>
+								</h3>
+								
 									
-										
-								</header>
-								<div class="panel-body">
-									<div class="canvas-wrapper">
-										<div id="stats-container" style="height: 250px;"></div>
-									</div>
+							</header>
+							<div class="panel-body">
+								<div class="canvas-wrapper">
+									<div id="stats-container" style="height: 250px;"></div>
 								</div>
 							</div>
 						</div>
-	<!--//agileinfo-grap-->
-
+					</div>
 				</div>
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-12 w3ls-graph">
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
+							</header>
+							<div class="panel-body">
+								<table class="table table-bordered table-dark">
+									<thead>
+										<tr>
+											<td scope="col">Đang online</td>
+											<td scope="col">Tổng tháng trước</td>
+											<td scope="col">Tổng tháng này</td>
+											<td scope="col">Tổng một năm</td>
+											<td scope="col">Tổng truy cập</td>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>2</td>
+											<td>3</td>
+											<td>4</td>
+											<td>5</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="agil-info-calendar">
 		<!-- calendar -->
 		<div class="col-md-6 agile-calendar">
