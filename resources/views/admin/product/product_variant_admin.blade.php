@@ -17,7 +17,16 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Danh Sách Sản Phẩm trong kho<span id="getTotal"></span>
+									<h3>Danh Sách Sản Phẩm trong kho 
+										<div style="float:right">
+											<select name="sort" id="sort">
+												<option value="0">Sắp Xếp</option>
+												<option value="1">Giá Tăng</option>
+												<option value="2">Giá Giảm</option>
+												<option value="3">Số Lượng Bán</option>
+											</select>
+											<a href="{{route('product.index')}}" class="btn btn-primary">Refresh</a>
+										</div><span id="getTotal"></span>
 									</h3>
 									
 										
@@ -30,7 +39,7 @@
 										@if(Session::has('thatbai'))
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
-										<table id="getProduct" class="table">
+										<table  class="table">
 											<thead>
 												<tr>
 													<th>ID</th>
@@ -49,7 +58,7 @@
 													<th>Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody >
+											<tbody id="getProduct">
 												@foreach($product_variants as $product)
 												<tr>
 													<td>{{$product->id}}</td>
@@ -106,5 +115,22 @@
 </section>
 <!--main content end-->
 </section>
+<script type="text/javascript">
+		$("#search").on('click',function(){
+			console.log();
+			var searchname=document.getElementById("searchname").value;
+			$.get('search/'+searchname,function(data){
+				$("#getProduct").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
+
+			$.get('sortproductvariant/'+sort,function(data){
+				$("#getProduct").html(data);
+			});
+		});
+	</script>
 
 @endsection

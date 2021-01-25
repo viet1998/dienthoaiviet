@@ -107,13 +107,15 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('customer', CustomerController::class);
 	Route::resource('bill', BillController::class);
 	Route::resource('user', UserController::class);
-	// show trang đăng nhập Admin
+	// quản lý product variant
 	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
 	Route::get('createvariant/{id}',[ProductController::class,'createVariant'])->name('product.createvariant');
 	Route::get('productvariants/{id}/edit',[ProductController::class,'editVariant'])->name('product.editvariant');
 	Route::get('removeimage/{id}',[ProductController::class,'removeImage'])->name('remove_image');
 	Route::post('storevariant',[ProductController::class,'storeVariant'])->name('product.storevariant');
 	Route::post('updatevariant/{id}',[ProductController::class,'updateVariant'])->name('product.updatevariant');
+	//sắp xếp sảnphaamr
+	Route::get('sortproductvariant/{id}',[ProductController::class,'getSortVariant'])->name('sortproductvariant');
 	//show trang dashboard
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');

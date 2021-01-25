@@ -7,6 +7,9 @@ use App\Models\Product;
 use App\Models\Product_variant;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Session;
+use Collective\Html\FormFacade as Form;
 
 class ProductController extends Controller
 {
@@ -279,73 +282,61 @@ class ProductController extends Controller
             $products=Product::all();
         foreach($products as $product)
         {
-        showProductToHtml($product)
+        showProductToHtml($product);
         } 
     }
 
-    public function getSort($id)
+    public function getSortVariant($id)
     {
         
         switch ($id) {
             case 1:
-                $products=Product::orderBy('unit_price')->get();
+                $product_variants=Product_variant::orderBy('unit_price')->get();
                 break;
 
             case 2:
-                $products=Product::orderBy('unit_price','DESC')->get();
+                $product_variants=Product_variant::orderBy('unit_price','DESC')->get();
                 break;
 
             case 3:
-                $products=Product::join('bill_detail', 'products.id', '=', 'bill_detail.id_product')->select('products.id','name','id_type','description','products.unit_price','promotion_price','image','unit','new',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))->groupBy('bill_detail.id_product')->orderByDesc('product_count')->get();
+                $product_variants=Product_variant::join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','quantity','last_modified_by_user',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))->groupBy('bill_detail.id_product')->orderByDesc('product_count')->get();
                 break;
             
             default:
                 # code...
                 break;
-        }?>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Tên</th>
-                <th>Loại Bánh</th>
-                <th>Mô Tả</th>
-                <?php if($id==3) {?><th>Số lượng đã bán</th><?php } ?>
-                <th>Giá</th>
-                <th>Giá Khuyến Mãi</th>
-                <th>Hình Ảnh</th>
-                <th>Đơn vị</th>
-                <th>Chức Năng</th>
-            </tr>
-        </thead>
-        <tbody >
-            <?php
-        foreach($products as $product)
+        }
+        foreach($product_variants as $product)
         {
             ?>
         <tr>
         <td><?php echo $product['id']; ?></td >
-        <td><a href="<?php echo  route('sanpham',$product['id']) ?>"><?php echo $product['name'] ?></a></td>
-        <td><a href="<?php echo  route('loai_sanpham',$product['product_type']['id']) ?>"><?php echo $product['product_type']['name'] ?></a></td>
-        <td width="200px"><?php echo $product['description'] ?></td>
-        <?php if($id==3) {?><td><?php echo $product['product_count'] ?></td><?php } ?>
-        <td style=""><?php echo number_format($product['unit_price']) ?> VNĐ</td>
-        <td style=""><?php echo number_format($product['promotion_price']) ?> VNĐ</td>
-        <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image'] ?>"> </td>
-        <td><?php echo $product['unit'] ?></td>
-        <!-- <?php if(isset($product['bills_count']))?>
-        <td><?php echo $product['bills_count'] ?></td>  -->
+        <td><a href="<?php echo  route('product.edit',$product->id_product) ?>"><?php echo $product['product']['name'] ?></a></td>
+        <td><?php echo $product['version']; ?></td >
+        <td><?php echo $product['color']; ?></td >
+        <td><?php echo $product['product']['product_type']['name']; ?></td >
+        <td><?php echo $product['product']['company']['name']; ?></td >
+        <td><?php echo $product['quantity']; ?></td >
+        <?php if($id==3) {?>
+            <td><?php echo $product['product_count'] ?></td>
+        <?php } else {
+        ?>  <td><?php echo count($product['bill_detail']); ?></td >
+        <?php } ?>
+        <td style=""><?php echo number_format($product['unit_price'],0,'','.') ?> VNĐ</td>
+        <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image']['link'] ?>"> </td>
+        <td><?php echo $product['last_modified_by_user'].' - '.$product['user_modified']['full_name']; ?></td>
+        <td><?php echo $product['created_at']; ?></td >
+        <td><?php echo $product['updated_at']; ?></td >
         <td style="">
 
-        <!-- <form method="post" action="<?php echo route('qlsanpham.destroy',$product['id']) ?>"> -->
-        <?php echo Form::open(array('route' => ['qlsanpham.destroy',$product['id']], 'method' => 'delete')); ?>
+        
+        <?php echo Form::open(array('route' => ['product.destroy',$product['id']], 'method' => 'delete')); ?>
             <?php Form::token() ?>
-            <a href="<?php echo route('qlsanpham.edit',$product['id']); ?>" class="btn btn-primary">Sửa</a>
-            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['name'].' không?")']); ?>
+            <a href="<?php echo route('product.editvariant',$product['id']); ?>" class="btn btn-primary">Sửa</a>
+            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['product']['name'].' không?")']); ?>
         <?php echo Form::close(); ?>
         </td>
         </tr>
-        </tbody>
-        
         <?php } 
          // return $products;
         // return view('page.quanly.timkiemsanpham',compact('products','request')); onclick="return  confirm('Có xóa '+<?php $product['name']+' không?');"
@@ -353,7 +344,7 @@ class ProductController extends Controller
 
     public function getProductVariant(){
         $product_variants=Product_variant::paginate(10);
-        return view('admin.product_variant_admin',compact('product_variants'));
+        return view('admin.product.product_variant_admin',compact('product_variants'));
     }
      public function showProductToHtml($product){
         ?>
