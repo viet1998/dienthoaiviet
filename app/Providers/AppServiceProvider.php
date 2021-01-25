@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with(['bills_count'=>$bills->count(),'products_count'=>$products->count(),'newbills_count'=>$newbills->count(),'users_count'=>$users->count()]);
         });
 
-        view()->composer('admin.product_admin',function($view){
+        view()->composer('admin.product.product_admin',function($view){
             $products=Product::paginate(10);
             $view->with('products',$products);
         });
@@ -111,12 +111,12 @@ class AppServiceProvider extends ServiceProvider
             $users=User::paginate(10);
             $view->with('users',$users);
         });
-        view()->composer('admin.add_product_admin',function($view){
+        view()->composer('admin.product.add_product_admin',function($view){
             $product_types=Type_product::all();
             $companies=Company::all();
             $view->with(['product_types'=>$product_types,'companies'=>$companies]);
         });
-        view()->composer('admin.edit_product',function($view){
+        view()->composer('admin.product.edit_product',function($view){
             $product_types=Type_product::all();
             $companies=Company::all();
             $view->with(['product_types'=>$product_types,'companies'=>$companies]);

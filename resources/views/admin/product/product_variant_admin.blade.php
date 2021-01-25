@@ -25,7 +25,7 @@
 												<option value="2">Giá Giảm</option>
 												<option value="3">Số Lượng Bán</option>
 											</select>
-											<a href="{{route('product.index')}}" class="btn btn-primary">Refresh</a>
+											<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
 										</div><span id="getTotal"></span>
 									</h3>
 									
@@ -68,7 +68,7 @@
 													<td>{{$product->product->product_type->name}}</td>
 													<td>{{$product->product->company->name}}</td>
 													<td>{{$product->quantity}}</td>
-													<td>{{count($product->bill_detail)}}</td>
+													<td>{{$product->bill_detail->sum('quantity')}}</td>
 													<td >{{number_format($product->unit_price,0,'','.') }} VNĐ</td>
 													<td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$product->image->link}}"></td>
 													<td>@if($product->last_modified_by_user!=null) 

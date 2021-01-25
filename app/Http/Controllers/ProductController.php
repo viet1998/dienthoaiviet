@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Product_variant;
+use App\Models\Bill_detail;
 use App\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
@@ -23,6 +24,10 @@ class ProductController extends Controller
         return view('admin.product.product_admin');
     }
 
+    public function getProductVariant(){
+        $product_variants=Product_variant::paginate(10);
+        return view('admin.product.product_variant_admin',compact('product_variants'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -299,7 +304,7 @@ class ProductController extends Controller
                 break;
 
             case 3:
-                $product_variants=Product_variant::join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','quantity','last_modified_by_user',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))->groupBy('bill_detail.id_product')->orderByDesc('product_count')->get();
+                $product_variants=Product_variant::Join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','product_variants.quantity','last_modified_by_user','product_variants.created_at','product_variants.updated_at',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))->groupBy('bill_detail.id_product_variant')->orderByDesc('product_count')->get();
                 break;
             
             default:
@@ -320,14 +325,14 @@ class ProductController extends Controller
         <?php if($id==3) {?>
             <td><?php echo $product['product_count'] ?></td>
         <?php } else {
-        ?>  <td><?php echo count($product['bill_detail']); ?></td >
+        ?>  <td><?php echo $product->bill_detail->sum('quantity'); ?></td >
         <?php } ?>
         <td style=""><?php echo number_format($product['unit_price'],0,'','.') ?> VNĐ</td>
         <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image']['link'] ?>"> </td>
         <td><?php echo $product['last_modified_by_user'].' - '.$product['user_modified']['full_name']; ?></td>
         <td><?php echo $product['created_at']; ?></td >
         <td><?php echo $product['updated_at']; ?></td >
-        <td style="">
+        <td style="width: 150px">
 
         
         <?php echo Form::open(array('route' => ['product.destroy',$product['id']], 'method' => 'delete')); ?>
@@ -342,10 +347,7 @@ class ProductController extends Controller
         // return view('page.quanly.timkiemsanpham',compact('products','request')); onclick="return  confirm('Có xóa '+<?php $product['name']+' không?');"
     }
 
-    public function getProductVariant(){
-        $product_variants=Product_variant::paginate(10);
-        return view('admin.product.product_variant_admin',compact('product_variants'));
-    }
+    
      public function showProductToHtml($product){
         ?>
         <tr>
