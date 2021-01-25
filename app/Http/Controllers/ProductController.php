@@ -17,7 +17,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.product_admin');
+        return view('admin.product.product_admin');
     }
 
     /**
@@ -27,13 +27,13 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.add_product_admin');
+        return view('admin.product.add_product_admin');
     }
 
     public function createVariant($id)
     {
         $product=Product::find($id);
-        return view('admin.add_product_variant_admin',compact('product'));
+        return view('admin.product.add_product_variant_admin',compact('product'));
     }
 
     /**
@@ -147,8 +147,7 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $product = Product::find($id);
-        return view('show',compact('product'));
+        
     }
     // public function navbar(){
     //     return view('navbar');
@@ -163,13 +162,13 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product=Product::find($id);
-        return view('admin.edit_product',['product'=>$product]);
+        return view('admin.product.edit_product',['product'=>$product]);
     }
 
     public function editVariant($id)
     {
         $product_variant=Product_variant::find($id);
-        return view('admin.edit_product_variant',['product_variant'=>$product_variant]);
+        return view('admin.product.edit_product_variant',['product_variant'=>$product_variant]);
     }
 
     /**
@@ -280,29 +279,8 @@ class ProductController extends Controller
             $products=Product::all();
         foreach($products as $product)
         {
-            ?>
-        <tr>
-        <td><a href="<?php echo  route('sanpham',$product['id']) ?>"><?php echo $product['name'] ?></a></td>
-        <td><a href="<?php echo  route('loai_sanpham',$product['product_type']['id']) ?>"><?php echo $product['product_type']['name'] ?></a></td>
-        <td width="200px"><?php echo $product['description'] ?></td>
-        <td style="text-align: center"><?php echo number_format($product['unit_price']) ?> VNĐ</td>
-        <td style="text-align: center"><?php echo number_format($product['promotion_price']) ?> VNĐ</td>
-        <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image'] ?>"> </td>
-        <td><?php echo $product['unit'] ?></td>
-        <!-- <?php if(isset($product['bills_count']))?>
-        <td><?php echo $product['bills_count'] ?></td>  -->
-        <td style="">
-
-        <!-- <form method="post" action="<?php echo route('qlsanpham.destroy',$product['id']) ?>"> -->
-        <?php echo Form::open(array('route' => ['qlsanpham.destroy',$product['id']], 'method' => 'delete')); ?>
-            <?php Form::token() ?>
-            <a href="<?php echo route('qlsanpham.edit',$product['id']); ?>" class="btn btn-primary">Sửa</a>
-            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['name'].' không?")']); ?>
-        <?php echo Form::close(); ?>
-        </td>
-        </tr>
-        
-        <?php } 
+        showProductToHtml($product)
+        } 
     }
 
     public function getSort($id)
@@ -377,5 +355,28 @@ class ProductController extends Controller
         $product_variants=Product_variant::paginate(10);
         return view('admin.product_variant_admin',compact('product_variants'));
     }
+     public function showProductToHtml($product){
+        ?>
+        <tr>
+        <td><a href="<?php echo  route('sanpham',$product['id']) ?>"><?php echo $product['name'] ?></a></td>
+        <td><a href="<?php echo  route('loai_sanpham',$product['product_type']['id']) ?>"><?php echo $product['product_type']['name'] ?></a></td>
+        <td width="200px"><?php echo $product['description'] ?></td>
+        <td style="text-align: center"><?php echo number_format($product['unit_price']) ?> VNĐ</td>
+        <td style="text-align: center"><?php echo number_format($product['promotion_price']) ?> VNĐ</td>
+        <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image'] ?>"> </td>
+        <td><?php echo $product['unit'] ?></td>
+        <!-- <?php if(isset($product['bills_count']))?>
+        <td><?php echo $product['bills_count'] ?></td>  -->
+        <td style="">
 
+        <!-- <form method="post" action="<?php echo route('qlsanpham.destroy',$product['id']) ?>"> -->
+        <?php echo Form::open(array('route' => ['qlsanpham.destroy',$product['id']], 'method' => 'delete')); ?>
+            <?php Form::token() ?>
+            <a href="<?php echo route('qlsanpham.edit',$product['id']); ?>" class="btn btn-primary">Sửa</a>
+            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['name'].' không?")']); ?>
+        <?php echo Form::close(); ?>
+        </td>
+        </tr>
+        <?php
+     }
 }

@@ -17,7 +17,7 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Danh Sách Sản Phẩm trong kho<span id="getTotal"></span>
+									<h3>Danh Sách Sản Phẩm <span id="getTotal"></span>
 									</h3>
 									
 										
@@ -35,35 +35,37 @@
 												<tr>
 													<th>ID</th>
 													<th>Tên</th>
-													<th>Phiên Bản</th>
-													<th>Màu</th>
 													<th>Loại Sản Phẩm</th>
 													<th>Hãng</th>
-													<th>Số Lượng</th>
 													<th>Mô Tả</th>
 													<th>Giá</th>
+													<th>Khuyến Mãi</th>
 													<th>Hình Ảnh</th>
+													<th>Trạng Thái Mới</th>
 													<th>Sửa Đổi Lần Cuối</th>
-													<th>Ngày Thêm</th>
+													<th>Ngày Tạo</th>
 													<th>Ngày Sửa Đổi</th>
 													<th>Chức Năng</th>
 												</tr>
 											</thead>
 											<tbody >
-												@foreach($product_variants as $product)
+												@foreach($products as $product)
 												<tr>
 													<td>{{$product->id}}</td>
-													<td><a href="{{route('product.edit',$product->id_product)}}">{{$product->product->name}}</a></td>
-													<td>{{$product->version}}</td>
-													<td>{{$product->color}}</td>
-													<td>{{$product->product->product_type->name}}</td>
-													<td>{{$product->product->company->name}}</td>
-													<td>{{$product->quantity}}</td>
-													<td width="200px">{{$product->product->description}}</td>
+													<td><a href="{{route('show',$product->id)}}" target="_blank">{{$product->name}}</a></td>
+													<td>{{$product->product_type->name}}</td>
+													<td>{{$product->company->name}}</td>
+													<td width="200px"><?php echo $product->description; ?></td>
 													<td >{{number_format($product->unit_price,0,'','.') }} VNĐ</td>
-													<td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$product->image->link}}"></td>
-													<td>@if($product->last_modified_by_user!=null) 
-														{{$product->last_modified_by_user}} - {{$product->user_modified->full_name}} @endif</td>
+													<td>{{$product->promotion_price}}</td>
+													<td width="150px">@foreach($product->images as $image)
+														<img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$image->link}}">
+														@endforeach
+													</td>
+													<td>{{$product->new}}</td>
+													<td>
+														{{$product->last_modified_by_user}} - {{$product->user_modified->full_name}} 
+													</td>
 													<td>{{$product->created_at}}</td>
 													<td>{{$product->updated_at}}</td>
 													<td style="">
@@ -71,14 +73,15 @@
 														<form method="post" action="{{route('product.destroy',$product->id)}}">
 															@csrf
 															@method('DELETE')
-															<a href="{{route('product.editvariant',$product->id)}}"class="btn btn-primary">Sửa</a>
+															<a href="{{route('product.edit',$product->id)}}"class="btn btn-primary">Sửa</a>
+															<a href="{{route('product.createvariant',$product->id)}}"class="btn btn-primary">Thêm Biến Thế</a>
 															<input type="submit" class="btn btn-primary" onclick="return confirm('Có xóa {{$product->name}} không?');"value="Xóa">
 														</form>
 													</td>
 												</tr>
 												@endforeach
 												<tr>
-													<td colspan="8"><div align="center">{{$product_variants->links()}}</div></td>
+													<td colspan="8"><div align="center">{{$products->links()}}</div></td>
 												</tr>
 											</tbody>
 										</table>

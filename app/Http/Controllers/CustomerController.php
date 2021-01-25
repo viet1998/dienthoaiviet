@@ -18,7 +18,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customers=Customer::paginate(10);
-        return view('admin.customer_admin',compact('customers'));
+        return view('admin.customer.customer_admin',compact('customers'));
     }
 
     /**
@@ -28,7 +28,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('page.quanly.themkhachhang');
+        return view('admin.customer.themkhachhang');
     }
 
     /**
@@ -74,7 +74,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return view('page.quanly.quanlykhachhang');
+        
     }
 
     /**
@@ -86,7 +86,7 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $customer=Customer::find($id);
-        return view('admin.edit_customer',compact('customer'));
+        return view('admin.customer.edit_customer',compact('customer'));
     }
 
     /**

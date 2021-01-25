@@ -11,11 +11,11 @@
 .nav-col2 .search-form{border: 2px solid #b00;height: 34px; padding: 5px; margin: 5px 20px;
 background-color: #fff; border-radius: 5px;}
 .nav-col2 form{ background-color: #f80; display: flex;}
-.nav-col2 input{ width: 100%;background-color: #fff; font-size: 14px;border: none;padding: 0 10px;}
+.nav-col2 input{ width: 100%;background-color: #fff; font-size: 14px;border: none;}
 .nav-col2 button{font-size: 14px; background-color: #fff; border: none;padding: 0 10px; }
-
 .btn-search{ width: 50px; height: 38px; background-color: #DF0101; border:none; border-radius: 4px; color: #fff;}
 .btn-search:hover{ width: 50px; height: 38px; border:none; border-radius: 4px; background-color: #FE2E2E; }
+
 .nav-col3{ flex-basis: 25%;max-width: 25%;margin: auto 0;font-size: 20px;color: #fff; background-color: #f80;}
 .nav-col3 a{font-size: 16px;}
 
@@ -43,17 +43,19 @@ float: right; margin-top: 3px; }
  font-weight: bold;}
 
 /*css cho menu-top-------------------------*/
-.bg-top_menu{ width: 100%; height: 60px; box-sizing: border-box; border-bottom: 2px solid #f80;background-color: #fff;}
-.grid-top_menu{ width: 1050px; margin:0 auto; top: 50px; background-color: #000;}
-.grid-top_menu ul{ margin:0; padding: 0; display: flex; box-sizing: border-box; background-color: #f80;}
-.grid-top_menu ul li{ list-style-type: none; height: 58px; padding: 11px 0; color: #FFF; flex-basis:15%;
- display: block; text-align: center; background-color: #fff;}
- .grid-top_menu ul li:hover {background-color: #F8F8FF; list-style-type: none; hei'ght: 60px; padding: 11px 0; color: #FFF; flex-basis:15%;
- display: block; text-align: center; border-bottom: 2px solid #000; cursor: pointer;}
-.grid-top_menu ul li a{text-decoration: none; font-size: 10px; text-align: center; color: #f80;}
-.icon img{ width: 35px; height: 35px; padding-right: 3px;}
-
+.bg-top_menu{ width: 100%; height: 59px; box-sizing: border-box; border-bottom: 2px solid #f80;background-color: #fff;}
+.grid-top_menu{ width: 1050px; margin:0 auto; top: 50px;font-size: 12px; cursor: pointer;}
+.grid-top_menu  i{font-size: 40px;}
+.grid-top_menu 	a{color: #f80;}
+.grid-top_menu 	a:hover{color: #f00;text-decoration: none; transition: 0.5s;}
+.grid-top_menu .col-2:hover{background-color: #f0f0f0;}
+.grid-top_menu .home{display: none;}
 .dropdown-menu{ box-shadow: 2px 5px 3px 0 rgba(0,0, 2, 0.5); }
+.form-check-phone {display: flex; background-color: #f70;padding: 2px;}
+.form-check-phone input{width: 80%;border-radius: 5px; border: none;padding: 3px; font-size: 12px;}
+.form-check-phone button{background-color: transparent; border: none;}
+.form-check-phone  button i{font-size: 15px;}
+
 /*row 3-  footer*/
 .footer{ width: 100%; height: 250px; margin-top: 30px; font-size: 14px;}
 .block-px{ width: 1050px; display: flex; margin: 0 auto;}
@@ -65,7 +67,7 @@ float: right; margin-top: 3px; }
 .row-2{background-color: #f80;}
 .row-2 a{ color: #fff; }
 .row-2 a:hover{ color: #000; text-decoration: none; }
-
+.fs-14{font-size: 14px;}
 .row-rps{display: none;}
 /*end footer*/
 
@@ -76,6 +78,7 @@ float: right; margin-top: 3px; }
 	.nav-btn i{cursor: pointer;}
 	/*.nav-col2{ display: none;}*/
 	.nav-col2-hidden{ display: none; flex-grow: 1;}
+	
 	.nav-btn{display: block;}
 	.checkbtn{ flex-basis: 5%; color: #fff; font-size: 30px; padding: 5px 0; }
 
@@ -83,14 +86,8 @@ float: right; margin-top: 3px; }
 	/*end header*/
 	/*menu*/
 	.bg-top_menu{ display: none;}
-	
-	.grid-top_menu{height: 100%; width: 100%; }
-	.grid-top_menu ul{display: block; height: 100%; background-color: #fff;float: left; }
-	.grid-top_menu ul li{ list-style-type: none; width: 25%; height: 80px; padding: 20px 20px;
-	 float: left; display: block; background-color: #fff;  }
- 	.grid-top_menu ul li:hover { transition: .5s;  background-color: #666; height: 80px; padding: 20px 0; display: block;
- 	 text-align: center;}
- 	 .grid-top_menu ul li a{font-size: 14px;}
+	.grid-top_menu .home{display: block;}
+	.grid-top_menu{height:auto; width: 100%; background-color: #fff; padding: 20px;}
  	 /*end menu*/
  	 /*footer*/
  	.row-1{display: none;}
@@ -109,6 +106,7 @@ float: right; margin-top: 3px; }
 	/*menu*/
 	.nav-col1{ flex-basis: 30%;max-width: 30%;}
 	.nbar-style{ width: 96%;}
+	
 	.nav-col3{display: none;}
 	.grid-top_menu ul{float: left; }
 	.grid-top_menu ul li{ list-style-type: none; width: 50%; height: 80px; padding: 20px 0;  flex-basis:50%;

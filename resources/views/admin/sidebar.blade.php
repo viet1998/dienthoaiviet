@@ -269,7 +269,7 @@
                     </a>
                     <ul class="sub">
                         <li><a href="{{route('customer.index')}}">Danh sách khách hàng</a></li>
-                        <li><a href="{{route('customer.create')}}">Thêm khách hàng</a></li>
+                        <!-- <li><a href="{{route('customer.create')}}">Thêm khách hàng</a></li> -->
                     </ul>
                 </li>
                 <li class="sub-menu">

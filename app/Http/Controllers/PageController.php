@@ -49,6 +49,7 @@ class PageController extends Controller
         else
             echo number_format($promotion_price,0,'','.').'<u>đ</u> (-'.$product_variant->product->promotion_price.'%) <strike>'.number_format($price,0,'','.').'</strike><u>đ</u>';
     }
+    // kiểm tra số lượng hàng trong kho
     public function getCheckOutOfStock($id)
     {
         $product_variant=Product_variant::find($id);
@@ -116,15 +117,7 @@ class PageController extends Controller
         return view('company-product',compact('products','company'));
     }
 
-    public function getCheckout()
-    {
-        if(Auth::check())
-        {
-            $user=Auth::user();
-            return view('checkout',compact('user'));
-        }
-        return view('checkout');
-    }
+    
 
     public function get404()
     {
@@ -163,7 +156,17 @@ class PageController extends Controller
     }
     //------------------------------------------------------
 
-    // Phần xử lý giỏ hàng và thanh toán
+    // Phần xử lý đặt hàng và thanh toán
+
+    public function getCheckout()
+    {
+        if(Auth::check())
+        {
+            $user=Auth::user();
+            return view('checkout',compact('user'));
+        }
+        return view('checkout');
+    }
 
     public function getReduceItemCart(Request $req,$id){
         $product_variant=Product_variant::find($id);
@@ -277,7 +280,15 @@ class PageController extends Controller
         return redirect()->back()->with('thatbai','Hãy chọn sản phẩm vào giỏ hàng');
     }
 
-    
+    public function getConfirmCheckOrder(Request $request)
+    {
+        
+    }
+    public function getCheckOrder(Request $request,$phone)
+    {
+        $customer=Customer::where('phone_number',$phone)->first();
+        return view('check-phone',compact('customer'));
+    }
 
     // Phần đăng nhập
 
@@ -318,6 +329,7 @@ class PageController extends Controller
                 'email'=>'required|email|unique:users,email',
                 'password'=>'required|min:6|max:20',
                 'full_name'=>'required',
+                'phone'=>'required|unique:users,phone',
                 're_password'=>'required|same:password',
             ],
             [
@@ -329,6 +341,8 @@ class PageController extends Controller
                 're_password.same'=>'Mật khẩu không giống nhau',
                 'password.min'=>'Mật khẩu ít nhất 6 ký tự',
                 'password.max'=>'Mật khẩu nhiều nhất 20 ký tự',
+                'phone.required'=>'Vui lòng nhập số điện thoại',
+                'phone.unique'=>'Số điện thoại đã có người sử dụng',
                 'full_name.required'=>'Vui lòng nhập họ tên'
             ]);
         $user=new User();

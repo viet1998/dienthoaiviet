@@ -1,60 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>San pham</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	<!-- java script -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<!-- <script type="text/javascript" src="/js/gallery-product.js"></script>
-	 --><!-- link CSS -->
-	<link rel="stylesheet" type="text/css" href="/css/layout-product.css">
-	<link rel="stylesheet" type="text/css" href="/css/navbar-footer.css">
-</head>
-<body>
-	<!-- phần nội dung -->
-	<section class="container-body">
-
-		<div class="grid">
-			<!-- row 2 thông tin sản phẩm -->
-			<div class="main">
-				<div class="item-1">
-						@foreach($product->images as $pv)
-						<div class="mySlides">
-							<img src="/image/product/{{$pv['link']}}" style="height:300px"/>
-						</div>
+@extends('master')
+@section('content')
+<!-- phần nội dung -->
+<section class="contai-grid" style="font-size: 14px;">
+		<div style="margin-left: 0; margin-right: 0;" class=" row top-130">
+			<div class="col-12 col-sm-8 col-md-6 col-lg-4 item-1 ">
+				@foreach($product->images as $pv)
+				<div class="mySlides">
+					<img src="/image/product/{{$pv['link']}}" style="height:300px"/>
+				</div>
+				@endforeach
+						<a class="prev" onclick="plusSlides(-1)">  </a>
+						<a class="next" onclick="plusSlides(1)"> <i class="fas fa-angle-rigth"></i> </a>
+				<div class="caption-container">
+					<div class="row-gar">
+					    <?php $num=0; ?>
+					    @foreach($product->images as $pv)
+						<div class="column">
+					    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%;height:50px" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
+					    </div>
 						@endforeach
-					<a class="prev" onclick="plusSlides(-1)"> ❮ </a>
-					<a class="next" onclick="plusSlides(1)"> ❯ </a>
-					<div class="caption-container">
-					    <div class="row-gar">
-					    	<?php $num=0; ?>
-						    @foreach($product->images as $pv)
-						    <div class="column">
-						    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%;height:50px" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
-						    </div>
-							@endforeach
-					 	 </div>
 					</div>
 				</div>
-				<!-- phan noi dung san pham ten vs gia -->
-				<div class="item-2">
+			</div>
+			<!-- phan noi dung san pham ten vs gia -->
+			<div class="col-12 col-sm-4 col-md-6 col-lg-5 col-md-6">
 					<form method="get" action="{{route('addtocart')}}">
 					@csrf
 					<!-- tên sản phẩm -->
-					<h3><strong> {{$product["name"]}}</strong></h3>
+					<h2><strong> {{$product["name"]}}</strong></h2>
 					<!-- giá sản phẩm -->
-					<p style="color: #f00;">
+					<p style="color: #f00; font-size: 16px;">
 						<strong id="product_price">
 							<span id="variant_price">
-								{{number_format(($product["unit_price"]*(100-$product["promotion_price"])/100),0,'','.')}}<u>đ</u> (-{{$product["promotion_price"]}}%) <strike>{{number_format($product["unit_price"],0,'','.')}}</strike><u>đ</u>
+								{{number_format(($product["unit_price"]*(100-$product["promotion_price"])/100),0,'','.')}}<u>đ</u> (-{{$product["promotion_price"]}}%) <strike><br><span style="color: #999;">{{number_format($product["unit_price"],0,'','.')}}<u>đ</u></span></strike>
 							</span>
 						</strong>
 					</p>
-					<p>Phiên Bản - Màu: 
+					<p >Phiên Bản - Màu: 
 						<select name="id_product_variant" id="id_product_variant">
 							@foreach($product_variant as $pv)
 							<option value="{{$pv->id}}">
@@ -63,9 +45,34 @@
 							@endforeach
 						</select>
 					</p>
-
-					<div class="btn-buynow" id="clickbuy"><button type="submit"  style="color:white;">Mua ngay</button></div>
-					</form>
+					<!-- <div class="for_slick_slider multiple-items">
+						<div class="items">
+							<label for="a1">
+							<p><input type="radio" name="other_price" id="a1">
+							64GB</p>
+							20.000.000<u>đ</u></p></label>
+						</div>
+						<div class="items" >
+							<label for="a2">
+							<p><input type="radio" name="other_price" id="a2">
+							128GB</p>
+							23.000.000<u>đ</u></p></label>
+						</div>
+						<div class="items">
+							<label for="a3">
+							<p><input type="radio" name="other_price" id="a3">
+							156GB</p>
+							26.000.000<u>đ</u></p></label>
+						</div>
+						<div class="items">
+							<label for="a4">
+							<p><input type="radio" name="other_price" id="a4">
+							Khác</p>
+							xx.xxx.000<u>đ</u></p></label>
+						</div>
+					</div> -->
+					<div class="btn-buynow" id="clickbuy"><button type="submit" >Mua ngay <i class="fas fa-cart-plus"></i></button></div>
+					
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
 					<div class="card bg-light" style="padding: 10px;">
@@ -77,7 +84,7 @@
 					<!-- card mở rộng thông tin nội dung -->
 					<div class="card">
 						<div class="card-header btn"  data-toggle="collapse" data-target="#noidungcard"> BẢO HÀNH VÀ CAM KẾT
-						</div>
+						<i class="fas fa-angle-down"></i></div>
 						<div class="card-body bg-light collapse"  data-toggle="collapse"  aria-expanded="false" id="noidungcard">
 							<p class="text">Giá tốt nhất - Ở đâu rẻ hơn hoàn tiền</p>
 							<p class="text">Máy chưa hề sửa chữa</p>
@@ -91,9 +98,10 @@
 							<p class="text">Mua Online liên hệ: 0777.126.126</p>
 						</div>
 					</div>
-				</div>
-				<!-- Phaanr chuyen huong -->
-				<div class="item-3">
+			</div>
+				<!-- Phaanr quang cao -->
+			<!-- Phaanr quang cao -->
+			<div class="col-12 col-lg-3 col-md-4 item-3">
 					<div class="banner">
 						<a href="1"><img src="/image/slide/banner1.png" alt="" /></a>
 						<a href="2"><img src="/image/slide/banner2.png" alt="" /></a>
@@ -110,26 +118,24 @@
 							<p>Bảo hành 12 tháng</p>
 							<p>Xử lý trong 30 ngày</p>
 							</div>
-							<img src="/image/icon/chedobaohanh.png" alt="" />
+							<img style="padding: 6px;" src="/image/icon/chedobaohanh.png" alt="" />
 							<p>Sửa chữa bảo hành theo chính sách hiện hành của hãng sản xuất</p>
 							<p><strong>THÔNG TIN BẢO HÀNH CAO CẤP</strong></p>
-							<button class="btn btn-warning" >Xem chi tiết</a></button>
+							<button class="btn btn-warning" style="font-size: 16px;">Xem chi tiết</a></button>
 						</div>
 					</div>
-				</div>
 			</div>
-				<!-- phan mo ta -->
-			<div class="row-desc card">
-					<div class=" row-desc-title">
-						<div class="card-header">Mô tả</div>
+		</div>
+		<div class="row-desc" style="padding: 0;">
+					<div class="row-desc-title">
+						<div class="card-header"><h2>Mô tả</h2></div>
 						<div class="card-body">
 						<?php echo $product['description']; ?>
 						</div>
 					</div>
 			</div>
-
+		
 	</section>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script>
 	var slideIndex = 1;
 	showSlides(slideIndex);
@@ -171,9 +177,16 @@
 		});
 								
 	</script>	
-		<!-- row 3 phần thông tin địa chỉ v...vvv -->
-		@include('footer')
-	
-		<!-- phầm navbar -->
-		@include('navbar')
-		
+	<!-- slick giá cấu hình -->
+	<link rel="stylesheet" type="text/css" href="/css/slick.css">
+	<script type="text/javascript" src="/js/slick.min.js"></script>
+	<!-- <script type="text/javascript">
+		$(function (){
+			$('.multiple-items').slick({
+			  infinite: true,
+			  slidesToShow: 3,
+			  slidesToScroll: 1,
+			});
+		});
+	</script> -->	
+@endsection

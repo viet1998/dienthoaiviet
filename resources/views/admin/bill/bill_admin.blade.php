@@ -80,7 +80,7 @@
 													
 													<td>{{$bill->updated_at}}</td>
 													<td style="">
-														<a href="{{route('customer.edit',$bill->id)}}"class="btn btn-primary">Sửa</a>
+														<a href="{{route('bill.edit',$bill->id)}}"class="btn btn-primary">Sửa</a>
 													</td>
 												</tr>
 												@endforeach

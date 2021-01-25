@@ -1,11 +1,10 @@
 @extends('master')
 @section('content')
 	<style type="text/css">
-		.contai-grid{width: 700px;}
-		.block-col{font-size: 15px; width: 100%; margin-top: 130px;border-radius: 5px; padding: 15px; box-shadow: 0 0 5px 5px rgba(0,0,0,0.2);}
+		
 		.title-checkout{ display: flex; width: 100%; height: 10px;}
-		.title-checkout li{ flex-basis: 50%; list-style-type: none; }
-		.product-item-cart img{width: 100px;}
+		
+		.product-item-cart img{width: 100%;}
 		.product-item-cart .img-item{text-align: center;}
 		.product-item-cart .img-item button{border: none; background: transparent; color: red;}
 		.product-item-cart .col-6 p{cursor: pointer; color: #00a5f7;}
@@ -29,16 +28,14 @@
 		.book-now button:hover{opacity: 0.8;}
 
 	</style>
-	<section class="contai-grid">
-		<section class="block-col">
-			<div class="col">
+	<section class="contai-grid" style="font-size: 14px;">
+			<div class="top-130"> 
 				<div class="row">
-					<ul class="title-checkout">
+					<div class="title-checkout">
 
-						<li><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></li>
+					<div class="col-9"><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></div>
 
-						<li><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></li>
-					</ul>
+					<div class="col-3"><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></div>
 				</div>
 				<hr width="100%" align="center">
 				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
@@ -54,16 +51,16 @@
 					@if(Session::has('cart'))
 					@foreach($product_cart as $item)
 						<div class="row product-item-cart">
-							<div class="col-3 img-item">
+							<div class="col-1 img-item">
 								<img src="/image/product/{{$item['item']['image']['link']}}" alt="loading"><br>
 								<a href="{{route('del_cart',$item['item']['id'])}}"><i class="fas fa-times-circle"></i> xóa</a>
 							</div>
-							<div class="col-6">
+							<div class="col-7">
 								<strong>{{$item['item']['name']}}</strong><br>
 								<span>Phiên bản: {{$item['item']['version']}}</span><br>
 								<span>Màu: {{$item['item']['color']}}</span>
 							</div>
-							<div class="col-3">
+							<div class="col-4">
 								<div class="price-product"><strong style="color: #f80;">{{number_format($item['totalPriceItem'], 0, '', '.')}}<u>đ</u></strong><br>
 									
 								</div>
@@ -87,7 +84,7 @@
 						<table >
 							<tr>
 								<td style="width: 200px">Tạm tính:</td>
-								<td style="text-align: center;width: 200px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</td>
+								<td style="text-align: center;width: 250px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</td>
 							</tr>
 							<tr>
 								<td><strong>Tổng tiền:</strong></td>
@@ -145,10 +142,8 @@
 						@if(Session::has('cart')) @if($totalQty>0) <button type="submit">Đặt ngay</button> @endif @endif
 					</div>
 					<!-- end -->	
-				</form>			
-
-			</div>
-		</section>
+				</form>		
+			</div>	
 	</section>
 	<script type="text/javascript">
 			$('input.input-qty').each(function() {

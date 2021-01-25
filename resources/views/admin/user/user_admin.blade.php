@@ -18,7 +18,7 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Danh Sách Khách Hàng <span id="getTotal"></span>
+									<h3>Danh Sách Tài Khoản <span id="getTotal"></span>
 									</h3>
 									
 										

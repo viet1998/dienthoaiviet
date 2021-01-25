@@ -75,39 +75,45 @@
 			<!-- Phần menu có css  là menu-top.css -->
 				<section class="bg-top_menu" id="menutype">
 					<section class="grid-top_menu">
-						<ul>
-							<div></div>
-							<li></li>
-							<li><a href="{{route('smartphone')}}"><div><i class="icon"><img src="/image/icon/smartphone.png"/></i>ĐIỆN THOẠI </div></a></li>	
-							<li><a href=""><div><i class="icon"><img src="/image/icon/piggy-bank.png"/></i>TRẢ GÓP</div></a></li>	
-							<li><a href=""><div><i class="icon"><img src="/image/icon/settings.png"/></i>SỬA CHỮA</div></a></li>
-							<li><a href=""><div><i class="icon"><img src="/image/icon/giftbox.png"/></i>KHUYẾN MÃI</div></a></li>
-							<li class="dropdown"><i class="icon"><img src="/image/icon/user.png"/></i><a  style="font-size: 10px;" class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan">@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
+						<div class="row" style="margin: 0;">
+							<div class="col-lg-2 home" style="padding: 8px;"><a href="{{route('trangchu')}}"><i class="fas fa-home"></i>&nbsp TRANG CHỦ</a></div>
+							<div class="col-lg-2" style="padding: 8px;"><a href="{{route('smartphone')}}"><i class="fas fa-mobile"></i>&nbsp ĐIỆN THOẠI</a></div>
+							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-piggy-bank"></i>&nbsp TRẢ GÓP</a></div>
+							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-tools"></i>&nbsp SỬA CHỮA</a></div>
+							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-gift"></i>&nbsp KHUYẾN MÃI</a></div>
+							<div class="col-lg-2 dropdown" style="padding: 8px;"><a style="text-decoration: none;" class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan"><i class="fas fa-user"></i>@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>
 								@if(Auth::check())
 									@if(Auth::user()->level>0)
-									<div class="dropdown-menu" aria-labelledby="dropdowntk">
-										<a class="dropdown-item" href="{{route('admin_dashboard')}}">Trang Quản Lý</a>
-										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
+									<div class="dropdown-menu " aria-labelledby="dropdowntk">
+										<a class="dropdown-item fs-14" href="{{route('admin_dashboard')}}">Trang Quản Lý</a>
+										<a class=" dropdown-item fs-14"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@else
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">
 
-										<a class="dropdown-item" href="{{route('profile')}}">Trang Cá Nhân</a>
+										<a class="dropdown-item fs-14" href="{{route('profile')}}">Trang Cá Nhân</a>
 
-										<a class=" dropdown-item"href="{{route('dangxuat')}}">Đăng xuất</a>
+										<a class=" dropdown-item fs-14"href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@endif
 								@else
 								<div class="dropdown-menu" aria-labelledby="dropdowntk">
-									<a class="dropdown-item" href="{{route('login')}}">Đăng nhập</a>
-									<a class=" dropdown-item"href="{{route('sigup')}}">Đăng ký</a>
+									<a class="dropdown-item fs-14" href="{{route('login')}}">Đăng nhập</a>
+									<a class=" dropdown-item fs-14"href="{{route('sigup')}}">Đăng ký</a>
 								</div>
-								@endif
-							</li>
-							
-							<li></li>
-
-						</ul>
+								@endif</div>
+								<div class="col-lg-2 form-check-phone">
+									<!-- Tìm đơn hàng -->
+									<form action="route('checkorder')" method="post">
+									<label style="color: #fff; " for="checkphone">Tìm đơn hàng</label>
+									<div style="border-radius: 2px; background-color: #fff;">
+									<input type="phone" name="checkphone" placeholder="Nhập số điện thoại mua hàng" />
+									<button type="submit"><i class="fas fa-search"></i></button>
+									</div>
+									</form>
+									
+								</div>
+							</div>
 					</section>	
 				</section>
 			</section>

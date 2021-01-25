@@ -50,7 +50,7 @@ Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 // trang cá nhân
 Route::get('profile',[PageController::class,'getProfile'])->name('profile');
 
-//Xử lý giỏ hàng
+//Xử lý đơn hàng và đặt hàng
 Route::get('addtocart',[PageController::class,'getAddtoCart'])->name('addtocart');
 Route::get('reduceitemcart/{id}',[PageController::class,'getReduceItemCart'])->name('reduceitemcart');
 Route::get('increaseitemcart/{id}',[PageController::class,'getIncreaseItemCart'])->name('increaseitemcart');
@@ -58,6 +58,8 @@ Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_
 
 Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
 Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
+Route::get('confirmcheckorder',[PageController::class,'getConfirmCheckOrder'])->name('confirmcheckorder');
+Route::get('checkorder/{phone}',[PageController::class,'getCheckOrder'])->name('checkorder');
 
 // ---------------------------
 

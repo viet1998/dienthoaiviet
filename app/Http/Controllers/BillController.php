@@ -21,7 +21,7 @@ class BillController extends Controller
     public function index()
     {
         $bills=Bill::orderBy('created_at','DESC')->paginate(10);
-        return view('admin.bill_admin',compact('bills'));
+        return view('admin.bill.bill_admin',compact('bills'));
     }
 
     /**
@@ -66,7 +66,7 @@ class BillController extends Controller
     public function edit($id)
     {
         $bill=Bill::find($id);
-        return view('admin.edit_bill',compact('bill'));
+        return view('admin.bill.edit_bill',compact('bill'));
     }
 
     /**

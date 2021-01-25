@@ -9,11 +9,11 @@ Tìm đơn hàng
 </style>
 <section class="contai-grid">
 	<section style="margin-top: 120px;">
-		<h2 style="text-align: center;">Cảm ơn quý khách đã tin tưởng mua hàng tại DIỆN THOẠI VIỆT</h2>
+		<h2 style="text-align: center;">Cảm ơn quý khách đã tin tưởng mua hàng tại Điện Thoại Việt</h2>
 		<hr width="100%">
 		<section class="row" style="font-size: 14px;">
 			<div class="col-10" >
-				<p>Chào anh &nbsp<strong>Nguyễn văn A - 0283492349</strong></p>
+				<p>Chào Anh/Chị &nbsp<strong>{{$customer->name}} - {{$customer->phone_number}}</strong></p>
 			</div>
 			<div class="col-2">
 				<p style="color: #147aff;"><i class="fas fa-comments"></i>&nbsp<a style="text-decoration: none;" href="#">Phản hồi, góp ý</a></p>
@@ -24,7 +24,9 @@ Tìm đơn hàng
 			<div class="col-12">
 				<div class="card" style="padding: 20px;">
 					<h2>Đơn hàng online đã mua gần đây</h2>
-					
+					<table>
+						<tr>
+							<td>
 					<div class="row title-phone-oder" >
 						<div class="col-2">Mã sản phẩm</div>
 						<div class="col-4">Sản phẩm</div>
@@ -32,6 +34,10 @@ Tìm đơn hàng
 						<div class="col-2">Ngày đặt mua</div>
 						<div class="col-2">Trạng thái</div>
 					</div>
+						</td>
+					</tr>
+						<tr>
+							<td>
 					<div class="row item-product-order" >
 						<div class="col-2" style="color: #147aff;">#0890</div>
 						<div class="col-1"><img width="100%;" src="/image/product/iphone-11-pro-max-silver-select-2019-4909.png"></div>
@@ -42,6 +48,9 @@ Tìm đơn hàng
 														Chưa Giao hàng
 														</p></div>
 					</div>
+					</td>
+					</tr>
+					</table>
 					<hr width="100%;">
 				</div>
 			</div>

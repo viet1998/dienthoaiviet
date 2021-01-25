@@ -1,17 +1,16 @@
-
-.container-body{ margin-top: 120px; width: 100%; }
-.grid{ width: 1050px; margin: 0 auto; padding: 0; }
+/*
+.container-body{ margin: 120px; width: 100%; }*/
+.grid{ margin-top: 120px;}
 /* row 1 thong tin duong dan */
 .title-product{ display: block; width: 100%;height: 60px; margin: 0; padding: 0 15px; }
 /* row 2 hien thi phan chinh cua san pham */
-.main{	width: 100%; color: #000; flex: unset; display: flex; }
-.item-1{ height: auto; flex-basis: 33.3333%; box-sizing: border-box;  position: relative;
-		-webkit-font-smoothing: antialliased; margin: 0px; padding: 15px; border-right: 1px solid #f0f0f0;}
+.main_detail{display: flex;}
+
 .item-1 img{ vertical-align: middle; width: 100%;}
-.caption-container{ margin: 20px; border: 1px solid #f0f0f0; padding: 10px; overflow: auto;}
+.caption-container{ margin: 20px 10px; border: 1px solid #f0f0f0; padding: 10px; overflow: auto;}
 .row:after {  content: "";  display: table; clear: both;}
 .cursor{cursor: pointer;}
-.mySlides{display: none;}
+.mySlides{ height: auto;}
 /* Next & previous buttons */
 .prev, .next { cursor: pointer; position: absolute; top:28%; width: auto; padding: 14px 16px; margin-top: -50px; color: white; font-weight: bold;
   font-size: 20px; border-radius: 35px; user-select: none; -webkit-user-select: none; }
@@ -21,23 +20,27 @@
 .prev:hover, .next:hover { background-color: rgba(0, 0, 0, 0.8);}
 .column { float: left; width: 16.66%;}
 .active, .demo:hover { opacity: 1;}
-.item-2{ height: auto; flex-grow: 1; max-width: 41.6667%; position: relative; -webkit-font-smoothing: antialliased;
-		margin: 0px; padding-left: 15px; padding-right: 30px;border-right: 1px solid #f0f0f0; }
+
+/* Chọn cấu hình gias tienf sản phẩm*/
+	.for_slick_slider{display: block;  width: 100%; height: 140px;}
+	.for_slick_slider .items{  float: left;width: 100px; height: 60px; margin:  5px; border: 1px solid #000;border-radius: 5px;
+	 padding: 2px;}
+	.for_slick_slider .items label{margin-bottom: 0;cursor: pointer;} 
+	.for_slick_slider .items p{margin-bottom: 0;} 
+/*end*/
 /* button  mua ngay*/
-.btn-buynow button{ height: 40px; width: 100px ;	border:none;border-radius: 5px; background-color: #ff8000; margin-bottom: 15px;}
+.btn-buynow button{color:white; font-size: 16px; height: 40px; width:200px; border:none;
+	border-radius: 5px; background-color: #ff8000; margin-bottom: 15px;}
 .btn-buynow button:hover{ box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);	background-color: #FFBF00; }
-.btn-buynow button a{ text-decoration: none; color: #fff;font-size: 20px;}
+
 /*end button mua ngay*/
 /*button nhan tin qua mess*/
 .btn-messbox button{ height: 40px;	width: 100%; border:none; border-radius: 5px; background-color: #0080FF;margin-bottom: 15px;}
 .btn-messbox button:hover{ box-shadow: 0 0 2px 2px rgba(0,0,0,0.2);	background-color: #0080FF;}
 .btn-messbox button a{ text-decoration: none; color: #fff; font-size: 20px;}
-.card-header{ background-color: green; color: #fff; }
-.card-header:hover{ background-color: green; color: #fff; }
+.card-header{ background-color: green; color: green; }
 .icon-km img{ width: 15px; height: 15px; margin-right: 10px;}
 /* -----------------*/
-.item-3{height: auto;flex-basis: 25%;box-sizing: border-box;max-width: 25%;position: relative;-webkit-font-smoothing: antialliased;
-		margin: 0px; padding-right: 15px; padding-left: 30px;}
 .item-3 img{ width: 100%; height: auto;	margin-top: 3px;}
 .extend{ border: 1px solid #f80; text-align: center; border-radius: 5px; margin-top: 15px; padding-bottom: 10px;}
 .extend-titel{ background-color: #f80; }
@@ -49,8 +52,8 @@
 .border p{ font-size: 14px; color: #2e2e2e;}
 
 
-/* show description*/
-.row-desc{	max-width: 75%;	flex-basis:75%;	height: auto; background-color: #f0f0f0;margin-top: 20px;}
+/* Hiển thị thông tin mô tả*/
+.row-desc{	max-width: 100rem;	flex-basis:75%;	height: auto; background-color: #f0f0f0;margin-top: 20px;}
 .card-body {padding: 20px}
 .row-desc-title table{	margin: 15px;padding: 2px;box-sizing: content-box;border: 1px solid #fff;}
 .row-desc-title table tr{ border-bottom: 1px solid #fff;margin: 5px;}
@@ -59,14 +62,16 @@
 /*tablet*/
 @media only screen and (max-width: 1024px){
 
-	.container-body{ margin-top: 60px; width: 98%; }
-	.grid{ width: 100%;}
-	.main{ flex-direction: column;width: 98%;}
-
 	.title-product{width: 98%}
 	.item-1{flex-basis: 98%; padding: 15px 0; border-right:none;}
 	.item-1 img{ vertical-align: middle; width: 98%;}
 	
 	.caption-container{margin: 0;}
+
+	.btn-buynow button{font-size: 20px; font-weight: bold;}
+	.for_slick_slider .items { font-size: 16px; } 
 }
 .addtocart {font-size: 15px;color: white;}
+
+@media only screen and (max-width: 768px){
+.item-3 .banner{display: none;}
