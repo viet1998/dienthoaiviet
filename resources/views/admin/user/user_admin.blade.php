@@ -31,6 +31,29 @@
 										@if(Session::has('thatbai'))
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
+										<table class="table">
+											<tr style="padding-left: 10px">
+												<td colspan="9" width="">
+													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
+												</td>
+												<td colspan="2" width="10%">
+													<input type="button" id="search" class="form-control" value="Tìm">
+												</td>
+												<td colspan="2" width="10%">
+													<h3 style="font-size: 25px">
+													<select name="sort" id="sort" class="form-control">
+														<option value="0">Sắp Xếp</option>
+														<option value="1">Giá Tăng</option>
+														<option value="2">Giá Giảm</option>
+														<option value="3">Số Lượng Bán</option>
+													</select>
+													</h3>
+												</td>
+												<td colspan="1" width="10%">
+													<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
+												</td>
+											</tr>
+										</table>
 										<table id="getuser" class="table" >
 											<thead >
 												<tr >

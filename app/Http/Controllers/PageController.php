@@ -14,6 +14,7 @@ use App\Models\Type_product;
 use App\Models\User;
 use App\Models\Cart;
 use App\Models\Company;
+use App\Models\Visitor;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,17 +22,36 @@ use Carbon\Carbon;
 
 class PageController extends Controller
 {
-    //-------------------load các trang web-----------------
-    public function getIndex()
+    public function insertVisitor(Request $request)
     {
-    	$slides=Slide::all();
-    	$new_product=Product::where('new',1)->paginate(4);
-    	$khuyenmai=Product::where('promotion_price','<>',0)->get();
-    	$loai_sanpham=Type_product::all();
-        return view('trangchu',compact('slides','new_product','khuyenmai','loai_sanpham'));
+        $ip_user=$request->ip();
+        $visitors=Visitor::where('ip_address',$ip_user)->get();
+        if(count($visitors)<=0){
+            $visitor=new Visitor;
+            $visitor->ip_address=$ip_user;
+            $visitor->date_visitor=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $visitor->save();
+        }
     }
-    public function getProduct($id)
+
+    public function getCompany($id){
+        $products=Product::where('id_company',$id)->get();
+        $company=Company::find($id);
+        return compact('products','company');
+    }
+    
+    //-------------------load các trang web-----------------
+    public function showHomePage(Request $request){
+        $this->insertVisitor($request);
+        $slide = Slide::all();
+        $new_product = Product::where('new',1) -> paginate(5);
+        return view('trangchu', compact('slide', 'new_product'));
+    }
+
+    
+    public function getProduct(Request $request,$id)
     {
+        $this->insertVisitor($request);
         $product=Product::find($id);
         $product_variant=Product_variant::where('id_product',$id)->get();
         $sp_lienquan=Product::where('id_type',$product->id_type)->paginate(3);
@@ -39,6 +59,53 @@ class PageController extends Controller
         $promo_product=Product::where('promotion_price','<>',0)->paginate(4);
         return view('show',compact('product','sp_lienquan','new_product','promo_product','product_variant'));
     }
+
+    public function getSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        $products=Product::where('id_type',8)->get();
+        $type_product=Type_product::find(8);
+        return view('type-product',compact('products','type_product'));
+    }
+
+    public function getAppleSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(1));
+    }
+    public function getSamsungSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(2));
+    }
+    public function getOppoSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(3));
+    }
+    public function getXiaomiSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(4));
+    }
+    public function getVivoSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(5));
+    }
+    public function getRealmeSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(6));
+    }
+    public function getOneplusSmartphone(Request $request)
+    {
+        $this->insertVisitor($request);
+        return view('company-product',$this->getCompany(7));
+    }
+    
+    //----------------------------------------------------------------------------------
+    //Ajax web product
     public function getBonusPrice($id)
     {
         $product_variant=Product_variant::find($id);
@@ -59,97 +126,14 @@ class PageController extends Controller
             echo '<button type="submit" style="color:white;" >Mua ngay</button>';
 
     }
-    public function getContact()
-    {
-        return view('page.lienhe');
-    }
-    public function getAbout()
-    {
-        return view('page.gioithieu');
-    }
-    
-    public function getSmartphone()
-    {
-        $products=Product::where('id_type',8)->get();
-        $type_product=Type_product::find(8);
-        return view('type-product',compact('products','type_product'));
-    }
-    public function getAppleSmartphone()
-    {
-        $products=Product::where('id_company',1)->get();
-        $company=Company::find(1);
-        return view('company-product',compact('products','company'));
-    }
-    public function getSamsungSmartphone()
-    {
-        $products=Product::where('id_company',2)->get();
-        $company=Company::find(2);
-        return view('company-product',compact('products','company'));
-    }
-    public function getOppoSmartphone()
-    {
-        $products=Product::where('id_company',3)->get();
-        $company=Company::find(3);
-        return view('company-product',compact('products','company'));
-    }
-    public function getXiaomiSmartphone()
-    {
-        $products=Product::where('id_company',4)->get();
-        $company=Company::find(4);
-        return view('company-product',compact('products','company'));
-    }
-    public function getVivoSmartphone()
-    {
-        $products=Product::where('id_company',5)->get();
-        $company=Company::find(5);
-        return view('company-product',compact('products','company'));
-    }
-    public function getOneplusSmartphone()
-    {
-        $products=Product::where('id_company',7)->get();
-        $company=Company::find(7);
-        return view('company-product',compact('products','company'));
-    }
-    public function getRealmeSmartphone()
-    {
-        $products=Product::where('id_company',6)->get();
-        $company=Company::find(6);
-        return view('company-product',compact('products','company'));
-    }
 
+    //----------------------------------
     
-
-    public function get404()
-    {
-        return view('page.404');
-    }
-    public function getLogin()
-    {
-        return view('page.dangnhap');
-    }
-    
-    public function getShoppingcart()
-    {
-        return view('page.giohang');
-    }
-    public function getManager()
-    {
-        return view('page.quanly.quanly');
-    }
     public function getSearch(Request $req){
         $products=Product::where('name','like','%'.$req->key.'%')->get();
         $key=$req->key;
         return view('smartphone-search',compact('products','key'));
     }
-    public function getTest(){
-        
-        return view('page.admin.index');
-    }
-    public function getSignup(){
-        
-        return view('page.dangky');
-    }
-
     public function getProfile(){
         
         return view('customer.profile');
@@ -320,8 +304,6 @@ class PageController extends Controller
         Auth::logout();
         return redirect('dang-nhap');
     }
-
-    
     
     public function postSignup(Request $request){
         $this->validate($request,

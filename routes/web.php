@@ -74,7 +74,7 @@ Route::get('dtdd-vivo', [PageController::class,'getVivoSmartphone'])->name('vivo
 Route::get('dtdd-realme', [PageController::class,'getRealmeSmartphone'])->name('realme_smartphone');
 Route::get('dtdd-oneplus', [PageController::class,'getOneplusSmartphone'])->name('oneplus_smartphone');
 // show trang chu
-Route::get('trang-chu', [HomepageController::class, 'showHomePage'])->name('trangchu');	
+Route::get('trang-chu', [PageController::class, 'showHomePage'])->name('trangchu');	
 // show trong dien thoai
 Route::get('dtdd/{id}',[PageController::class,'getProduct'])->name('show');
 Route::get('dtdd/getbonusprice/{id}',[PageController::class,'getBonusPrice'])->name('getbonusprice');
@@ -116,6 +116,10 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::post('updatevariant/{id}',[ProductController::class,'updateVariant'])->name('product.updatevariant');
 	//sắp xếp sảnphaamr
 	Route::get('sortproductvariant/{id}',[ProductController::class,'getSortVariant'])->name('sortproductvariant');
+	Route::get('searchproductvariant/{searchname}',[ProductController::class,'getSearchVariant'])->name('searchproductvariant');
+
+	Route::get('sortproduct/{id}',[ProductController::class,'getSortProduct'])->name('sortproduct');
+	Route::get('searchproduct/{searchname}',[ProductController::class,'getSearchProduct'])->name('searchproduct');
 	//show trang dashboard
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');

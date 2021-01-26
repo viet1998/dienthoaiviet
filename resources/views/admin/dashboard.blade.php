@@ -106,7 +106,7 @@
 								<table class="table table-bordered table-dark">
 									<thead>
 										<tr>
-											<td scope="col">Đang online</td>
+											<td scope="col">Hôm nay</td>
 											<td scope="col">Tổng tháng trước</td>
 											<td scope="col">Tổng tháng này</td>
 											<td scope="col">Tổng một năm</td>
@@ -115,11 +115,11 @@
 									</thead>
 									<tbody>
 										<tr>
-											<td>1</td>
-											<td>2</td>
-											<td>3</td>
-											<td>4</td>
-											<td>5</td>
+											<td>{{$visitor_count[0]}}</td>
+											<td>{{$visitor_count[1]}}</td>
+											<td>{{$visitor_count[2]}}</td>
+											<td>{{$visitor_count[3]}}</td>
+											<td>{{$visitor_count[4]}}</td>
 										</tr>
 									</tbody>
 								</table>

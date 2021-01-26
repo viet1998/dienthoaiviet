@@ -12,5 +12,6 @@ class Visitor extends Model
 	protected $fillable=[
 		'ip_address','date_visitor'
 	];
+	public $timestamps = false;
 
 }

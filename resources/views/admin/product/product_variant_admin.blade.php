@@ -18,15 +18,7 @@
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
 									<h3>Danh Sách Sản Phẩm trong kho 
-										<div style="float:right">
-											<select name="sort" id="sort">
-												<option value="0">Sắp Xếp</option>
-												<option value="1">Giá Tăng</option>
-												<option value="2">Giá Giảm</option>
-												<option value="3">Số Lượng Bán</option>
-											</select>
-											<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
-										</div><span id="getTotal"></span>
+										
 									</h3>
 									
 										
@@ -39,6 +31,29 @@
 										@if(Session::has('thatbai'))
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
+										<table class="table">
+											<tr style="padding-left: 10px">
+												<td colspan="9" width="">
+													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
+												</td>
+												<td colspan="2" width="10%">
+													<input type="button" id="search" class="form-control" value="Tìm">
+												</td>
+												<td colspan="2" width="10%">
+													<h3 style="font-size: 25px">
+													<select name="sort" id="sort" class="form-control">
+														<option value="0">Sắp Xếp</option>
+														<option value="1">Giá Tăng</option>
+														<option value="2">Giá Giảm</option>
+														<option value="3">Số Lượng Bán</option>
+													</select>
+													</h3>
+												</td>
+												<td colspan="1" width="10%">
+													<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
+												</td>
+											</tr>
+										</table>
 										<table  class="table">
 											<thead>
 												<tr>
@@ -119,7 +134,8 @@
 		$("#search").on('click',function(){
 			console.log();
 			var searchname=document.getElementById("searchname").value;
-			$.get('search/'+searchname,function(data){
+			if(searchname === "") {searchname="null";}
+			$.get('searchproductvariant/'+searchname,function(data){
 				$("#getProduct").html(data);
 			});
 		})

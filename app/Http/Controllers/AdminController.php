@@ -27,7 +27,13 @@ class AdminController extends Controller
     }
 
     public function showindex(){
-    	return view('admin.dashboard');
+        $endLastMonth=Carbon::now()->endOfMonth()->subMonth()->toDateString();
+        $startLastMonth=Carbon::now()->startOfMonth()->subMonth()->toDateString();
+        return $endLastMonth+$startLastMonth;
+     //    $visitor=[count(Visitor::where('date_visitor',Carbon::now('Asia/Ho_Chi_Minh')->toDateString())),
+     //        count(Visitor::where('date_visitor','>=',Carbon::now('Asia/Ho_Chi_Minh')->toDateString()))
+     //    ];
+    	// return view('admin.dashboard');
     }
 
     public function getStatistical(){
@@ -61,7 +67,17 @@ class AdminController extends Controller
         }
     }
     public function getAdminDashboard(){
-        // $user_ip_address = $request
-        return view('admin.dashboard');
+        $endLastMonth=Carbon::now('Asia/Ho_Chi_Minh')->endOfMonth()->subMonth()->toDateString();
+        $startLastMonth=Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->subMonth()->toDateString();
+        $startThisMonth=Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+        $toDay=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $startOfThisYear=Carbon::createFromDate(2021,01,01)->toDateString();
+        $visitor_count=[count(Visitor::where('date_visitor',Carbon::now('Asia/Ho_Chi_Minh')->toDateString())->get()),
+            count(Visitor::where('date_visitor','>=',$startLastMonth)->where('date_visitor','<=',$endLastMonth)->get()),
+            count(Visitor::where('date_visitor','>=',$startThisMonth)->where('date_visitor','<=',$toDay)->get()),
+            count(Visitor::where('date_visitor','>=',$startOfThisYear)->where('date_visitor','<=',$toDay)->get()),
+            count(Visitor::all())
+        ];
+        return view('admin.dashboard',compact('visitor_count'));
     }
 }

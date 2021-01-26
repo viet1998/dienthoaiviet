@@ -30,7 +30,38 @@
 										@if(Session::has('thatbai'))
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
-										<table id="getProduct" class="table">
+										<table class="table">
+											<tr style="padding-left: 10px">
+												<td colspan="9" width="">
+													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
+												</td>
+												<td colspan="2" width="10%">
+													<input type="button" id="search" class="form-control" value="Tìm">
+												</td>
+												<td colspan="2" width="10%">
+													<h3 style="font-size: 25px">
+													<select name="sort" id="sort" class="form-control">
+														<option value="0">Sắp Xếp</option>
+														<option value="1">Tên</option>
+														<option value="2">Loại</option>
+														<option value="3">Hãng</option>
+														<option value="4">Giá Tăng</option>
+														<option value="5">Giá Giảm</option>
+														<option value="6">Không Khuyến Mãi</option>
+														<option value="7">Khuyến Mãi Giảm</option>
+														<option value="8">Mới</option>
+														<option value="9">Cũ</option>
+														<option value="10">Ngày Tạo</option>
+														<option value="11">Ngày Sửa Đổi</option>
+													</select>
+													</h3>
+												</td>
+												<td colspan="1" width="10%">
+													<a href="{{route('product.index')}}" class="btn btn-primary">Refresh</a>
+												</td>
+											</tr>
+										</table>
+										<table  class="table">
 											<thead>
 												<tr>
 													<th>ID</th>
@@ -48,7 +79,7 @@
 													<th>Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody >
+											<tbody id="getProduct">
 												@foreach($products as $product)
 												<tr>
 													<td>{{$product->id}}</td>
@@ -58,7 +89,8 @@
 													<td width="200px"><?php echo $product->description; ?></td>
 													<td >{{number_format($product->unit_price,0,'','.') }} VNĐ</td>
 													<td>{{$product->promotion_price}}</td>
-													<td width="150px">@foreach($product->images as $image)
+													<td >
+														@foreach($product->images as $image)
 														<img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$image->link}}">
 														@endforeach
 													</td>
@@ -109,5 +141,22 @@
 </section>
 <!--main content end-->
 </section>
+<script type="text/javascript">
+		$("#search").on('click',function(){
+			console.log();
+			var searchname=document.getElementById("searchname").value;
+			if(searchname === "") {searchname="null";}
+			$.get('searchproduct/'+searchname,function(data){
+				$("#getProduct").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
 
+			$.get('sortproduct/'+sort,function(data){
+				$("#getProduct").html(data);
+			});
+		});
+	</script>
 @endsection

@@ -25,4 +25,5 @@ class Product_variant extends Model
     public function bill_detail(){
     	return $this->hasMany('App\Models\Bill_detail','id_product_variant','id');
     }
+
 }

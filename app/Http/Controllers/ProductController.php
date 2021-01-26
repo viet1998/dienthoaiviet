@@ -12,6 +12,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Collective\Html\FormFacade as Form;
 
+
 class ProductController extends Controller
 {
     /**
@@ -280,14 +281,21 @@ class ProductController extends Controller
         return redirect()->back()->with('thanhcong','Xóa sản phẩm '.$name.' thành công');
     }
 
-    public function getSearch($searchname)
+    public function getSearchVariant($searchname)
     {
-        $products=Product::where('name','like','%'.$searchname.'%')->get();
-        if($searchname==null)
-            $products=Product::all();
-        foreach($products as $product)
+        $product_variants=Product_variant::Join('products', 'products.id', '=', 'product_variants.id_product')
+        ->select('product_variants.id','product_variants.id_product','color','version','id_image','product_variants.unit_price','product_variants.quantity','product_variants.last_modified_by_user','product_variants.created_at','product_variants.updated_at')
+        ->where('products.name','like','%'.$searchname.'%')
+        ->orWhere('version','like','%'.$searchname.'%')
+        ->orWhere('color','like','%'.$searchname.'%')
+        ->orWhere('product_variants.id','=',$searchname)
+        ->get();
+        if($searchname=='null')
+            $product_variants=Product_variant::all();
+        
+        foreach($product_variants as $product)
         {
-        showProductToHtml($product);
+        $this->showProductVariantToHtml($product,0);
         } 
     }
 
@@ -304,7 +312,11 @@ class ProductController extends Controller
                 break;
 
             case 3:
-                $product_variants=Product_variant::Join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','product_variants.quantity','last_modified_by_user','product_variants.created_at','product_variants.updated_at',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))->groupBy('bill_detail.id_product_variant')->orderByDesc('product_count')->get();
+                $product_variants=Product_variant::Join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')
+                ->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','product_variants.quantity','last_modified_by_user','product_variants.created_at','product_variants.updated_at',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))
+                ->groupBy('bill_detail.id_product_variant')
+                ->orderByDesc('product_count')
+                ->get();
                 break;
             
             default:
@@ -313,7 +325,117 @@ class ProductController extends Controller
         }
         foreach($product_variants as $product)
         {
-            ?>
+            $this->showProductVariantToHtml($product,$id);
+        } 
+         
+    }
+    public function getSearchProduct($searchname)
+    {
+        
+        if($searchname=='null')
+            $products=Product::all();
+        else
+            $products=Product::where('name','like','%'.$searchname.'%')
+            ->orWhere('id','=',$searchname)
+            ->orWhere('created_at','=',$searchname)
+            ->orWhere('updated_at','=',$searchname)
+            ->orWhere('last_modified_by_user','=',$searchname)
+            ->get();
+        foreach($products as $product)
+        {
+        $this->showProductToHtml($product,0);
+        } 
+    }
+
+    public function getSortProduct($id)
+    {
+        
+        switch ($id) {
+            case 1:
+                $products=Product::orderBy('name')->get();
+                break;
+
+            case 2:
+                $products=Product::orderBy('id_type','DESC')->get();
+                break;
+            case 3:
+                $products=Product::orderBy('id_company','DESC')->get();
+                break;
+
+            case 4:
+                $products=Product::orderBy('unit_price','ASC')->get();
+                break;
+            case 5:
+                $products=Product::orderBy('unit_price','DESC')->get();
+                break;
+
+            case 6:
+                $products=Product::where('promotion_price','=',0)->get();
+                break;
+
+            case 7:
+                $products=Product::orderBy('promotion_price','DESC')->get();
+                break;
+            case 8:
+                $products=Product::where('new','=',1)->get();
+                break;
+
+            case 9:
+                $products=Product::where('new','=',0)->get();
+                break;
+
+            case 10:
+                $products=Product::orderBy('created_at','DESC')->get();
+                break;
+            case 11:
+                $products=Product::orderBy('updated_at','DESC')->get();
+                break;
+
+            
+            default:
+                # code...
+                break;
+        }
+        foreach($products as $product)
+        {
+            $this->showProductToHtml($product,$id);
+        } 
+         
+    }
+
+    public function showProductToHtml($product,$id){
+        ?>
+        <tr>
+        <td><?php echo $product['id']; ?></td >
+        <td><a href="<?php echo  route('product.edit',$product->id) ?>"><?php echo $product['name'] ?></a></td>
+        <td><?php echo $product['product_type']['name']; ?></td >
+        <td><?php echo $product['company']['name']; ?></td >
+        <td width="200px"><?php echo $product['description']; ?></td >
+        <td style=""><?php echo number_format($product['unit_price'],0,'','.') ?> VNĐ</td>
+        <td style=""><?php echo $product['promotion_price'] ?></td>
+        <td>
+        <?php foreach($product->images as $image){ ?>
+            <img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $image['link'] ?>">
+        <?php } ?>
+         </td>
+         <td><?php if($product['new']==1) echo 'Mới'; else echo 'Cũ'; ?></td >
+        <td><?php echo $product['last_modified_by_user'].' - '.$product['user_modified']['full_name']; ?></td>
+        <td><?php echo $product['created_at']; ?></td >
+        <td><?php echo $product['updated_at']; ?></td >
+        <td style="width: 150px">
+        <?php echo Form::open(array('route' => ['product.destroy',$product['id']], 'method' => 'delete')); ?>
+            <?php Form::token() ?>
+            <a href="<?php echo route('product.edit',$product['id']); ?>" class="btn btn-primary">Sửa</a>
+            <a href="<?php echo route('product.createvariant',$product['id']); ?>"class="btn btn-primary">Thêm Biến Thế</a>
+            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['product']['name'].' không?")']); ?>
+        <?php echo Form::close(); ?>
+        </td>
+        </tr>
+        <?php
+     }
+    
+     public function showProductVariantToHtml($product,$id){
+        ?>
         <tr>
         <td><?php echo $product['id']; ?></td >
         <td><a href="<?php echo  route('product.edit',$product->id_product) ?>"><?php echo $product['product']['name'] ?></a></td>
@@ -323,7 +445,7 @@ class ProductController extends Controller
         <td><?php echo $product['product']['company']['name']; ?></td >
         <td><?php echo $product['quantity']; ?></td >
         <?php if($id==3) {?>
-            <td><?php echo $product['product_count'] ?></td>
+            <td><?php echo $product['product_count']; ?></td>
         <?php } else {
         ?>  <td><?php echo $product->bill_detail->sum('quantity'); ?></td >
         <?php } ?>
@@ -333,40 +455,10 @@ class ProductController extends Controller
         <td><?php echo $product['created_at']; ?></td >
         <td><?php echo $product['updated_at']; ?></td >
         <td style="width: 150px">
-
-        
         <?php echo Form::open(array('route' => ['product.destroy',$product['id']], 'method' => 'delete')); ?>
             <?php Form::token() ?>
             <a href="<?php echo route('product.editvariant',$product['id']); ?>" class="btn btn-primary">Sửa</a>
             <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['product']['name'].' không?")']); ?>
-        <?php echo Form::close(); ?>
-        </td>
-        </tr>
-        <?php } 
-         // return $products;
-        // return view('page.quanly.timkiemsanpham',compact('products','request')); onclick="return  confirm('Có xóa '+<?php $product['name']+' không?');"
-    }
-
-    
-     public function showProductToHtml($product){
-        ?>
-        <tr>
-        <td><a href="<?php echo  route('sanpham',$product['id']) ?>"><?php echo $product['name'] ?></a></td>
-        <td><a href="<?php echo  route('loai_sanpham',$product['product_type']['id']) ?>"><?php echo $product['product_type']['name'] ?></a></td>
-        <td width="200px"><?php echo $product['description'] ?></td>
-        <td style="text-align: center"><?php echo number_format($product['unit_price']) ?> VNĐ</td>
-        <td style="text-align: center"><?php echo number_format($product['promotion_price']) ?> VNĐ</td>
-        <td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/<?php echo $product['image'] ?>"> </td>
-        <td><?php echo $product['unit'] ?></td>
-        <!-- <?php if(isset($product['bills_count']))?>
-        <td><?php echo $product['bills_count'] ?></td>  -->
-        <td style="">
-
-        <!-- <form method="post" action="<?php echo route('qlsanpham.destroy',$product['id']) ?>"> -->
-        <?php echo Form::open(array('route' => ['qlsanpham.destroy',$product['id']], 'method' => 'delete')); ?>
-            <?php Form::token() ?>
-            <a href="<?php echo route('qlsanpham.edit',$product['id']); ?>" class="btn btn-primary">Sửa</a>
-            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$product['name'].' không?")']); ?>
         <?php echo Form::close(); ?>
         </td>
         </tr>
