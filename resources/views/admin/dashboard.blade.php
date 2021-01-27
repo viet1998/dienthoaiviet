@@ -328,7 +328,7 @@
 					<div class="col-md-4 stats-info widget">
 						<div class="stats-info-agileits">
 							<div class="stats-title">
-								<h4 class="title">thống kê trình duyệt</h4>
+								<h4 class="title">thống kê hãng</h4>
 							</div>
 							<div class="stats-body">
 								<ul class="list-unstyled">

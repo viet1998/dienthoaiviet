@@ -43,18 +43,20 @@
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>
-														<option value="1">Giá Tăng</option>
-														<option value="2">Giá Giảm</option>
-														<option value="3">Số Lượng Bán</option>
+														<option value="1">Đã Giao Hàng</option>
+														<option value="2">Chưa Giao Hàng</option>
+														<option value="3">Đã Hủy</option>
+														<option value="4">Tổng Tiền Giảm</option>
+														<option value="5">Tổng Tiền Tăng</option>
 													</select>
 													</h3>
 												</td>
 												<td colspan="1" width="10%">
-													<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
+													<a href="{{route('bill.index')}}" class="btn btn-primary">Refresh</a>
 												</td>
 											</tr>
 										</table>
-										<table id="getbill" class="table">
+										<table  class="table">
 											<thead>
 												<tr style="text-align: center;">
 													<th>ID</th>
@@ -71,9 +73,9 @@
 													<th>Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody style="text-align: center">
+											<tbody  id="getBill">
 												@foreach($bills as $bill)
-												<tr>
+												<tr style="text-align: center">
 													<td>{{$bill->id}}</td>
 													<td>{{$bill->customer->name}}</a></td>
 													<td>{{$bill->customer->phone_number}}</td>
@@ -137,4 +139,23 @@
 <!--main content end-->
 </section>
 
+<script type="text/javascript">
+		$("#search").on('click',function(){
+			console.log();
+			document.getElementById("sort").selectedIndex = 0;
+			var searchname=document.getElementById("searchname").value;
+			if(searchname === "") {searchname="null";}
+			$.get('searchbill/'+searchname,function(data){
+				$("#getBill").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
+
+			$.get('sortbill/'+sort,function(data){
+				$("#getBill").html(data);
+			});
+		});
+	</script>
 @endsection

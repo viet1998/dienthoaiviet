@@ -144,6 +144,7 @@
 <script type="text/javascript">
 		$("#search").on('click',function(){
 			console.log();
+			document.getElementById("sort").selectedIndex = 0;
 			var searchname=document.getElementById("searchname").value;
 			if(searchname === "") {searchname="null";}
 			$.get('searchproduct/'+searchname,function(data){

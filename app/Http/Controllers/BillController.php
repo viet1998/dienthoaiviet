@@ -178,28 +178,28 @@ class BillController extends Controller
         return redirect()->back()->with('thatbai','Hãy chọn sản phẩm vào giỏ hàng');
     }
 
-    public function getSort($id)
+    public function getSortBill($id)
     {
         
         switch ($id) {
             case 1:
-                $bills=Bill::where('status','Đã Giao Hàng')->orderBy('date_order','DESC')->get();
+                $bills=Bill::where('status',2)->orderBy('date_order','DESC')->get();
                 break;
 
             case 2:
-                $bills=Bill::where('status','Chưa Giao Hàng')->orderBy('date_order','DESC')->get();
+                $bills=Bill::where('status',0)->orderBy('date_order','DESC')->get();
                 break;
 
             case 3:
-                $bills=Bill::where('status','Hủy')->orderBy('date_order','DESC')->get();
+                $bills=Bill::where('status',1)->orderBy('date_order','DESC')->get();
                 break;
 
             case 4:
-                $bills=Bill::orderBy('total','DESC')->orderBy('date_order','DESC')->get();
+                $bills=Bill::orderBy('total','DESC')->get();
                 break;
 
             case 5:
-                $bills=Bill::orderBy('total')->orderBy('date_order','DESC')->get();
+                $bills=Bill::orderBy('total','ASC')->get();
                 break;
 
 
@@ -209,62 +209,51 @@ class BillController extends Controller
                 break;
         }
         foreach($bills as $key => $bill)
-        {
-            ?>
-        <tr>
-        <td><?php echo $key+1 ?></a></td>
-        <td><?php echo $bill['customer']['name'] ?></a></td>
-        <td><?php echo $bill['date_order'] ?></td>
-        <td><?php echo number_format($bill['total']) ?> VNĐ</td>
-        <td><?php echo $bill['customer']['phone_number'] ?></a></td>
-        <td style="text-align: center"><?php echo $bill['payment'] ?></td>
-        <?php if($bill['status']=='Chưa Giao Hàng') { ?>
-        <td><div style="background-color: #FBF405;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td>
-        <?php } else {if ($bill['status']=='Đã Giao Hàng'){ ?>
-        <td ><div style="background-color: #48FB05;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td>
-        <?php } else {if ($bill['status']=='Hủy') { ?>
-        <td ><div style="background-color: red;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td> 
-        <?php }}} ?>
-        <td><?php echo $bill['note'] ?></td>
-        <td style="text-align: center;width: 200px">
-
-            
-            <a href="<?php echo route('qldonhang.show',$bill['id']); ?>" class="btn btn-primary">Chi Tiết</a>
-        </td>
-        </tr>
-        <?php } 
+        { $this->showBillToHtml($bill,0); } 
          // return $bills;
         // return view('page.quanly.timkiemsanpham',compact('bills','request')); onclick="return  confirm('Có xóa '+<?php $bill['name']+' không?');"
     }
 
-    public function getSearch($searchname)
+    public function getSearchBill($searchname)
     {
-        $bills=Bill::join('customer', 'customer.id', '=', 'bills.id_customer')->where('customer.name','like','%'.$searchname.'%')->orderBy('date_order','DESC')->get();
-        if($searchname==null)
+        $bills=Bill::join('customer', 'customer.id', '=', 'bills.id_customer')
+        ->select('bills.id','bills.id_customer','bills.id_user','bills.date_order','bills.total','bills.payment','bills.status','bills.note','bills.last_modified_by_user','bills.created_at','bills.updated_at')
+        ->where('customer.name','like','%'.$searchname.'%')
+        ->orWhere('customer.phone_number','=',$searchname)
+        ->orWhere('bills.id','=',$searchname)
+        ->orWhere('bills.id_user','=',$searchname)
+        ->orWhere('bills.date_order','=',$searchname)
+        ->orWhere('bills.last_modified_by_user','=',$searchname)
+        ->orderBy('date_order','DESC')->get();
+        if($searchname=='null')
             $bills=Bill::orderBy('date_order','DESC')->get();
         foreach($bills as $key => $bill)
-        {
-            ?>
-        <tr>
-        <td><?php echo $key+1 ?></a></td>
+        { $this->showBillToHtml($bill,0); } 
+    }
+    public function showBillToHtml($bill,$id){
+        ?>
+        <tr style="text-align: center">
+        <td><?php echo $bill['id'] ?></a></td>
         <td><?php echo $bill['customer']['name'] ?></a></td>
+        <td><?php echo $bill['customer']['phone_number'] ?></td>
+        <td><?php echo $bill['id_user'] ?></td>
         <td><?php echo $bill['date_order'] ?></td>
-        <td><?php echo number_format($bill['total']) ?> VNĐ</td>
-        <td><?php echo $bill['customer']['phone_number'] ?></a></td>
-        <td style="text-align: center"><?php echo $bill['payment'] ?></td>
-        <?php if($bill['status']=='Chưa Giao Hàng') { ?>
-        <td><div style="background-color: #FBF405;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td>
-        <?php } else {if ($bill['status']=='Đã Giao Hàng'){ ?>
-        <td ><div style="background-color: #48FB05;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td>
-        <?php } else {if ($bill['status']=='Hủy') { ?>
-        <td ><div style="background-color: red;text-align: center;border-radius: 10px"><b><?php echo $bill['status'] ?></b></div></td> 
+        <td><?php echo number_format($bill['total'],0,'','.') ?> VNĐ</td>
+        <td><?php echo $bill['payment'] ?></a></td>
+        <td><?php echo $bill['note'] ?></a></td>
+        <td><?php echo $bill['last_modified_by_user'].' - '.$bill['user_modified']['full_name'] ?></a></td>
+        <?php if($bill['status']==0) { ?>
+        <td><div style="color:#6A6A6A;background-color: #FBF405;text-align: center;border-radius: 10px;padding: 3px"><b>Chưa Giao Hàng</b></div></td>
+        <?php } else {if ($bill['status']==2){ ?>
+        <td ><div style="color:#6A6A6A;background-color: #48FB05;text-align: center;border-radius: 10px;padding: 3px"><b>Đã Giao Hàng</b></div></td>
+        <?php } else {if ($bill['status']==1) { ?>
+        <td ><div style="color:#6A6A6A;background-color: red;text-align: center;border-radius: 10px;padding: 3px"><b>Đã Hủy</b></div></td> 
         <?php }}} ?>
-        <td><?php echo $bill['note'] ?></td>
-        <td style="text-align: center;width: 200px">
-            <a href="<?php echo route('qldonhang.show',$bill['id']); ?>" class="btn btn-primary">Chi Tiết</a>
+        <td><?php echo $bill['updated_at'] ?></td>
+        <td>
+            <a href="<?php echo route('bill.edit',$bill['id']); ?>" class="btn btn-primary">Chi Tiết</a>
         </td>
         </tr>
-        
-        <?php } 
-    }
+        <?php
+     }
 }

@@ -59,7 +59,7 @@ Route::get('del-cart/{id}',[PageController::class,'getDelItemCart'])->name('del_
 Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
 Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
 Route::get('confirmcheckorder',[PageController::class,'getConfirmCheckOrder'])->name('confirmcheckorder');
-Route::get('checkorder/{phone}',[PageController::class,'getCheckOrder'])->name('checkorder');
+Route::get('checkorder',[PageController::class,'getCheckOrder'])->name('checkorder');
 
 // ---------------------------
 
@@ -120,6 +120,15 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 
 	Route::get('sortproduct/{id}',[ProductController::class,'getSortProduct'])->name('sortproduct');
 	Route::get('searchproduct/{searchname}',[ProductController::class,'getSearchProduct'])->name('searchproduct');
+
+	Route::get('sortbill/{id}',[BillController::class,'getSortBill'])->name('sortbill');
+	Route::get('searchbill/{searchname}',[BillController::class,'getSearchBill'])->name('searchbill');
+
+	Route::get('sortcustomer/{id}',[CustomerController::class,'getSortCustomer'])->name('sortcustomer');
+	Route::get('searchcustomer/{searchname}',[CustomerController::class,'getSearchCustomer'])->name('searchcustomer');
+
+	Route::get('sortuser/{id}',[UserController::class,'getSortUser'])->name('sortuser');
+	Route::get('searchuser/{searchname}',[UserController::class,'getSearchUser'])->name('searchuser');
 	//show trang dashboard
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');

@@ -43,9 +43,11 @@
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>
-														<option value="1">Giá Tăng</option>
-														<option value="2">Giá Giảm</option>
-														<option value="3">Số Lượng Bán</option>
+														<option value="1">Tên</option>
+														<option value="2">Email</option>
+														<option value="3">Khách Hàng</option>
+														<option value="4">Nhân Viên</option>
+														<option value="5">Quản Lý</option>
 													</select>
 													</h3>
 												</td>
@@ -54,7 +56,7 @@
 												</td>
 											</tr>
 										</table>
-										<table id="getuser" class="table" >
+										<table  class="table" >
 											<thead >
 												<tr >
 													<th style="text-align: center;">ID</th>
@@ -69,7 +71,7 @@
 													<th style="text-align: center;">Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody style="text-align: center">
+											<tbody style="text-align: center" id="getUser">
 												@foreach($users as $user)
 												<tr>
 													<td>{{$user->id}}</td>
@@ -130,5 +132,23 @@
 </section>
 <!--main content end-->
 </section>
+<script type="text/javascript">
+		$("#search").on('click',function(){
+			console.log();
+			document.getElementById("sort").selectedIndex = 0;
+			var searchname=document.getElementById("searchname").value;
+			if(searchname === "") {searchname="null";}
+			$.get('searchuser/'+searchname,function(data){
+				$("#getUser").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
 
+			$.get('sortuser/'+sort,function(data){
+				$("#getUser").html(data);
+			});
+		});
+	</script>
 @endsection

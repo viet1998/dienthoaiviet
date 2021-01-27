@@ -104,7 +104,8 @@
 								@endif</div>
 								<div class="col-lg-2 form-check-phone">
 									<!-- Tìm đơn hàng -->
-									<form action="route('checkorder')" method="post">
+									<form action="{{route('checkorder')}}" method="get">
+										@csrf
 									<label style="color: #fff; " for="checkphone">Tìm đơn hàng</label>
 									<div style="border-radius: 2px; background-color: #fff;">
 									<input type="phone" name="checkphone" placeholder="Nhập số điện thoại mua hàng" />

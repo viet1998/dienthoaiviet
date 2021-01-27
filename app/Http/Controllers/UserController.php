@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Collective\Html\FormFacade as Form;
 
 class UserController extends Controller
 {
@@ -151,4 +152,95 @@ class UserController extends Controller
     public function showProfileUser(){
         return view('user.profile');
     } 
+
+    public function getSortUser($id)
+    {
+        
+        switch ($id) {
+            case 1:
+                $users=User::orderBy('full_name')->get();
+                break;
+
+            case 2:
+                $users=User::orderBy('email')->get();
+                break;
+
+            case 3:
+                $users=User::where('level',0)->get();
+                break;
+
+            case 4:
+                $users=User::where('level',1)->get();
+                break;
+
+            case 4:
+                $users=User::where('level',2)->get();
+                break;
+
+            
+            
+            default:
+                # code...
+                break;
+        }
+        foreach($users as $key => $user)
+         { $this->showUserToHtml($user,$id); } 
+         // return $users;
+        // return view('page.quanly.timkiemsanpham',compact('users','request')); onclick="return  confirm('Có xóa '+<?php $user['name']+' không?');"
+    }
+
+    public function getSearchUser($searchname)
+    {
+        $users=User::where('full_name','like','%'.$searchname.'%')
+        ->orWhere('email','like','%'.$searchname.'%')
+        ->orWhere('phone','=',$searchname)
+        ->get();
+        if($searchname=='null')
+            $users=User::all();
+        foreach($users as $key => $user)
+        { $this->showUserToHtml($user,0); } 
+    }
+
+    public function showUserToHtml($user,$id){
+        ?>
+        <tr>
+        <td><?php echo $user['id'] ?></td>
+        <td><?php echo $user['full_name'] ?></td>
+        <td><?php echo $user['email'] ?></td>
+        <td><?php echo $user['phone'] ?></td>
+        <td><?php echo $user['address'] ?></td>
+        <td>
+            <?php
+            switch ($user->level) {
+                case 0:
+                    echo 'Khách Hàng';
+                    break;
+
+                case 1:
+                    echo 'Nhân Viên';
+                    break;
+
+                case 2:
+                    echo 'Quản Lý';
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            ?>
+        </td>
+        <td><?php echo $user['last_modified_by_user'].' - '.$user['parent']['full_name'] ?></td>
+        <td><?php echo $user['created_at'] ?></td>
+        <td><?php echo $user['updated_at'] ?></td>
+        <td>
+            <?php echo Form::open(array('route' => ['user.destroy',$user['id']], 'method' => 'delete')); ?>
+            <?php Form::token() ?>
+            <a href="<?php echo route('user.edit',$user['id']); ?>" class="btn btn-primary">Sửa</a>
+            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$user['email'].' không?")']); ?>
+            <?php echo Form::close(); ?>
+        </td>
+        </tr>
+        <?php
+     }
 }

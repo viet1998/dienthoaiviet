@@ -158,7 +158,7 @@ class CustomerController extends Controller
         return redirect()->back()->with('thanhcong','Xóa khách hàng '.$name.' thành công');
     }
 
-    public function getSort($id)
+    public function getSortCustomer($id)
     {
         
         switch ($id) {
@@ -179,7 +179,12 @@ class CustomerController extends Controller
                 break;
 
             case 5:
-                $customers=Customer::join('bills','customer.id','=','bills.id_customer')->select('customer.id','name','email','gender','address','phone_number','customer.note',Bill::raw('count(bills.id_customer) as bills_count'))->groupBy('bills.id_customer')->orderBy('bills_count','DESC')->get();
+                $customers=Customer::join('bills','customer.id','=','bills.id_customer')
+                ->select('customer.id','name','email','gender','address','phone_number','customer.note','customer.last_modified_by_user','customer.created_at','customer.updated_at',Bill::raw('count(bills.id_customer) as bills_count'))
+                ->groupBy('bills.id_customer')
+                ->orderBy('bills_count','DESC')
+                ->get();
+                
                 break;
 
 
@@ -188,89 +193,45 @@ class CustomerController extends Controller
                 # code...
                 break;
         }
-        ?>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên Khách Hàng</th>
-            <th>Giới Tính</th>
-            <th>Email</th>
-            <?php if($id==5) { ?> <th>Số Đơn Hàng Đã Mua</th> <?php } ?>
-            <th>Địa Chỉ</th>
-            <th>Điện Thoại</th>
-            <th>Ghi Chú</th>
-            <th>Chức Năng</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
         foreach($customers as $key => $customer)
-        {
-            ?>
-        <tr>
-        <td><?php echo $customer['id'] ?></td>
-        <td><?php echo $customer['name'] ?></td>
-        <td><?php echo $customer['gender'] ?></td>
-        <td><?php echo $customer['email'] ?></td>
-        <?php if($id==5) { ?> <td><?php echo $customer['bills_count'] ?></td> <?php } ?>
-        <td><?php echo $customer['address'] ?></td>
-        <td><?php echo $customer['phone_number'] ?></td>
-        <td><?php echo $customer['note'] ?></td>
-        <td>
-            <?php echo Form::open(array('route' => ['qlkhachhang.destroy',$customer['id']], 'method' => 'delete')); ?>
-            <?php Form::token() ?>
-            <a href="<?php echo route('qlkhachhang.edit',$customer['id']); ?>" class="btn btn-primary">Sửa</a>
-            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$customer['name'].' không?")']); ?>
-            <?php echo Form::close(); ?>
-        </td>
-        </tr>
-        </tbody>
-        <?php } 
+        { $this->showCustomerToHtml($customer,$id); } 
          // return $customers;
         // return view('page.quanly.timkiemsanpham',compact('customers','request')); onclick="return  confirm('Có xóa '+<?php $customer['name']+' không?');"
     }
 
-    public function getSearch($searchname)
+    public function getSearchCustomer($searchname)
     {
-        $customers=Customer::where('name','like','%'.$searchname.'%')->orWhere('email','like','%'.$searchname.'%')->orWhere('phone_number','like','%'.$searchname.'%')->get();
-        if($searchname==null)
+        $customers=Customer::where('name','like','%'.$searchname.'%')
+        ->orWhere('email','like','%'.$searchname.'%')
+        ->orWhere('phone_number','=',$searchname)
+        ->orWhere('id','=',$searchname)
+        ->orWhere('phone_number','=',$searchname)
+        ->orWhere('last_modified_by_user','=',$searchname)
+        ->get();
+        if($searchname=="null")
             $customers=Customer::all();
-        ?>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tên Khách Hàng</th>
-            <th>Giới Tính</th>
-            <th>Email</th>
-            <th>Địa Chỉ</th>
-            <th>Điện Thoại</th>
-            <th>Ghi Chú</th>
-            <th>Chức Năng</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php
         foreach($customers as $key => $customer)
-        {
-            ?>
-        <tr>
+        { $this->showCustomerToHtml($customer,0); } 
+    }
+
+    public function showCustomerToHtml($customer,$id){
+        ?>
+        <tr style="text-align: center">
         <td><?php echo $customer['id'] ?></td>
         <td><?php echo $customer['name'] ?></td>
+        <td><?php echo $customer['phone_number'] ?></td>
+        <td><?php echo count($customer->bill) ?></td>
         <td><?php echo $customer['gender'] ?></td>
         <td><?php echo $customer['email'] ?></td>
         <td><?php echo $customer['address'] ?></td>
-        <td><?php echo $customer['phone_number'] ?></td>
         <td><?php echo $customer['note'] ?></td>
+        <td><?php echo $customer['last_modified_by_user'].' - '.$customer['user_modified']['full_name'] ?></td>
+        <td><?php echo $customer['created_at'] ?></td>
+        <td><?php echo $customer['updated_at'] ?></td>
         <td>
-            <?php echo Form::open(array('route' => ['qlkhachhang.destroy',$customer['id']], 'method' => 'delete')); ?>
-            <?php Form::token() ?>
-            <a href="<?php echo route('qlkhachhang.edit',$customer['id']); ?>" class="btn btn-primary">Sửa</a>
-            <?php echo Form::submit('Xóa',['class'=>'btn btn-primary','onclick'=>'return confirm("Có xóa '.$customer['name'].' không?")']); ?>
-            <?php echo Form::close(); ?>
+            <a href="<?php echo route('customer.edit',$customer['id']); ?>" class="btn btn-primary">Sửa</a>
         </td>
         </tr>
-        </tbody>
-        
-        <?php } 
-    }
+        <?php
+     }
 }

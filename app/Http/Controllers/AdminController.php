@@ -78,6 +78,8 @@ class AdminController extends Controller
             count(Visitor::where('date_visitor','>=',$startOfThisYear)->where('date_visitor','<=',$toDay)->get()),
             count(Visitor::all())
         ];
+
+        // $brand_data=
         return view('admin.dashboard',compact('visitor_count'));
     }
 }

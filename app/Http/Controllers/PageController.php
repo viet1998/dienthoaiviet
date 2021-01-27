@@ -53,6 +53,7 @@ class PageController extends Controller
     {
         $this->insertVisitor($request);
         $product=Product::find($id);
+        if(is_null($product)) return redirect()->route('trangchu');
         $product_variant=Product_variant::where('id_product',$id)->get();
         $sp_lienquan=Product::where('id_type',$product->id_type)->paginate(3);
         $new_product=Product::where('new',1)->paginate(4);
@@ -268,10 +269,11 @@ class PageController extends Controller
     {
         
     }
-    public function getCheckOrder(Request $request,$phone)
+    public function getCheckOrder(Request $request)
     {
-        $customer=Customer::where('phone_number',$phone)->first();
+        $customer=Customer::where('phone_number',$request->checkphone)->first();
         return view('check-phone',compact('customer'));
+
     }
 
     // Phần đăng nhập

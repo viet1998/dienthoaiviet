@@ -43,18 +43,20 @@
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>
-														<option value="1">Giá Tăng</option>
-														<option value="2">Giá Giảm</option>
-														<option value="3">Số Lượng Bán</option>
+														<option value="1">Nam</option>
+														<option value="2">Nữ</option>
+														<option value="3">Tên</option>
+														<option value="4">Email</option>
+														<option value="5">Số Đơn Hàng</option>
 													</select>
 													</h3>
 												</td>
 												<td colspan="1" width="10%">
-													<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
+													<a href="{{route('customer.index')}}" class="btn btn-primary">Refresh</a>
 												</td>
 											</tr>
 										</table>
-										<table id="getcustomer" class="table" >
+										<table  class="table" >
 											<thead >
 												<tr >
 													<th style="text-align: center;">ID</th>
@@ -71,9 +73,9 @@
 													<th style="text-align: center;">Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody style="text-align: center">
+											<tbody id="getCustomer">
 												@foreach($customers as $customer)
-												<tr>
+												<tr style="text-align: center">
 													<td>{{$customer->id}}</td>
 													<td>{{$customer->name}}</a></td>
 													<td>{{$customer->phone_number}}</td>
@@ -123,5 +125,23 @@
 </section>
 <!--main content end-->
 </section>
+<script type="text/javascript">
+		$("#search").on('click',function(){
+			console.log();
+			document.getElementById("sort").selectedIndex = 0;
+			var searchname=document.getElementById("searchname").value;
+			if(searchname === "") {searchname="null";}
+			$.get('searchcustomer/'+searchname,function(data){
+				$("#getCustomer").html(data);
+			});
+		})
+		$("#sort").on('change',function(e){
+			console.log(e);
+			var sort= e.target.value;
 
+			$.get('sortcustomer/'+sort,function(data){
+				$("#getCustomer").html(data);
+			});
+		});
+	</script>
 @endsection
