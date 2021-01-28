@@ -267,12 +267,19 @@ class PageController extends Controller
 
     public function getConfirmCheckOrder(Request $request)
     {
-        
+        $phone=$request->checkphone;
+        return view('confirmphonenumber',compact('phone'));
     }
     public function getCheckOrder(Request $request)
     {
-        $customer=Customer::where('phone_number',$request->checkphone)->first();
-        return view('check-phone',compact('customer'));
+        if($request->otp=='1234'){
+            $customer=Customer::where('phone_number',$request->phone)->first();
+            return view('check-phone',compact('customer'));
+        }
+        else {
+            // return redirect()->back()->with('thatbai','Mã xác nhận không chính xác');
+            return redirect()->back()->with('thatbai','Mã xác nhận không chính xác');
+        }
 
     }
 

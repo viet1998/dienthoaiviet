@@ -104,7 +104,7 @@
 								@endif</div>
 								<div class="col-lg-2 form-check-phone">
 									<!-- Tìm đơn hàng -->
-									<form action="{{route('checkorder')}}" method="get">
+									<form action="{{route('confirmcheckorder')}}" method="get">
 										@csrf
 									<label style="color: #fff; " for="checkphone">Tìm đơn hàng</label>
 									<div style="border-radius: 2px; background-color: #fff;">
