@@ -52,7 +52,7 @@
 													</h3>
 												</td>
 												<td colspan="1" width="10%">
-													<a href="{{route('productvariants')}}" class="btn btn-primary">Refresh</a>
+													<a href="{{route('user.index')}}" class="btn btn-primary">Refresh</a>
 												</td>
 											</tr>
 										</table>

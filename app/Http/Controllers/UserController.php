@@ -194,6 +194,8 @@ class UserController extends Controller
         $users=User::where('full_name','like','%'.$searchname.'%')
         ->orWhere('email','like','%'.$searchname.'%')
         ->orWhere('phone','=',$searchname)
+        ->orWhere('id','=',$searchname)
+        ->orWhere('last_modified_by_user','=',$searchname)
         ->get();
         if($searchname=='null')
             $users=User::all();
