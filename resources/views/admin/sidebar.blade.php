@@ -50,21 +50,23 @@
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
                 <li>
-                    <a class="active" href="{{route('admin_dashboard')}}">
+                    <a @if(Route::currentRouteName()=='admin_dashboard') class="active" @endif href="{{route('admin_dashboard')}}">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a @if(Route::currentRouteName()=='product.edit' || 
+                    Route::currentRouteName()=='product.createvariant' || 
+                    Route::currentRouteName()=='product.editvariant') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý sản phẩm</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{route('productvariants')}}">Danh sách sản phẩm trong kho</a></li>
-                        <li><a href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
-                        <li><a href="{{route('product.create')}}">Thêm sản phẩm</a></li>
+                        <li><a @if(Route::currentRouteName()=='productvariants') class="active" @endif href="{{route('productvariants')}}">Danh sách sản phẩm trong kho</a></li>
+                        <li><a @if(Route::currentRouteName()=='product.index') class="active" @endif href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
+                        <li><a @if(Route::currentRouteName()=='product.create') class="active" @endif href="{{route('product.create')}}">Thêm sản phẩm</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -79,65 +81,32 @@
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a @if(Route::currentRouteName()=='bill.edit') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý đơn hàng</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{route('bill.index')}}">Danh sách đơn hàng</a></li>
+                        <li><a @if(Route::currentRouteName()=='bill.index') class="active" @endif href="{{route('bill.index')}}">Danh sách đơn hàng</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a @if(Route::currentRouteName()=='customer.edit') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý khách hàng</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{route('customer.index')}}">Danh sách khách hàng</a></li>
+                        <li><a @if(Route::currentRouteName()=='customer.index') class="active" @endif href="{{route('customer.index')}}">Danh sách khách hàng</a></li>
                         <!-- <li><a href="{{route('customer.create')}}">Thêm khách hàng</a></li> -->
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a @if(Route::currentRouteName()=='user.edit') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý tài khoản</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="{{route('user.index')}}">Danh sách tài khoản</a></li>
-                        <li><a href="{{route('user.create')}}">Thêm tài khoản</a></li>
-                    </ul>
-                </li>
-                
-                
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Charts</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="chartjs.html">Chart js</a></li>
-                        <li><a href="flot_chart.html">Flot Charts</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class=" fa fa-bar-chart-o"></i>
-                        <span>Maps</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="google_map.html">Google Map</a></li>
-                        <li><a href="vector_map.html">Vector Map</a></li>
-                    </ul>
-                </li>
-                <li class="sub-menu">
-                    <a href="javascript:;">
-                        <i class="fa fa-glass"></i>
-                        <span>Extra</span>
-                    </a>
-                    <ul class="sub">
-                        <li><a href="gallery.html">Gallery</a></li>
-						<li><a href="404.html">404 Error</a></li>
-                        <li><a href="registration.html">Registration</a></li>
+                        <li><a @if(Route::currentRouteName()=='user.index') class="active" @endif href="{{route('user.index')}}">Danh sách tài khoản</a></li>
+                        <li><a @if(Route::currentRouteName()=='user.create') class="active" @endif href="{{route('user.create')}}">Thêm tài khoản</a></li>
                     </ul>
                 </li>
                 <li>

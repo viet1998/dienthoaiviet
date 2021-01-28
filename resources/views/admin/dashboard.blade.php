@@ -72,10 +72,12 @@
 							<header class="agileits-box-header clearfix">
 								<h3>Thống Kê Doanh Thu <span id="getTotal"></span>
 								<div style="float:right">
-									<select id="dateselect">
+									<select id="dateselect" class="form-control" style="font-size: 17px">
 										<option value="30">Tháng</option>
 										<option value="90">Quý</option>
 										<option value="365">Năm</option>
+										<option value="400">Tháng Trước</option>
+										<option value="401">Năm Trước</option>
 									</select>
 								</div>
 								</h3>
@@ -128,110 +130,157 @@
 				</div>
 			</div>
 		</div>
+		
 
-		<div class="agil-info-calendar">
-		<!-- calendar -->
-		<div class="col-md-6 agile-calendar">
-			<div class="calendar-widget">
-                <div class="panel-heading ui-sortable-handle">
-					<span class="panel-icon">
-                      <i class="fa fa-calendar-o"></i>
-                    </span>
-                    <span class="panel-title"> Lịch</span>
-                </div>
-				<!-- grids -->
-					<div class="agile-calendar-grid">
-						<div class="page">
-							
-							<div class="w3l-calendar-left">
-								<div class="calendar-heading">
-									
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-6 w3ls-graph">
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Tình Trạng Đơn Hàng</span></h3>
+							</header>
+							<div class="panel-body">
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
 								</div>
-								<div class="monthly" id="mycalendar"></div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
 							</div>
-							
-							<div class="clearfix"> </div>
 						</div>
 					</div>
-			</div>
-		</div>
-		<!-- //calendar -->
-		<div class="col-md-6 w3agile-notifications">
-			<div class="notifications">
-				<!--notification start-->
-				
-					<header class="panel-heading">
-						Thông báo 
-					</header>
-					<div class="notify-w3ls">
-						<div class="alert alert-info clearfix">
-							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									Urgent meeting for next proposal
-								</p>
+				</div>
+				<div class="col-md-6 w3ls-graph">
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
+							</header>
+							<div class="panel-body">
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
 							</div>
 						</div>
-						<div class="alert alert-danger">
-							<span class="alert-icon"><i class="fa fa-facebook"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> mentioned you in a post </li>
-									<li class="pull-right notification-time">7 Hours Ago</li>
-								</ul>
-								<p>
-									Very cool photo jack
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-success ">
-							<span class="alert-icon"><i class="fa fa-comments-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender">You have 5 message unread</li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									<a href="#">Anjelina Mewlo, Jack Flip</a> and <a href="#">3 others</a>
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-warning ">
-							<span class="alert-icon"><i class="fa fa-bell-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender">Domain Renew Deadline 7 days ahead</li>
-									<li class="pull-right notification-time">5 Days Ago</li>
-								</ul>
-								<p>
-									Next 5 July Thursday is the last day
-								</p>
-							</div>
-						</div>
-						<div class="alert alert-info clearfix">
-							<span class="alert-icon"><i class="fa fa-envelope-o"></i></span>
-							<div class="notification-info">
-								<ul class="clearfix notification-meta">
-									<li class="pull-left notification-sender"><span><a href="#">Jonathan Smith</a></span> send you a mail </li>
-									<li class="pull-right notification-time">1 min ago</li>
-								</ul>
-								<p>
-									Urgent meeting for next proposal
-								</p>
-							</div>
-						</div>
-						
 					</div>
-				
-				<!--notification end-->
 				</div>
 			</div>
-			<div class="clearfix"> </div>
 		</div>
+
+		<div class="row">
+			<div class="panel-body">
+				<div class="col-md-6 w3ls-graph">
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Đơn Hàng Mới</span></h3>
+							</header>
+							<div class="panel-body">
+								<table class="table table-bordered table-dark"> 
+								<thead>
+								<tr>
+									<th>ID</th>
+									<th>Tên Khách Hàng</th>
+									<th>Ngày Đặt Hàng</th>
+									<th>Tổng Tiền</th>
+									<th>Số Điện Thoại</th>
+									<th >Tình Trạng</th>
+								</tr>
+								</thead>
+								<tbody id="getProduct">
+									@foreach($bills as $key => $bill)
+									<tr>
+										<td>{{$bill->id}}</td>
+										<td>{{$bill->customer->name}}</a></td>
+										<td>{{$bill->date_order}}</td>
+										<td>{{number_format($bill->total,0,'','.')}} VNĐ</td>
+										<td>{{$bill->customer->phone_number}}</td>
+										@if($bill->status==0) 
+										<td><span class="label label-warning">Chưa Giao Hàng</span></td>
+										@elseif ($bill->status==2)
+										<td ><span class="label label-success">Đã Giao Hàng</span></td>
+										@elseif ($bill->status==1)
+										<td ><span class="label label-danger">Đã Hủy</span></td>
+										@endif
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 w3ls-graph">
+					<div class="agileinfo-grap">
+						<div class="agileits-box">
+							<header class="agileits-box-header clearfix">
+								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
+							</header>
+							<div class="panel-body">
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<div class="row progress-labels">
+									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
+									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
+								</div>
+								<div class="progress">
+									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		
+			<div class="clearfix"> </div>
 			<!-- tasks -->
 			<div class="agile-last-grids">
 				<div class="col-md-4 agile-last-left">
@@ -239,22 +288,9 @@
 						<div class="area-grids-heading">
 							<h3>hằng tháng</h3>
 						</div>
-						<div id="graph7"></div>
-						<script>
-						// This crosses a DST boundary in the UK.
-						Morris.Area({
-						  element: 'graph7',
-						  data: [
-							{x: '2013-03-30 22:00:00', y: 3, z: 3},
-							{x: '2013-03-31 00:00:00', y: 2, z: 0},
-							{x: '2013-03-31 02:00:00', y: 0, z: 2},
-							{x: '2013-03-31 04:00:00', y: 4, z: 4}
-						  ],
-						  xkey: 'x',
-						  ykeys: ['y', 'z'],
-						  labels: ['Y', 'Z']
-						});
-						</script>
+						<div >
+							
+						</div>
 
 					</div>
 				</div>
@@ -331,34 +367,39 @@
 							</div>
 							<div class="stats-body">
 								<ul class="list-unstyled">
-									<li>GoogleChrome <span class="pull-right">85%</span>  
+									<li>Apple<span class="pull-right">{{($brand_data[1]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar green" style="width:85%;"></div> 
+											<div class="bar green" style="width:{{($brand_data[1]*100)/$total}}%;"></div> 
 										</div>
 									</li>
-									<li>Firefox <span class="pull-right">35%</span>  
+									<li>Samsung<span class="pull-right">{{($brand_data[2]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar yellow" style="width:35%;"></div>
+											<div class="bar yellow" style="width:{{($brand_data[2]*100)/$total}}%;"></div>
 										</div>
 									</li>
-									<li>Internet Explorer <span class="pull-right">78%</span>  
+									<li>Oppo<span class="pull-right">{{($brand_data[3]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar red" style="width:78%;"></div>
+											<div class="bar red" style="width:{{($brand_data[3]*100)/$total}}%;"></div>
 										</div>
 									</li>
-									<li>Safari <span class="pull-right">50%</span>  
+									<li>Xiaomi<span class="pull-right">{{($brand_data[4]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar blue" style="width:50%;"></div>
+											<div class="bar blue" style="width:{{($brand_data[4]*100)/$total}}%;"></div>
 										</div>
 									</li>
-									<li>Opera <span class="pull-right">80%</span>  
+									<li>Vivo<span class="pull-right">{{($brand_data[5]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar light-blue" style="width:80%;"></div>
+											<div class="bar light-blue" style="width:{{($brand_data[5]*100)/$total}}%;"></div>
 										</div>
 									</li>
-									<li class="last">Others <span class="pull-right">60%</span>  
+									<li class="last">Realme <span class="pull-right">{{($brand_data[6]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar orange" style="width:60%;"></div>
+											<div class="bar orange" style="width:{{($brand_data[6]*100)/$total}}%%;"></div>
+										</div>
+									</li>
+									<li class="last">Oneplus <span class="pull-right">{{($brand_data[7]*100)/$total}}%</span>  
+										<div class="progress progress-striped active progress-right">
+											<div class="bar orange" style="width:{{($brand_data[7]*100)/$total}}%%;"></div>
 										</div>
 									</li> 
 								</ul>
@@ -430,36 +471,8 @@
 </section>
 <!--main content end-->
 </section>
-<script type="text/javascript" src="/admin/js/monthly.js"></script>
-	<script type="text/javascript">
-		$(window).load( function() {
 
-			$('#mycalendar').monthly({
-				mode: 'event',
-				
-			});
 
-			$('#mycalendar2').monthly({
-				mode: 'picker',
-				target: '#mytarget',
-				setWidth: '250px',
-				startHidden: true,
-				showTrigger: '#mytarget',
-				stylePast: true,
-				disablePast: true
-			});
-
-		switch(window.location.protocol) {
-		case 'http:':
-		case 'https:':
-		// running on a server, should be good.
-		break;
-		case 'file:':
-		alert('Just a heads-up, events will not work when run locally.');
-		}
-
-		});
-	</script>
 <script src="/admin/js/bootstrap.js"></script>
 <script src="/admin/js/jquery.dcjqaccordion.2.7.js"></script>
 <script src="/admin/js/scripts.js"></script>
@@ -509,7 +522,7 @@
 	    })
 	    .fail(function() {
 	      // If there is no communication between the server, show an error
-	      alert( "không lấy dử liệu được" );
+	      alert( "không lấy dữ liệu được" );
 	    });
 	  }
 
