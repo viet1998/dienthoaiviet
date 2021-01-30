@@ -253,7 +253,19 @@ class AdminController extends Controller
         // $brand_data=
         $chart_bill=$this->getStatistical();
         $bills=Bill::orderBy('date_order','DESC')->take(5)->get();
-        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills'));
+        $products=$product_variants=Product_variant::Join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')
+                ->select('product_variants.id','id_product','color','version','id_image','product_variants.unit_price','product_variants.quantity','last_modified_by_user','product_variants.created_at','product_variants.updated_at',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))
+                ->groupBy('bill_detail.id_product_variant')
+                ->orderByDesc('product_count')
+                ->take(5)->get();
+
+        $customers=Customer::join('bills','customer.id','=','bills.id_customer')
+            ->select('customer.id','name','email','gender','address','phone_number','customer.note',Bill::raw('count(bills.id_customer) as bills_count'),Bill::raw('sum(bills.total) as totalpaid'))
+            ->groupBy('bills.id_customer')
+            ->orderBy('bills_count','DESC')
+            ->take(5)
+            ->get();
+        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills','products','customers'));
     }
 
 

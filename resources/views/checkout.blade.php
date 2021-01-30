@@ -4,7 +4,7 @@
 		
 		.title-checkout{ display: flex; width: 100%; height: 10px;}
 		
-		.product-item-cart img{width: 100%;}
+		.product-item-cart .img-item img{width: 100%;}
 		.product-item-cart .img-item{text-align: center;}
 		.product-item-cart .img-item button{border: none; background: transparent; color: red;}
 		.product-item-cart .col-6 p{cursor: pointer; color: #00a5f7;}
@@ -27,15 +27,20 @@
 		.book-now button{width: 100%; color: #fff; font-size: 20px; font-weight: bold;background-color: #ff8519;  background-image: linear-gradient(#ff8519, #f00); height: 50px; border: none;border-radius: 5px;}
 		.book-now button:hover{opacity: 0.8;}
 
+		.row{ margin: 0; padding:0; }
+
 	</style>
 	<section class="contai-grid" style="font-size: 14px;">
 			<div class="top-130"> 
-				<div class="row">
+				<div class=" row">
+					<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<div class="row">
 					<div class="title-checkout">
 
-					<div class="col-9"><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></div>
+					<div class="col-7 col-md-9"><a href="{{route('trangchu')}}" style="text-decoration: none;"><i class="fas fa-chevron-left"></i> Mua thêm sản phẩm khác</a></div>
 
-					<div class="col-3"><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></div>
+					<div class="col-5 col-md-3" style="padding: 0;"><p style="float: right;"><i class="fas fa-shopping-cart"></i> Giỏ hàng của bạn<p></div>
 				</div>
 				<hr width="100%" align="center">
 				<form action="{{route('savecheckout')}}" method="post" class="beta-form-checkout">
@@ -51,16 +56,16 @@
 					@if(Session::has('cart'))
 					@foreach($product_cart as $item)
 						<div class="row product-item-cart">
-							<div class="col-1 img-item">
+							<div class="col-2 col-md-1 img-item" style="margin: 0; padding: 0;">
 								<img src="/image/product/{{$item['item']['image']['link']}}" alt="loading"><br>
 								<a href="{{route('del_cart',$item['item']['id'])}}"><i class="fas fa-times-circle"></i> xóa</a>
 							</div>
-							<div class="col-7">
+							<div class="col-6 col-md-7">
 								<strong>{{$item['item']['name']}}</strong><br>
 								<span>Phiên bản: {{$item['item']['version']}}</span><br>
 								<span>Màu: {{$item['item']['color']}}</span>
 							</div>
-							<div class="col-4">
+							<div class="col-4 col-md-4">
 								<div class="price-product"><strong style="color: #f80;">{{number_format($item['totalPriceItem'], 0, '', '.')}}<u>đ</u></strong><br>
 									
 								</div>
@@ -81,23 +86,29 @@
 					<!-- Tổng giá trong giỏ -->
 					
 					<div class="price-product">
-						<table >
-							<tr>
-								<td style="width: 200px">Tạm tính:</td>
-								<td style="text-align: center;width: 250px">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</td>
-							</tr>
-							<tr>
-								<td><strong>Tổng tiền:</strong></td>
-								<td align="center"><strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</strong></td>
-							</tr>
-						</table>
+						<div class="row">
+							<div class="col-7 col-md-6">	
+								<span>Tạm tính</span>
+							</div>
+							<div class="col-5 col-md-4">	
+								<span>@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</span>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-7 col-md-6">	
+								<span>Tổng tiền</span>
+							</div>
+							<div class="col-5 col-md-4">	
+								<strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</strong>
+							</div>
+						</div>
 					</div>
 					
 					<!-- end -->
 					<hr  width="100%" align="center" />
 					<!-- Phần điền thông tin đặt hàng -->
+					<h5>THÔNG TIN KHÁCH HÀNG</h5>
 					<div class="row">
-							<h5>THÔNG TIN KHÁCH HÀNG</h5>
 						<div style="width: 80%; margin: 0 auto;">
 							<div class="form-block">
 								<input id="gender" type="radio" class="input-radio" name="gender" value="Nam" checked="checked" style="width: 10%"><span style="margin-right: 10%">Anh</span>
@@ -143,6 +154,10 @@
 					</div>
 					<!-- end -->	
 				</form>		
+				
+				</div>
+				<div class="col-md 2"></div>
+				</div>
 			</div>	
 	</section>
 	<script type="text/javascript">

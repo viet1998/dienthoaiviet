@@ -37,7 +37,7 @@
 					<h3>Danh sách đơn hàng của bạn </h3>
 					<div class="row">
 						<div class="col-4">
-							<div class="img-bn"><h1>banner</h1></div>
+							
 						</div>
 						<div class="col-8">
 							<div class="card-order">

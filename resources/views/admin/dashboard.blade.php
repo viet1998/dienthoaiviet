@@ -65,45 +65,40 @@
 		</div>	
 
 		<div class="row">
-			<div class="panel-body">
-				<div class="col-md-12 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Thống Kê Doanh Thu <span id="getTotal"></span>
-								<div style="float:right">
-									<select id="dateselect" class="form-control" style="font-size: 17px">
-										<option value="30">Tháng</option>
-										<option value="90">Quý</option>
-										<option value="365">Năm</option>
-										<option value="400">Tháng Trước</option>
-										<option value="401">Năm Trước</option>
-									</select>
-								</div>
-								</h3>
-								
-									
-							</header>
-							<div class="panel-body">
+			<div class="col-md-12">
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Thống Kê Doanh Thu <span id="getTotal"></span>
+						<div style="float:right">
+							<select id="dateselect" class="form-control" style="font-size: 17px">
+								<option value="30">Tháng</option>
+								<option value="90">Quý</option>
+								<option value="365">Năm</option>
+								<option value="400">Tháng Trước</option>
+								<option value="401">Năm Trước</option>
+							</select>
+						</div>
+					</div>
+						
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
 								<div class="canvas-wrapper">
 									<div id="stats-container" style="height: 250px;"></div>
 								</div>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<div class="row">
-			<div class="panel-body">
-				<div class="col-md-12 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
-							</header>
-							<div class="panel-body">
+			<div class="col-md-12">
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Thống Kê Truy Cập
+					</div>
+						
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
 								<table class="table table-bordered table-dark">
 									<thead>
 										<tr>
@@ -124,93 +119,53 @@
 										</tr>
 									</tbody>
 								</table>
-							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		
-
+		
 		<div class="row">
-			<div class="panel-body">
-				<div class="col-md-6 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Tình Trạng Đơn Hàng</span></h3>
-							</header>
-							<div class="panel-body">
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
+			<div class="col-md-6">
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Tình Trạng Đơn Hàng
+						</div>
+						
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
+							<div class="row progress-labels">
+								<div class="col-sm-6">Đơn Hàng Đã Giao</div>
+								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row progress-labels">
+								<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
+								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="row progress-labels">
+								<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
+								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
+							</div>
+							<div class="progress">
+								<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
-							</header>
-							<div class="panel-body">
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
-						</div>
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Đơn Hàng Mới
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="panel-body">
-				<div class="col-md-6 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Đơn Hàng Mới</span></h3>
-							</header>
-							<div class="panel-body">
-								<table class="table table-bordered table-dark"> 
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
+							<table class="table table-bordered table-dark"> 
 								<thead>
 								<tr>
 									<th>ID</th>
@@ -240,44 +195,93 @@
 									@endforeach
 								</tbody>
 							</table>
-							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-6 w3ls-graph">
-					<div class="agileinfo-grap">
-						<div class="agileits-box">
-							<header class="agileits-box-header clearfix">
-								<h3>Thống Kê Truy Cập <span id="getTotal"></span></h3>
-							</header>
-							<div class="panel-body">
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-								<div class="row progress-labels">
-									<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
-									<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
-								</div>
-								<div class="progress">
-									<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
-							</div>
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Sảm Phẩm Bán Chạy</div>
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
+							
 						</div>
 					</div>
 				</div>
 			</div>
+
+
+			<div class="col-md-6">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Top 5 Sản Phẩm Bán Chạy
+					</div>
+					<div class="panel-body">
+						<table id="getProduct" class="table">
+										<thead>
+										<tr>
+											<th>ID</th>
+											<th>Tên</th>
+											<th>Phiên Bản</th>
+											<th>Màu</th>
+											<th>Hình Ảnh</th>
+											<th>Số Lượng Bán</th>
+										</tr>
+										</thead>
+										<tbody >
+										@foreach($products as $product)
+										<tr>
+											<td>{{$product->id}}</td>
+											<td><a href="{{route('show',$product->id)}}">{{$product->product->name}}</a></td>
+											<td>{{$product->version}}</td>
+											<td>{{$product->color}}</td>
+											<td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$product->image->link}}"> </td>
+											<td>{{$product->product_count}}</td>
+										</tr>
+										@endforeach
+										</tbody>
+							</table>
+					</div>
+				</div><!-- /.panel-->
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						Top 5 Khách Hàng Mua Nhiều
+					</div>
+					<div class="panel-body">
+						<div class="col-md-12 no-padding">
+							<table id="getProduct" class="table">
+								<thead>
+								<tr>
+									<th>ID</th>
+									<th>Tên Khách Hàng</th>
+									<th>Email</th>
+									<th>Địa Chỉ</th>
+									<th>Điện Thoại</th>
+									<th>Số Đơn Hàng</th>
+									<th>Tiền Đã Mua</th>
+								</tr>
+								</thead>
+								<tbody>
+								@foreach($customers as $customer)
+								<tr>
+									<td >{{$customer->id}}</td>
+									<td>{{$customer->name}}</a></td>
+									<td >{{$customer->email}}</td>
+									<td >{{$customer->address}} </td>
+									<td>{{$customer->phone_number}}</td>
+									<td>{{$customer->bills_count}}</td>
+									<td>{{number_format($customer->totalpaid)}} VNĐ</td>
+									
+								</tr>
+								@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div><!-- /.col-->
 		</div>
+				
+		
 	
 		
 			<div class="clearfix"> </div>

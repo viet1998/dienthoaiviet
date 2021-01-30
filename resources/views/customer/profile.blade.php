@@ -36,10 +36,8 @@
 				<div class="user-list-order">
 					<h3>Danh sách đơn hàng của bạn </h3>
 					<div class="row">
-						<div class="col-4">
-							<div class="img-bn"><h1>banner</h1></div>
-						</div>
-						<div class="col-8">
+						
+						<div class="col">
 							@if(Auth::check())
 							@if(isset($carts))
 							@foreach($carts as $key => $value)

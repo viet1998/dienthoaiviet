@@ -64,8 +64,9 @@
                         <span>Quản lý sản phẩm</span>
                     </a>
                     <ul class="sub">
-                        <li><a @if(Route::currentRouteName()=='productvariants') class="active" @endif href="{{route('productvariants')}}">Danh sách sản phẩm trong kho</a></li>
+                        
                         <li><a @if(Route::currentRouteName()=='product.index') class="active" @endif href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
+                        <li><a @if(Route::currentRouteName()=='productvariants') class="active" @endif href="{{route('productvariants')}}">Danh sách biến thể của sản phẩm</a></li>
                         <li><a @if(Route::currentRouteName()=='product.create') class="active" @endif href="{{route('product.create')}}">Thêm sản phẩm</a></li>
                     </ul>
                 </li>

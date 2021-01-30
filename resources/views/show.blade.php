@@ -32,12 +32,12 @@
 					<p style="color: #f00; font-size: 16px;">
 						<strong id="product_price">
 							<span id="variant_price">
-								{{number_format(($product["unit_price"]*(100-$product["promotion_price"])/100),0,'','.')}}<u>đ</u> (-{{$product["promotion_price"]}}%) <strike><br><span style="color: #999;">{{number_format($product["unit_price"],0,'','.')}}<u>đ</u></span></strike>
+								{{number_format(($product["unit_price"]*(100-$product["promotion_price"])/100),0,'','.')}}<u>đ</u> (-{{$product["promotion_price"]}}%) <strike>{{number_format($product["unit_price"],0,'','.')}}<u>đ</u></strike>
 							</span>
 						</strong>
 					</p>
 					<p >Phiên Bản - Màu: 
-						<select name="id_product_variant" id="id_product_variant">
+						<select name="id_product_variant" id="id_product_variant" >
 							@foreach($product_variant as $pv)
 							<option value="{{$pv->id}}">
 								{{$pv->version}} - {{$pv->color}}

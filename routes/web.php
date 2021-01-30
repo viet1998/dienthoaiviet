@@ -134,5 +134,4 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');
 	Route::get('tinhtongtien',[AdminController::class,'getSumTotalForDay']);
 	Route::get('thongkedoanhthu',[AdminController::class,'getDataStatistical']);
-
 });

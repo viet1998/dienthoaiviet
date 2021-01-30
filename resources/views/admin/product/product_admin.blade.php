@@ -100,14 +100,16 @@
 													</td>
 													<td>{{$product->created_at}}</td>
 													<td>{{$product->updated_at}}</td>
-													<td style="">
+													<td style="width: 160px">
 
 														<form method="post" action="{{route('product.destroy',$product->id)}}">
 															@csrf
 															@method('DELETE')
-															<a href="{{route('product.edit',$product->id)}}"class="btn btn-primary">Sửa</a>
-															<a href="{{route('product.createvariant',$product->id)}}"class="btn btn-primary">Thêm Biến Thế</a>
-															<input type="submit" class="btn btn-primary" onclick="return confirm('Có xóa {{$product->name}} không?');"value="Xóa">
+															<a href="{{route('product.edit',$product->id)}}"class="btn btn-primary"><span class="glyphicon glyphicon-edit white"></span></a>
+															<a href="{{route('product.createvariant',$product->id)}}"class="btn btn-success">
+																<span class="glyphicon glyphicon-plus white"></span>
+															</a>
+															<button type="submit" class="btn btn-danger" onclick="return confirm('Có xóa {{$product->name}} không?');" ><span class="glyphicon glyphicon-remove white"></span></button>
 														</form>
 													</td>
 												</tr>
@@ -160,4 +162,9 @@
 			});
 		});
 	</script>
+<style type="text/css">
+	.white {
+		color: white;
+	}
+</style>
 @endsection
