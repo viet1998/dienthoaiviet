@@ -17,7 +17,7 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Danh Sách Sản Phẩm trong kho 
+									<h3>Danh Sách Biến Thể Của Sản Phẩm 
 										
 									</h3>
 									
@@ -151,3 +151,10 @@
 	</script>
 
 @endsection
+<script src="/admin/js/bootstrap.js"></script>
+<script src="/admin/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="/admin/js/jquery.slimscroll.js"></script>
+<script src="/admin/js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="/admin/js/jquery.scrollTo.js"></script>

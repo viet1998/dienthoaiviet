@@ -1,3 +1,11 @@
+
+@if(Session::has('flag'))
+	@if(Session::get('flag')=='admin_danger')
+	 	<?php
+			echo '<script type="text/javascript"> window.alert("'.Session::get('thongbao').'"); </script>';
+		?>
+  	@endif
+  	@endif
 @extends('admin.master-admin')
 @section('content')
 <script src="/admin/js/jquery2.0.3.min.js"></script>
@@ -540,8 +548,8 @@
 	  });
 
 	  // Request initial data for the past 7 days:
-	  requestData(30, chart);
-	  requestTotal(30);
+	  requestData(90, chart);
+	  requestTotal(90);
 	  $("#dateselect").on('change',function(e){
 	  	console.log(e);
 		var days= e.target.value;

@@ -11,6 +11,7 @@ use App\Models\Product_variant;
 use App\Models\Bill;
 use App\Models\Customer;
 use App\Models\User;
+use App\Models\Slide;
 use App\Models\Bill_detail;
 use Session;
 use Carbon\Carbon;
@@ -35,6 +36,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        view()->composer('trangchu',function($view){
+            
+            $slides=Slide::all();
+            $view->with('slides',$slides);
+        });
         view()->composer('navbar',function($view){
             
             $type_product=Type_product::all();

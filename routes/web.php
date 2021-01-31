@@ -80,6 +80,7 @@ Route::get('dtdd/{id}',[PageController::class,'getProduct'])->name('show');
 Route::get('dtdd/getbonusprice/{id}',[PageController::class,'getBonusPrice'])->name('getbonusprice');
 Route::get('dtdd/checkoutofstock/{id}',[PageController::class,'getCheckOutOfStock'])->name('getbonusprice');
 Route::get('search',[PageController::class,'getSearch'])->name('search');
+Route::get('dtdd/filter/{id}/{from}/{to}',[PageController::class,'getFilterProduct'])->name('filter');
 
 // ---------------------------
 
@@ -106,7 +107,9 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('product', ProductController::class);
 	Route::resource('customer', CustomerController::class);
 	Route::resource('bill', BillController::class);
-	Route::resource('user', UserController::class);
+	Route::group(['middleware'=>'adminUser'],function(){
+		Route::resource('user', UserController::class);
+	});
 	// quản lý product variant
 	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
 	Route::get('createvariant/{id}',[ProductController::class,'createVariant'])->name('product.createvariant');

@@ -76,9 +76,8 @@
                         <span>Quản lý bài viết</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="responsive_table.html">Trả góp</a></li>
-                        <li><a href="basic_table.html">Sửa chữa</a></li>
-                        <li><a href="responsive_table.html">Khuyến mãi</a></li>
+                        <li><a href="responsive_table.html">Danh Sách Tin Tức</a></li>
+                        <li><a href="basic_table.html">Danh Sách Slide</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -100,6 +99,7 @@
                         <!-- <li><a href="{{route('customer.create')}}">Thêm khách hàng</a></li> -->
                     </ul>
                 </li>
+                @if(Auth::user()->level==2)
                 <li class="sub-menu">
                     <a @if(Route::currentRouteName()=='user.edit') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
@@ -110,6 +110,7 @@
                         <li><a @if(Route::currentRouteName()=='user.create') class="active" @endif href="{{route('user.create')}}">Thêm tài khoản</a></li>
                     </ul>
                 </li>
+                @endif
                 <li>
                     <a href="{{route('dangxuat')}}">
                         <i class="fa fa-user"></i>

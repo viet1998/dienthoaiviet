@@ -39,6 +39,37 @@ class PageController extends Controller
         $company=Company::find($id);
         return compact('products','company');
     }
+    public function getFilter($id,$from,$to){
+        $products=Product::where('id_company',$id)
+        ->where('unit_price','>=',$from)
+        ->where('unit_price','<=',$to)
+        ->get();
+        if($id==0)
+        {
+            $products=Product::where('unit_price','>=',$from)
+            ->where('unit_price','<=',$to)
+            ->get();
+        }
+        foreach($products as $product)
+        {
+            ?>
+            <div class="card-listphone" align="center">
+                <a href="<?php echo route('show',$product->id); ?>">
+                <img src="/image/product/<?php echo $product['image'] ?>" />
+                <p><?php echo $product['name'] ?></p>
+                <?php if($product['promotion_price']==0) {?>
+                <div class="price"><strong><?php echo number_format($product['unit_price'], 0, '', '.') ?><u>đ</u></strong></div>
+                <?php }else { ?>
+                <div class="price" style="width: auto"><strong><?php echo number_format($product['unit_price'], 0, '', '.'); ?><u>đ</u> (-<?php echo $product['promotion_price'] ?>%)</strong>
+                </div>
+                <?php } ?>
+                <div class="btn-buynow"><a href="<?php echo route('show',$product->id); ?>" class="addtocart"><button >Mua ngay</button></a></div>
+                </a>
+            </div>
+            <?php
+        }
+    }
+    
     
     //-------------------load các trang web-----------------
     public function showHomePage(Request $request){
@@ -48,7 +79,10 @@ class PageController extends Controller
         return view('trangchu', compact('slide', 'new_product'));
     }
 
-    
+    public function getFilterProduct($id,$from,$to){
+        $this->getFilter($id,$from,$to);
+    }
+
     public function getProduct(Request $request,$id)
     {
         $this->insertVisitor($request);
@@ -349,6 +383,7 @@ class PageController extends Controller
     public function getCheckout1(){
         return view('checkout');
     }
+    
     
 
 }

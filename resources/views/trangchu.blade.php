@@ -9,15 +9,11 @@
 				<div class="col-slide">
 					<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
 						  <div class="carousel-inner">
-						    <div class="carousel-item active">
-						      <img src="/image/slide/banner1.png" class="d-block w-100" alt="...">
+						    @foreach($slides as $key => $slide)
+						    <div class="carousel-item @if($key==0) active @endif">
+						      <img src="/image/slide/{{$slide->image}}" class="d-block w-100" alt="...">
 						    </div>
-						    <div class="carousel-item">
-						      <img src="/image/slide/banner2.png" class="d-block w-100" alt="...">
-						    </div>
-						    <div class="carousel-item">
-						      <img src="/image/slide/banner3.png" class="d-block w-100" alt="...">
-						    </div>
+						    @endforeach
 						  </div>
 						  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
 						    <span class="carousel-control-prev-icon" aria-hidden="true"></span>

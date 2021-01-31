@@ -69,19 +69,19 @@
 			<p>Chọn mức giá:</p>
 			</div>
 			<div class="column">
-				<a href="#">Dưới 2 triệu</a>
+				<a id="all-2" href="#" onclick="getFilter(0,2000000)">Dưới 2 triệu</a>
 			</div>
-			<div class="column">
-				<a href="#">Từ 2 - 4 triệu</a>
+			<div class="column" >
+				<a id="2-4" href="#" onclick="getFilter(2000000,4000000)">Từ 2 - 4 triệu</a>
 			</div>
-			<div class="column">
-				<a href="#">Từ 4 - 7 triệu</a>
+			<div class="column" >
+				<a id="4-7" href="#" onclick="getFilter(4000000,7000000)">Từ 4 - 7 triệu</a>
 			</div>
-			<div class="column">
-				<a href="#">Từ 7 - 13 triệu</a>
+			<div class="column" >
+				<a id="7-13" href="#" onclick="getFilter(7000000,13000000)">Từ 7 - 13 triệu</a>
 			</div>
-			<div class="column">
-				<a href="#">Trên 13 triệu</a>
+			<div class="column" >
+				<a id="13-all" href="#" onclick="getFilter(13000000,1000000000)">Trên 13 triệu</a>
 			</div>		
 		</section>
 
@@ -90,7 +90,7 @@
 		<div class="title-lpd">
 			<span>Điện Thoại - {{$company->name}}</span>
 		</div>
-		<div class="col-listphone">
+		<div class="col-listphone" id="product">
 			@foreach($products as $product)
 			<div class="card-listphone" align="center">
 				<a href="{{route('show',$product['id'])}}">
@@ -109,4 +109,12 @@
 		</div>		
 	</section>
 	</section>
+<script type="text/javascript">
+	function getFilter(from,to){
+		var id= <?php echo $company->id; ?>;
+		$.get('dtdd/filter/'+id+'/'+from+'/'+to,function(data){
+			$("#product").html(data);
+		});
+	}
+</script>
 @endsection
