@@ -29,11 +29,6 @@ class AdminController extends Controller
     	return view('admin.login');
     }
 
-    public function getHistoryChange(){
-        $histories=History_change::paginate(10);
-        return view('admin.history',compact('histories'));
-    }
-
     public function getStatistical(){
         $bills_dagiao=Bill::where('status',2)->get();
         $bills_chuagiao=Bill::where('status',0)->get();
@@ -262,8 +257,46 @@ class AdminController extends Controller
             ->take(5)
             ->get();
         $product_news=Product::orderBy('created_at','DESC')->take(5)->get();
-        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills','products','customers','product_news'));
+        $histories=History_change::orderBy('id','DESC')->take(5)->get();
+        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills','products','customers','product_news','histories'));
     }
 
+    // lịch sử thay đổi
+
+    public function getHistoryChange(){
+        $histories=History_change::orderBy('id','DESC')->paginate(10);
+        return view('admin.history',compact('histories'));
+    }
+
+    public function getSearchHistory($searchname)
+    {
+        
+        if($searchname=='null')
+            $histories=History_change::all();
+        else
+            $histories=History_change::where('table_change','=',$searchname)
+            ->orWhere('id','=',$searchname)
+            ->orWhere('id_user','=',$searchname)
+            ->orWhere('id_item','=',$searchname)
+            ->orWhere('method','=',$searchname)
+            ->get();
+        foreach($histories as $history)
+        {
+        $this->showHistoryToHtml($history);
+        } 
+    }
+
+    public function showHistoryToHtml($history){
+        ?>
+        <tr>
+        <td><?php echo $history->id ?></td>
+        <td><?php echo $history->table_change ?></a></td>
+        <td><?php echo $history->id_item ?></td>
+        <td><?php echo $history->id_user ?> - <?php echo $history->user->full_name ?></td>
+        <td><?php echo $history->method ?></td>
+        <td><?php echo $history->date_change ?></td>
+        </tr>
+        <?php
+     }
 
 }

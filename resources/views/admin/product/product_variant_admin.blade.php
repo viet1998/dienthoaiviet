@@ -96,11 +96,11 @@
 													<td>{{$product->updated_at}}</td>
 													<td style="width: 150px">
 
-														<form method="post" action="{{route('product.destroy',$product->id)}}">
+														<form method="post" action="{{route('product.destroyvariant',$product->id)}}">
 															@csrf
 															@method('DELETE')
 															<a href="{{route('product.editvariant',$product->id)}}"class="btn btn-primary">Sửa</a>
-															<input type="submit" class="btn btn-primary" onclick="return confirm('Có xóa {{$product->name}} không?');"value="Xóa">
+															<input type="submit" class="btn btn-primary" onclick="return confirm('Có xóa {{$product->product->name}} {{$product->version}} {{$product->color}} không?');"value="Xóa">
 														</form>
 													</td>
 												</tr>

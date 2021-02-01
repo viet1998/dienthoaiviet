@@ -10,6 +10,8 @@ use App\Models\Bill_detail;
 use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 class BillController extends Controller
 {
@@ -89,6 +91,7 @@ class BillController extends Controller
         $bill->status=$request->status;
         $bill->last_modified_by_user=Auth::user()->id;
         $bill->update();
+        $this->saveHistory("Update",$id);
         return redirect()->back()->with('thanhcong','Đơn hàng đã được chuyển trạng thái');
     }
 
@@ -255,5 +258,14 @@ class BillController extends Controller
         </td>
         </tr>
         <?php
+     }
+     public function saveHistory($method,$id){
+        $history= new History_change;
+        $history->table_change="Bill";
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
      }
 }

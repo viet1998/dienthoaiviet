@@ -51,9 +51,8 @@
 												<label  class="col-sm-2 col-form-label">Quyền truy cập</label>
 												<div class="col-sm-10">
 													<SELECT class="form-control" name="level" @if($user->level==0) disabled @endif>
-														<option value="0" @if($user->email==0) checked @endif>Khách Hàng</option>
-														<option value="1" @if($user->email==0) checked @endif>Nhân Viên</option>
-														<option value="2" @if($user->email==0) checked @endif>Quản Lý</option>
+														<option value="1" @if($user->email==1) checked @endif>Nhân Viên</option>
+														<option value="2" @if($user->email==2) checked @endif>Quản Lý</option>
 													</SELECT>
 												</div>
 											</div>
@@ -71,6 +70,7 @@
 													<input type="text" name="address" class="form-control"  placeholder="" value="{{$user->address}}" @if($user->level==0) disabled @endif>
 												</div>
 											</div>
+											
 											
 											<div class="form-group row">
 												<div  align="center">

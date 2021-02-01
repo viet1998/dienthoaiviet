@@ -102,7 +102,7 @@ class SlideController extends Controller
         $slide=Slide::find($id);
         $name=$slide->id;
         $slide->delete();
-        saveHistory("Delete",$id);
+        $this->saveHistory("Delete",$id);
         return redirect()->back()->with('thanhcong','Xóa slide '.$name.' thành công');
     }
 
@@ -112,7 +112,7 @@ class SlideController extends Controller
         $history->id_item=$id;
         $history->id_user=Auth::user()->id;
         $history->method=$method;
-        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $history->save();
      }
 }

@@ -7,6 +7,8 @@ use App\Models\Customer;
 use App\Models\Bill;
 use Collective\Html\FormFacade as Form;
 use Illuminate\Support\Facades\Auth;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 class CustomerController extends Controller
 {
@@ -117,6 +119,7 @@ class CustomerController extends Controller
         $customer->last_modified_by_user=Auth::user()->id;
         $customer->note=$request->note;
         $customer->update();
+        $this->saveHistory("Update",$id);
         return redirect()->back()->with('thanhcong','Sửa thông tin thành công');
     }
 
@@ -135,6 +138,7 @@ class CustomerController extends Controller
             $customer=Customer::find($id);
             $name=$customer->name;
             $customer->delete();
+            $this->saveHistory("Delete",$id);
         }
         return redirect()->back()->with('thanhcong','Xóa khách hàng '.$name.' thành công');
     }
@@ -214,5 +218,15 @@ class CustomerController extends Controller
         </td>
         </tr>
         <?php
+     }
+
+     public function saveHistory($method,$id){
+        $history= new History_change;
+        $history->table_change="Customer";
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
      }
 }

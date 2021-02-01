@@ -29,7 +29,7 @@
 						<a href="#" style="background-color: #ffcc6e; border-radius: 16px; padding: 2px;border: 1px solid #ff2600; text-decoration: none; color: #333;">Sản phẩm đã yêu thích <i class="fas fa-chevron-right"></i></a>
 					</div>
 					<div class="col-1">
-						<button class="btn"><a href="#"><i class="fas fa-edit"></i></a></button>
+						<button class="btn"><a href="{{route('editprofile')}}"><i class="fas fa-edit"></i></a></button>
 					</div>
 				</div>
 				<hr width="100%">

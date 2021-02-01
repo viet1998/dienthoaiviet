@@ -124,14 +124,12 @@
                     </ul>
                 </li>
                 @endif
-                @if(Auth::user()->level==2)
                 <li>
                     <a @if(Route::currentRouteName()=='history') class="active" @endif href="{{route('history')}}">
                         <i class="fa fa-user"></i>
                         <span>Danh sách lịch sử thay đổi</span>
                     </a>
                 </li>
-                @endif
                 <li>
                     <a href="{{route('dangxuat')}}">
                         <i class="fa fa-user"></i>

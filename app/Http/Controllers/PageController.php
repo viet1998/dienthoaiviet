@@ -191,6 +191,34 @@ class PageController extends Controller
         
         return view('customer.profile');
     }
+    public function getEditProfile(){
+        return view('user.info');
+    }
+    public function postEditProfile(Request $request){
+        $this->validate($request,
+            [
+                'full_name'=>'required',
+                'address'=>'required',
+                'phone'=>'required'
+            ],
+            [
+                'full_name.required'=>'Vui lòng nhập họ tên',
+                'address.required'=>'Vui lòng nhập địa chỉ',
+                'phone.required'=>'Vui lòng nhập số điện thoại'
+            ]);
+        if(Auth::check())
+        {
+            $user=Auth::user();
+            $user->full_name=$request->full_name;
+            $user->phone=$request->phone;
+            $user->address=$request->address;
+            $user->update();
+            return redirect()->back()->with('thanhcong','Sửa tài khoản thành công');
+        }
+        else return redirect()->back()->with('thanhcong','Chưa đăng nhập');
+    }
+
+    
     //------------------------------------------------------
 
     // Phần xử lý đặt hàng và thanh toán

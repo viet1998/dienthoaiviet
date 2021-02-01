@@ -211,7 +211,6 @@ class ProductController extends Controller
         $product->unit_price=$request->unit_price;
         $product->new=$request->new;
         $product->last_modified_by_user=Auth::user()->id;
-        $product->image=$request->image;
         $files=$request->file('addimage');
         $name=null;
         if($request->hasFile('addimage'))
@@ -227,6 +226,7 @@ class ProductController extends Controller
             }
         }
         $product->update();
+        $this->saveHistory("Update",$id,"Product");
         return redirect()->back()->with('thanhcong','Sửa thông tin thành công');
     }
 
@@ -253,6 +253,7 @@ class ProductController extends Controller
         $product_variant->last_modified_by_user=Auth::user()->id;
         $product_variant->id_image=$request->image;
         $product_variant->save();
+        $this->saveHistory("Update",$id,"ProductVariant");
         return redirect()->back()->with('thanhcong','Thêm sản phẩm mới thành công');
     }
 
@@ -274,13 +275,28 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $bill_detail=Bill_detail::where('id_product',$id)->get();
+        $product_variants=Product_variant::where('id_product',$id)->get();
+        if($product_variants->count()>0)
+            return redirect()->back()->with('thatbai','Hãy xóa các biến thể và đơn hàng trước!');
+        else{
+            $product=Product::find($id);
+            $name=$product->name;
+            $product->delete();
+            $this->saveHistory("Delete",$id,"Product");
+        }
+        return redirect()->back()->with('thanhcong','Xóa sản phẩm '.$name.' thành công');
+    }
+
+    public function destroyVariant($id)
+    {
+        $bill_detail=Bill_detail::where('id_product_variant',$id)->get();
         if($bill_detail->count()>0)
             return redirect()->back()->with('thatbai','Không thể xóa sản phẩm có trong đơn hàng đã đặt!');
         else{
             $product=Product::find($id);
             $name=$product->name;
             $product->delete();
+            $this->saveHistory("Delete",$id,"Product");
         }
         return redirect()->back()->with('thanhcong','Xóa sản phẩm '.$name.' thành công');
     }
@@ -511,6 +527,7 @@ class ProductController extends Controller
             $type=Type_product::find($id);
             $name=$type->name;
             $type->delete();
+            saveHistory("Delete",$id,"Type_product");
         }
         return redirect()->back()->with('thanhcong','Xóa loại '.$name.' thành công');
      }
@@ -533,7 +550,7 @@ class ProductController extends Controller
         $history->id_item=$id;
         $history->id_user=Auth::user()->id;
         $history->method=$method;
-        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $history->save();
      }
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Collective\Html\FormFacade as Form;
 use App\Models\News;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 class NewsController extends Controller
 {
@@ -18,7 +20,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news=News::paginate(10);
+        $news=News::orderBy('id','DESC')->paginate(10);
         return view('admin.news.news-admin',compact('news'));
     }
 
@@ -122,6 +124,7 @@ class NewsController extends Controller
             $news->image=$name;
         }
         $news->save();
+        $this->saveHistory("Update",$id);
         return redirect()->back()->with('thanhcong','Sửa bài viết mới thành công');
     }
 
@@ -138,6 +141,7 @@ class NewsController extends Controller
         if(Auth::user()->id!=$news->created_by_user && Auth::user()->level<2 )
             return redirect()->back()->with('thatbai','Chỉ có tác giả hoặc quản lý được quyền xóa bài này!');
         $news->delete();
+        $this->saveHistory("Delete",$id);
         return redirect()->back()->with('thanhcong','Xóa bài viết '.$name.' thành công');
     }
 
@@ -177,5 +181,14 @@ class NewsController extends Controller
         </td>
         </tr>
         <?php
+     }
+    public function saveHistory($method,$id){
+        $history= new History_change;
+        $history->table_change="News";
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
      }
 }

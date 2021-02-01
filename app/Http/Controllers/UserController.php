@@ -125,7 +125,7 @@ class UserController extends Controller
         $user->address=$request->address;
         $user->last_modified_by_user=Auth::user()->id;
         $user->update();
-        saveHistory("Update",$id);
+        $this->saveHistory("Update",$id);
         return redirect()->back()->with('thanhcong','Sửa tài khoản thành công');
     }
 
@@ -143,7 +143,7 @@ class UserController extends Controller
             return redirect()->back()->with('thatbai','Tạm thời không thể xóa tài khoản khách hàng');
         else{
             $user->delete();
-            saveHistory("Delete",$id);
+            $this->saveHistory("Delete",$id);
             return redirect()->back()->with('thanhcong','Xóa tài khoản '.$email.' thành công');
         }
     }
@@ -258,7 +258,7 @@ class UserController extends Controller
         $history->id_item=$id;
         $history->id_user=Auth::user()->id;
         $history->method=$method;
-        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->date_change=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
         $history->save();
      }
 }

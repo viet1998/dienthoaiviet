@@ -50,7 +50,11 @@ Route::get('dang-nhap', [UserController::class,'showLogin'])->name('login');
 // goi trang đăng ký người dùng
 Route::get('dang-ky', [UserController::class,'showSigup'])->name('sigup');
 // trang cá nhân
-Route::get('profile',[PageController::class,'getProfile'])->name('profile');
+Route::group(['middleware'=>'userLogin'],function(){
+	Route::get('profile',[PageController::class,'getProfile'])->name('profile');
+	Route::get('editprofile',[PageController::class,'getEditProfile'])->name('editprofile');
+	Route::post('updateprofile',[PageController::class,'postEditProfile'])->name('updateprofile');
+});
 
 //Xử lý đơn hàng và đặt hàng
 Route::get('addtocart',[PageController::class,'getAddtoCart'])->name('addtocart');
@@ -114,8 +118,10 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('bill', BillController::class);
 	Route::group(['middleware'=>'adminUser'],function(){
 		Route::resource('user', UserController::class);
-		Route::get('history',[AdminController::class,'getHistoryChange'])->name('history');
+		
 	});
+	Route::get('history',[AdminController::class,'getHistoryChange'])->name('history');
+	Route::get('searchhistory/{search}',[AdminController::class,'getSearchHistory'])->name('searchhistory');
 	Route::resource('slide', SlideController::class);
 	Route::resource('news', NewsController::class);
 
@@ -131,6 +137,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::get('removeimage/{id}',[ProductController::class,'removeImage'])->name('remove_image');
 	Route::post('storevariant',[ProductController::class,'storeVariant'])->name('product.storevariant');
 	Route::post('updatevariant/{id}',[ProductController::class,'updateVariant'])->name('product.updatevariant');
+	Route::delete('destroyvariant/{id}',[ProductController::class,'destroyVariant'])->name('product.destroyvariant');
 	//sắp xếp sảnphaamr
 	Route::get('sortproductvariant/{id}',[ProductController::class,'getSortVariant'])->name('sortproductvariant');
 	Route::get('searchproductvariant/{searchname}',[ProductController::class,'getSearchVariant'])->name('searchproductvariant');

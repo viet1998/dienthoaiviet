@@ -1,5 +1,7 @@
 @extends('admin.master-admin')
 @section('content')
+<script type="text/javascript" src="/admin/js/nicEdit.js"></script>
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script src="/admin/js/jquery2.0.3.min.js"></script>
 <script src="/admin/js/raphael-min.js"></script>
 <script src="/admin/js/morris.js"></script>
@@ -65,9 +67,14 @@
 											</div>
 
 											<div class="form-group row">
+												<script type="text/javascript">
+													bkLib.onDomLoaded(function() {
+													        new nicEditor({maxHeight : 1000}).panelInstance('description');
+													});
+												</script>
 												<label  class="col-sm-2 col-form-label">Mô Tả</label>
 												<div class="col-sm-10">
-													<textarea name="description" class="form-control"  placeholder=""> </textarea> 
+													<textarea name="description" id="description" style="min-height: 300px;" class="form-control"  placeholder=""> </textarea> 
 												</div>
 											</div>
 											<div class="form-group row">

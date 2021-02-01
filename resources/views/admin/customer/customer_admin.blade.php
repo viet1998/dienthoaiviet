@@ -151,7 +151,7 @@
 			$.get('searchcustomer/'+searchname,function(data){
 				$("#getCustomer").html(data);
 			});
-		})
+		});
 		$("#sort").on('change',function(e){
 			console.log(e);
 			var sort= e.target.value;

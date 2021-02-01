@@ -59,7 +59,6 @@
 												<label  class="col-sm-2 col-form-label">Quyền truy cập</label>
 												<div class="col-sm-10">
 													<SELECT class="form-control" name="level">
-														<option value="0">Khách Hàng</option>
 														<option value="1">Nhân Viên</option>
 														<option value="2">Quản Lý</option>
 													</SELECT>

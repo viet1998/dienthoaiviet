@@ -86,7 +86,7 @@
 									@if(Auth::user()->level>0)
 									<div class="dropdown-menu " aria-labelledby="dropdowntk">
 										<a class="dropdown-item fs-14" href="{{route('admin_dashboard')}}">Trang Quản Lý</a>
-										<a class=" dropdown-item fs-14"href="{{route('dangxuat')}}">Đăng xuất</a>
+										<a class="dropdown-item fs-14" href="{{route('dangxuat')}}">Đăng xuất</a>
 									</div>
 									@else
 									<div class="dropdown-menu" aria-labelledby="dropdowntk">

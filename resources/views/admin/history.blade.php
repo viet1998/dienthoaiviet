@@ -35,26 +35,15 @@
 										<div style="overflow: auto">
 										<table class="table">
 											<tr style="padding-left: 10px">
-												<td colspan="9" width="">
+												<td colspan="11" width="">
 													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
 												</td>
 												<td colspan="2" width="10%">
 													<input type="button" id="search" class="form-control" value="Tìm">
 												</td>
-												<td colspan="2" width="15%">
-													<h3 style="font-size: 25px">
-													<select name="sort" id="sort" class="form-control">
-														<option value="0">Sắp Xếp</option>
-														<option value="1">Tên</option>
-														<option value="2">Email</option>
-														<option value="3">Khách Hàng</option>
-														<option value="4">Nhân Viên</option>
-														<option value="5">Quản Lý</option>
-													</select>
-													</h3>
-												</td>
+												
 												<td colspan="1" width="10%">
-													<a href="{{route('user.index')}}" class="btn btn-primary">Refresh</a>
+													<a href="{{route('history')}}" class="btn btn-primary">Refresh</a>
 												</td>
 											</tr>
 										</table>
@@ -71,7 +60,7 @@
 													<th style="text-align: center;">Ngày Thay Đổi</th>
 												</tr>
 											</thead>
-											<tbody style="text-align: center" id="getUser">
+											<tbody style="text-align: center" id="getHistory">
 												@foreach($histories as $history)
 												<tr>
 													<td>{{$history->id}}</td>
@@ -79,7 +68,7 @@
 													<td>{{$history->id_item}}</td>
 													<td>{{$history->id_user}} - {{$history->user->full_name}}</td>
 													<td>{{$history->method}}</td>
-													<td>{{$history->date}}</td>
+													<td>{{$history->date_change}}</td>
 												</tr>
 												@endforeach
 												<tr>
@@ -129,20 +118,12 @@
 <script type="text/javascript">
 		$("#search").on('click',function(){
 			console.log();
-			document.getElementById("sort").selectedIndex = 0;
 			var searchname=document.getElementById("searchname").value;
 			if(searchname === "") {searchname="null";}
-			$.get('searchuser/'+searchname,function(data){
-				$("#getUser").html(data);
-			});
-		})
-		$("#sort").on('change',function(e){
-			console.log(e);
-			var sort= e.target.value;
-
-			$.get('sortuser/'+sort,function(data){
-				$("#getUser").html(data);
+			$.get('searchhistory/'+searchname,function(data){
+				$("#getHistory").html(data);
 			});
 		});
+		
 	</script>
 @endsection

@@ -372,49 +372,23 @@
 							<table class="table stats-table ">
 								<thead>
 									<tr>
-										<th>S.NO</th>
-										<th>PRODUCT</th>
-										<th>STATUS</th>
-										<th>PROGRESS</th>
+										<th>Tên Bảng</th>
+										<th>ID Item</th>
+										<th>Người Thay Đổi</th>
+										<th>Phương Thức</th>
+										<th>Ngày Thay Đổi</th>
 									</tr>
 								</thead>
 								<tbody>
+									@foreach($histories as $history)
 									<tr>
-										<th scope="row">1</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5>85% <i class="fa fa-level-up"></i></h5></td>
+										<td>{{$history->table_change}}</td>
+										<td>{{$history->id_item}}</td>
+										<td>{{$history->id_user}} - {{$history->user->full_name}}</td>
+										<td>{{$history->method}}</td>
+										<td>{{$history->date_change}}</td>
 									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>35% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-danger">Overdue</span></td>
-										<td><h5 class="down">40% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">4</th>
-										<td>Aliquam</td>
-										<td><span class="label label-info">Out of stock</span></td>
-										<td><h5>100% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">5</th>
-										<td>Lorem ipsum</td>
-										<td><span class="label label-success">In progress</span></td>
-										<td><h5 class="down">10% <i class="fa fa-level-down"></i></h5></td>
-									</tr>
-									<tr>
-										<th scope="row">6</th>
-										<td>Aliquam</td>
-										<td><span class="label label-warning">New</span></td>
-										<td><h5>38% <i class="fa fa-level-up"></i></h5></td>
-									</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
