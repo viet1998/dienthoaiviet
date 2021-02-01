@@ -1,5 +1,7 @@
 @extends('admin.master-admin')
 @section('content')
+<script type="text/javascript" src="/admin/js/nicEdit.js"></script>
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script src="/admin/js/jquery2.0.3.min.js"></script>
 <script src="/admin/js/raphael-min.js"></script>
 <script src="/admin/js/morris.js"></script>
@@ -16,66 +18,57 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Sửa Tài Khoản <span id="getTotal"></span></h3>
+									<h3>Thêm Bài Viết <span id="getTotal"></span>
+									</h3>
 								</header>
 								<div class="panel-body">
 									<div class="col-md-12">
-										<form action="{{route('user.update',$user->id)}}" method="post" enctype="multipart/form-data">
-										@csrf
-										@method('put')
+										<form action="{{route('news.store')}}" method="post" enctype="multipart/form-data">
+											@csrf
 											<div class="form-group row">
 												@if(count($errors)>0)
-													<div class="alert alert-danger">
-														@foreach($errors->all() as $err)
-														{{$err}}<br>
-														@endforeach
-													</div>
+												<div class="alert alert-danger">
+													@foreach($errors->all() as $err)
+													{{$err}}<br>
+													@endforeach
+												</div>
 												@endif
 												@if(Session::has('thanhcong'))
-													<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
+												<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 												@endif
 											</div>
 											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Họ và tên</label>
+												<label  class="col-sm-2 col-form-label">Tiêu Đề</label>
 												<div class="col-sm-10">
-													<input type="text" name="full_name" class="form-control"  placeholder="" value="{{$user->full_name}}" @if($user->level==0) disabled @endif>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Email</label>
-												<div class="col-sm-10">
-													<input type="text" name="email" class="form-control"  placeholder="" value="{{$user->email}}" disabled>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Quyền truy cập</label>
-												<div class="col-sm-10">
-													<SELECT class="form-control" name="level" @if($user->level==0) disabled @endif>
-														<option value="0" @if($user->email==0) checked @endif>Khách Hàng</option>
-														<option value="1" @if($user->email==0) checked @endif>Nhân Viên</option>
-														<option value="2" @if($user->email==0) checked @endif>Quản Lý</option>
-													</SELECT>
-												</div>
-											</div>
+													<input placeholder="Tiêu Đề" type="text" name="title" class="form-control"   >
 
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Số điện thoại</label>
-												<div class="col-sm-10">
-													<input type="text" name="phone" class="form-control"  placeholder="" value="{{$user->phone}}" @if($user->level==0) disabled @endif>
-												</div>
-											</div>
-
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Địa chỉ</label>
-												<div class="col-sm-10">
-													<input type="text" name="address" class="form-control"  placeholder="" value="{{$user->address}}" @if($user->level==0) disabled @endif>
 												</div>
 											</div>
 											
 											<div class="form-group row">
+												<label  class="col-sm-2 col-form-label">Hình Ảnh</label>
+												<div class="col-sm-10">
+													<input type="file" name="image" class="form-control"  placeholder="" >
+												</div>
+											</div>
+
+											<div class="form-group row">
+												<script type="text/javascript">
+													bkLib.onDomLoaded(function() {
+													        new nicEditor({maxHeight : 1000}).panelInstance('content');
+													});
+												</script>
+												<label  class="col-sm-2 col-form-label">Nội Dung</label>
+												<div class="col-sm-10">
+													<textarea name="content" style="min-height: 300px;background-color: #FFF " id="content" class="form-control"  placeholder=""> </textarea> 
+												</div>
+											</div>
+											
+											
+											<div class="form-group row">
 												<div  align="center">
-													<input type="submit" class="btn btn-primary" value="Nhập" @if($user->level==0) disabled @endif>
-													<a href="{{route('user.index')}}" class="btn btn-primary">Quay Lại</a>
+													<input type="submit" class="btn btn-primary" value="Lưu">
+													<a href="{{route('news.index')}}" class="btn btn-primary">Quay Lại</a>
 												</div>
 
 											</div>

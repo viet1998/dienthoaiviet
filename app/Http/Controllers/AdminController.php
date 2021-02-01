@@ -265,7 +265,8 @@ class AdminController extends Controller
             ->orderBy('bills_count','DESC')
             ->take(5)
             ->get();
-        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills','products','customers'));
+        $product_news=Product::orderBy('created_at','DESC')->take(5)->get();
+        return view('admin.dashboard',compact('visitor_count','brand_data','total','chart_bill','bills','products','customers','product_news'));
     }
 
 

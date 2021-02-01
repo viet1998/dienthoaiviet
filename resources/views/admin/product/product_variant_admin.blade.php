@@ -1,9 +1,8 @@
 @extends('admin.master-admin')
 @section('content')
-<script src="/adminjs/jquery2.0.3.min.js"></script>
-<script src="js/jquery2.0.3.min.js"></script>
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.js"></script>
+<script src="/admin/js/jquery2.0.3.min.js"></script>
+<script src="/admin/js/raphael-min.js"></script>
+<script src="/admin/js/morris.js"></script>
 	<section id="container">
 <!--main content start-->
 <section id="main-content">
@@ -25,12 +24,15 @@
 								</header>
 								<div class="panel-body">
 									<div class="col-md-12">
+										<div style="overflow: auto">
 										@if(Session::has('thanhcong'))
 										<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 										@endif
 										@if(Session::has('thatbai'))
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
+										</div>
+										<div style="overflow: auto">
 										<table class="table">
 											<tr style="padding-left: 10px">
 												<td colspan="9" width="">
@@ -54,6 +56,8 @@
 												</td>
 											</tr>
 										</table>
+										</div>
+										<div style="overflow: auto">
 										<table  class="table">
 											<thead>
 												<tr>
@@ -106,7 +110,7 @@
 												</tr>
 											</tbody>
 										</table>
-
+										</div>
 									</div>
 								</div>
 							</div>
@@ -130,6 +134,20 @@
 </section>
 <!--main content end-->
 </section>
+<script src="/admin/js/bootstrap.js"></script>
+<script src="/admin/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="/admin/js/jquery.slimscroll.js"></script>
+<script src="/admin/js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="/admin/js/jquery.scrollTo.js"></script>
+<!-- morris JavaScript -->	
+
+<!-- script đồ thị -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script type="text/javascript">
 		$("#search").on('click',function(){
 			console.log();
@@ -151,10 +169,3 @@
 	</script>
 
 @endsection
-<script src="/admin/js/bootstrap.js"></script>
-<script src="/admin/js/jquery.dcjqaccordion.2.7.js"></script>
-<script src="/admin/js/scripts.js"></script>
-<script src="/admin/js/jquery.slimscroll.js"></script>
-<script src="/admin/js/jquery.nicescroll.js"></script>
-<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
-<script src="/admin/js/jquery.scrollTo.js"></script>

@@ -4,21 +4,34 @@
 <section class="contai-grid" style="font-size: 14px;">
 		<div style="margin-left: 0; margin-right: 0;" class=" row top-130">
 			<div class="col-12 col-sm-8 col-md-6 col-lg-4 item-1 ">
+				@if(count($product->images)!=0)
 				@foreach($product->images as $pv)
 				<div class="mySlides">
 					<img src="/image/product/{{$pv['link']}}" style="height:300px"/>
 				</div>
 				@endforeach
+				@else
+				<div class="mySlides">
+					<img src="/image/product/{{$product->image}}" style="height:300px"/>
+				</div>
+				@endif
 						<a class="prev" onclick="plusSlides(-1)">  </a>
 						<a class="next" onclick="plusSlides(1)"> <i class="fas fa-angle-rigth"></i> </a>
 				<div class="caption-container">
 					<div class="row-gar">
+						@if(count($product->images)!=0)
 					    <?php $num=0; ?>
 					    @foreach($product->images as $pv)
 						<div class="column">
 					    <img class="demo cursor" src="/image/product/{{$pv['link']}}" style="width:100%;height:50px" onclick="currentSlide(<?php $num++; echo $num; ?>)" />
 					    </div>
 						@endforeach
+						@else
+						<div class="column">
+					    <img class="demo cursor" src="/image/product/{{$product->image}}" style="width:100%;height:50px" onclick="currentSlide(0)" />
+					    </div>
+						@endif
+
 					</div>
 				</div>
 			</div>
@@ -103,9 +116,9 @@
 			<!-- Phaanr quang cao -->
 			<div class="col-12 col-lg-3 col-md-4 item-3">
 					<div class="banner">
-						<a href="1"><img src="/image/slide/banner1.png" alt="" /></a>
-						<a href="2"><img src="/image/slide/banner2.png" alt="" /></a>
-						<a href="3"><img  src="/image/slide/banner3.png" alt="" /></a>
+						@foreach($slides as $slide)
+						<a href="1"><img src="/image/slide/{{$slide->image}}" alt="" /></a>
+						@endforeach
 					</div>
 					<div class="extend">
 						<div class="extend-titel">

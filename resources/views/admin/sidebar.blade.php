@@ -20,7 +20,7 @@
         <!-- user login dropdown start-->
         <li class="dropdown">
             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <img alt="" src="images/2.png">
+                <img alt="" src="/admin/images/2.png">
                 <span class="username">{{Auth::user()->full_name}} - 
                     @switch(Auth::user()->level)
                         @case(0) Khách Hàng @break
@@ -58,8 +58,11 @@
                 
                 <li class="sub-menu">
                     <a @if(Route::currentRouteName()=='product.edit' || 
+                    Route::currentRouteName()=='productvariants' ||
+                    Route::currentRouteName()=='product.create' ||
                     Route::currentRouteName()=='product.createvariant' || 
-                    Route::currentRouteName()=='product.editvariant') class="active" @endif href="javascript:;">
+                    Route::currentRouteName()=='product.editvariant' ||
+                    Route::currentRouteName()=='product.index') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý sản phẩm</span>
                     </a>
@@ -71,17 +74,21 @@
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;">
+                    <a @if(Route::currentRouteName()=='news.index' ||
+                    Route::currentRouteName()=='news.create' ||
+                    Route::currentRouteName()=='news.edit' || 
+                    Route::currentRouteName()=='slide.index') class="active" @endif href="javascript:;">
                         <i class="fa fa-pencil"></i>
                         <span>Quản lý bài viết</span>
                     </a>
                     <ul class="sub">
-                        <li><a href="responsive_table.html">Danh Sách Tin Tức</a></li>
-                        <li><a href="basic_table.html">Danh Sách Slide</a></li>
+                        <li><a @if(Route::currentRouteName()=='news.index') class="active" @endif href="{{route('news.index')}}">Danh Sách Tin Tức</a></li>
+                        <li><a @if(Route::currentRouteName()=='slide.index') class="active" @endif href="{{route('slide.index')}}">Danh Sách Slide</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a @if(Route::currentRouteName()=='bill.edit') class="active" @endif href="javascript:;">
+                    <a @if(Route::currentRouteName()=='bill.edit' ||
+                    Route::currentRouteName()=='bill.index') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý đơn hàng</span>
                     </a>
@@ -90,7 +97,9 @@
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a @if(Route::currentRouteName()=='customer.edit') class="active" @endif href="javascript:;">
+                    <a @if(Route::currentRouteName()=='customer.edit' ||
+                    Route::currentRouteName()=='customer.index'
+                    ) class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý khách hàng</span>
                     </a>
@@ -101,7 +110,9 @@
                 </li>
                 @if(Auth::user()->level==2)
                 <li class="sub-menu">
-                    <a @if(Route::currentRouteName()=='user.edit') class="active" @endif href="javascript:;">
+                    <a @if(Route::currentRouteName()=='user.edit' ||
+                    Route::currentRouteName()=='user.index' ||
+                    Route::currentRouteName()=='user.create') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý tài khoản</span>
                     </a>

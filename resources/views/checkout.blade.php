@@ -53,6 +53,7 @@
 						<div class="alert alert-danger" style="width: 100%;">{{Session::get('thatbai')}}</div>
 						@endif
 					</div>
+					<div class="row">
 					@if(Session::has('cart'))
 					@foreach($product_cart as $item)
 						<div class="row product-item-cart">
@@ -78,8 +79,20 @@
 						</div>
 					@endforeach
 					@else 
+					<div class="row product-item-cart">
 						Hãy chọn sản phẩm
+						<div class="col-2 col-md-1 img-item" style="margin: 0; padding: 0;">
+								
+							</div>
+							<div class="col-6 col-md-7">
+								
+							</div>
+							<div class="col-4 col-md-4">
+								
+							</div>
+					</div>
 					@endif
+					</div>
 
 					<!-- end -->
 					<hr  width="100%" align="center" />
@@ -151,6 +164,7 @@
 					<div class="row book-now" style="text-align: center;">
 						<p>Tổng tiền: <strong style="color: #f00;">@if(Session::has('cart')) {{number_format($totalPrice, 0, '', '.')}} <u>đ</u> @endif</strong></p><br>
 						@if(Session::has('cart')) @if($totalQty>0) <button type="submit">Đặt ngay</button> @endif @endif
+						
 					</div>
 					<!-- end -->	
 				</form>		

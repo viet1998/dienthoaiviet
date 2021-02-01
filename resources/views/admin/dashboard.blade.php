@@ -74,13 +74,13 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<div class="panel panel-default ">
+				<div class="panel panel-default" style="overflow: auto">
 					<div class="panel-heading">
 						Thống Kê Doanh Thu <span id="getTotal"></span>
 						<div style="float:right">
 							<select id="dateselect" class="form-control" style="font-size: 17px">
-								<option value="30">Tháng</option>
 								<option value="90">Quý</option>
+								<option value="30">Tháng</option>
 								<option value="365">Năm</option>
 								<option value="400">Tháng Trước</option>
 								<option value="401">Năm Trước</option>
@@ -90,7 +90,7 @@
 						
 					<div class="panel-body">
 						<div class="col-md-12 no-padding">
-								<div class="canvas-wrapper">
+								<div class="canvas-wrapper" style="width: 100%">
 									<div id="stats-container" style="height: 250px;"></div>
 								</div>
 						</div>
@@ -107,10 +107,10 @@
 						
 					<div class="panel-body">
 						<div class="col-md-12 no-padding">
-								<table class="table table-bordered table-dark">
+								<table class="table table-bordered table-dark" style="width: 100%">
 									<thead>
 										<tr>
-											<td scope="col">Hôm nay</td>
+											<td scope="col">Truy Cập Mới Hôm Nay</td>
 											<td scope="col">Tổng tháng trước</td>
 											<td scope="col">Tổng tháng này</td>
 											<td scope="col">Tổng một năm</td>
@@ -142,26 +142,26 @@
 						</div>
 						
 					<div class="panel-body">
-						<div class="col-md-12 no-padding">
-							<div class="row progress-labels">
+						<div class="col-md-12 no-padding" >
+							<div class="row progress-labels" style="width: 100%">
 								<div class="col-sm-6">Đơn Hàng Đã Giao</div>
 								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[0])}}%</div>
 							</div>
-							<div class="progress">
+							<div class="progress" style="width: 100%">
 								<div data-percentage="0%" style="width: {{round($chart_bill[0])}}%;" class="progress-bar progress-bar-blue" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<div class="row progress-labels">
+							<div class="row progress-labels" style="width: 100%">
 								<div class="col-sm-6">Đơn Hàng Chưa Giao</div>
 								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[1])}}%</div>
 							</div>
-							<div class="progress">
+							<div class="progress" style="width: 100%">
 								<div data-percentage="0%" style="width: {{round($chart_bill[1])}}%;" class="progress-bar progress-bar-orange" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
-							<div class="row progress-labels">
+							<div class="row progress-labels" style="width: 100%">
 								<div class="col-sm-6">Đơn Hàng Đã Hủy</div>
 								<div class="col-sm-6" style="text-align: right;">{{round($chart_bill[2])}}%</div>
 							</div>
-							<div class="progress">
+							<div class="progress" style="width: 100%">
 								<div data-percentage="0%" style="width: {{round($chart_bill[2])}}%;" class="progress-bar progress-bar-red" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
 							</div>
 						</div>
@@ -172,8 +172,8 @@
 						Đơn Hàng Mới
 					</div>
 					<div class="panel-body">
-						<div class="col-md-12 no-padding">
-							<table class="table table-bordered table-dark"> 
+						<div class="col-md-12" style="overflow: auto">
+							<table class="table" style="width: 100%"> 
 								<thead>
 								<tr>
 									<th>ID</th>
@@ -208,10 +208,34 @@
 				</div>
 				<div class="panel panel-default ">
 					<div class="panel-heading">
-						Sảm Phẩm Bán Chạy</div>
+						Sảm Phẩm Mới</div>
 					<div class="panel-body">
-						<div class="col-md-12 no-padding">
-							
+						<div class="col-md-12 no-padding" style="overflow: auto">
+							<table class="table" style="width: 100%"> 
+								<thead>
+								<tr>
+									<th>ID</th>
+									<th>Tên</th>
+									<th>Loại</th>
+									<th>Hãng</th>
+									<th>Hình Ảnh</th>
+									<th>Giá</th>
+								</tr>
+								</thead>
+								<tbody id="getProduct">
+									@foreach($product_news as $key => $product)
+									<tr>
+										<td>{{$product->id}}</td>
+										<td>{{$product->name}}</td>
+										<td>{{$product->product_type->name}}</td>
+										<td>{{$product->company->name}}</td>
+										<td><img style="width:80px;height:80px;vertical-align: middle;" src="/image/product/{{$product->image}}"></td>
+										<td>{{$product->unit_price}}</td>
+										
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -223,8 +247,8 @@
 					<div class="panel-heading">
 						Top 5 Sản Phẩm Bán Chạy
 					</div>
-					<div class="panel-body">
-						<table id="getProduct" class="table">
+					<div class="panel-body" style="overflow: auto">
+						<table id="getProduct" class="table" style="width: 100%">
 										<thead>
 										<tr>
 											<th>ID</th>
@@ -251,14 +275,14 @@
 					</div>
 				</div><!-- /.panel-->
 				<div class="panel panel-default ">
-					<div class="panel-heading">
-						Top 5 Khách Hàng Mua Nhiều
+					<div class="panel-heading" style="overflow: auto">
+						Khách Hàng Mua Nhiều
 					</div>
 					<div class="panel-body">
-						<div class="col-md-12 no-padding">
-							<table id="getProduct" class="table">
-								<thead>
-								<tr>
+						<div class="col-md-12 no-padding" style="overflow: auto">
+							<table id="getProduct" class="table" style="width: 100%">
+								<thead style="width: 100%">
+								<tr >
 									<th>ID</th>
 									<th>Tên Khách Hàng</th>
 									<th>Email</th>
@@ -268,7 +292,7 @@
 									<th>Tiền Đã Mua</th>
 								</tr>
 								</thead>
-								<tbody>
+								<tbody style="width: 100%">
 								@foreach($customers as $customer)
 								<tr>
 									<td >{{$customer->id}}</td>
@@ -294,82 +318,7 @@
 		
 			<div class="clearfix"> </div>
 			<!-- tasks -->
-			<div class="agile-last-grids">
-				<div class="col-md-4 agile-last-left">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>hằng tháng</h3>
-						</div>
-						<div >
-							
-						</div>
-
-					</div>
-				</div>
-				<div class="col-md-4 agile-last-left agile-last-middle">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>hằng ngày</h3>
-						</div>
-						<div id="graph8"></div>
-						<script>
-						/* data stolen from http://howmanyleft.co.uk/vehicle/jaguar_'e'_type */
-						var day_data = [
-						  {"period": "2016-10-01", "licensed": 3407, "sorned": 660},
-						  {"period": "2016-09-30", "licensed": 3351, "sorned": 629},
-						  {"period": "2016-09-29", "licensed": 3269, "sorned": 618},
-						  {"period": "2016-09-20", "licensed": 3246, "sorned": 661},
-						  {"period": "2016-09-19", "licensed": 3257, "sorned": 667},
-						  {"period": "2016-09-18", "licensed": 3248, "sorned": 627},
-						  {"period": "2016-09-17", "licensed": 3171, "sorned": 660},
-						  {"period": "2016-09-16", "licensed": 3171, "sorned": 676},
-						  {"period": "2016-09-15", "licensed": 3201, "sorned": 656},
-						  {"period": "2016-09-10", "licensed": 3215, "sorned": 622}
-						];
-						Morris.Bar({
-						  element: 'graph8',
-						  data: day_data,
-						  xkey: 'period',
-						  ykeys: ['licensed', 'sorned'],
-						  labels: ['Licensed', 'SORN'],
-						  xLabelAngle: 60
-						});
-						</script>
-					</div>
-				</div>
-				<div class="col-md-4 agile-last-left agile-last-right">
-					<div class="agile-last-grid">
-						<div class="area-grids-heading">
-							<h3>hằng nằm</h3>
-						</div>
-						<div id="graph9"></div>
-						<script>
-						var day_data = [
-						  {"elapsed": "I", "value": 34},
-						  {"elapsed": "II", "value": 24},
-						  {"elapsed": "III", "value": 3},
-						  {"elapsed": "IV", "value": 12},
-						  {"elapsed": "V", "value": 13},
-						  {"elapsed": "VI", "value": 22},
-						  {"elapsed": "VII", "value": 5},
-						  {"elapsed": "VIII", "value": 26},
-						  {"elapsed": "IX", "value": 12},
-						  {"elapsed": "X", "value": 19}
-						];
-						Morris.Line({
-						  element: 'graph9',
-						  data: day_data,
-						  xkey: 'elapsed',
-						  ykeys: ['value'],
-						  labels: ['value'],
-						  parseTime: false
-						});
-						</script>
-
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
+			
 		<!-- //tasks -->
 		<div class="agileits-w3layouts-stats">
 					<div class="col-md-4 stats-info widget">
@@ -378,7 +327,7 @@
 								<h4 class="title">thống kê hãng</h4>
 							</div>
 							<div class="stats-body">
-								<ul class="list-unstyled">
+								<ul class="list-unstyled" style="width: 100%">
 									<li>Apple<span class="pull-right">{{($brand_data[1]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
 											<div class="bar green" style="width:{{($brand_data[1]*100)/$total}}%;"></div> 
@@ -404,7 +353,7 @@
 											<div class="bar light-blue" style="width:{{($brand_data[5]*100)/$total}}%;"></div>
 										</div>
 									</li>
-									<li class="last">Realme <span class="pull-right">{{($brand_data[6]*100)/$total}}%</span>  
+									<li>Realme <span class="pull-right">{{($brand_data[6]*100)/$total}}%</span>  
 										<div class="progress progress-striped active progress-right">
 											<div class="bar orange" style="width:{{($brand_data[6]*100)/$total}}%%;"></div>
 										</div>

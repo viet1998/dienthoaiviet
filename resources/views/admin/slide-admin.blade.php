@@ -17,7 +17,7 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Danh Sách Tài Khoản <span id="getTotal"></span>
+									<h3>Danh Sách Slide <span id="getTotal"></span>
 									</h3>
 									
 										
@@ -25,6 +25,13 @@
 								<div class="panel-body">
 									<div class="col-md-12" >
 										<div style="overflow: auto">
+										@if(count($errors)>0)
+										<div class="alert alert-danger">
+											@foreach($errors->all() as $err)
+											{{$err}}<br>
+											@endforeach
+										</div>
+										@endif
 										@if(Session::has('thanhcong'))
 										<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 										@endif
@@ -32,82 +39,55 @@
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
 										</div>
-										<table class="table">
-											<tr style="padding-left: 10px">
-												<td colspan="9" width="">
-													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
-												</td>
-												<td colspan="2" width="10%">
-													<input type="button" id="search" class="form-control" value="Tìm">
-												</td>
-												<td colspan="2" width="10%">
-													<h3 style="font-size: 25px">
-													<select name="sort" id="sort" class="form-control">
-														<option value="0">Sắp Xếp</option>
-														<option value="1">Tên</option>
-														<option value="2">Email</option>
-														<option value="3">Khách Hàng</option>
-														<option value="4">Nhân Viên</option>
-														<option value="5">Quản Lý</option>
-													</select>
-													</h3>
-												</td>
-												<td colspan="1" width="10%">
-													<a href="{{route('user.index')}}" class="btn btn-primary">Refresh</a>
-												</td>
-											</tr>
-										</table>
-										</div>
 										<div style="overflow: auto">
 										<table  class="table" style="overflow: auto">
 											<thead >
 												<tr >
 													<th style="text-align: center;">ID</th>
-													<th style="text-align: center;">Tên</th>
-													<th style="text-align: center;">Email</th>
-													<th style="text-align: center;">Số Điện Thoại</th>
-													<th style="text-align: center;">Địa Chỉ</th>
-													<th style="text-align: center;">Phân Quyền</th>
+													<th style="text-align: center;">Ảnh</th>
 													<th style="text-align: center;">Sửa Đổi Lần Cuối Bởi</th>
-													<th style="text-align: center;">Ngày Tạo</th>
-													<th style="text-align: center;">Ngày Sửa Đổi</th>
+													<th style="text-align: center;">Ngày Thêm</th>
+													<th style="text-align: center;">Ngày Sửa</th>
 													<th style="text-align: center;">Chức Năng</th>
 												</tr>
 											</thead>
-											<tbody style="text-align: center" id="getUser">
-												@foreach($users as $user)
+											<tbody style="text-align: center" id="getslide">
+												@foreach($slides as $slide)
 												<tr>
-													<td>{{$user->id}}</td>
-													<td>{{$user->full_name}}</a></td>
-													<td>{{$user->email}}</td>
-													<td>{{$user->phone}}</td>
-													<td>{{$user->address}}</td>
-													<td>
-														@switch($user->level)
-														@case(0) Khách Hàng @break 
-														@case(1) Nhân Viên @break
-														@case(2) Quản Lý @break
-														@endswitch
-													</td>
-													<td>
-														@if($user->last_modified_by_user!=null)
-														{{$user->last_modified_by_user}} - {{$user->parent->full_name}}
-														@endif
-													</td>
-													<td>{{$user->created_at}}</td>
-													<td>{{$user->updated_at}}</td>
+													<td>{{$slide->id}}</td>
+													<td><img src="/image/slide/{{$slide->image}}" width="400px" height="150px"></a></td>
+													<td>{{$slide->last_modified_by_user}} - {{$slide->user_modified->full_name}}</td>
+													<td>{{$slide->created_at}}</td>
+													<td>{{$slide->updated_at}}</td>
 													<td style="">
-														<form method="post" action="{{route('user.destroy',$user->id)}}">
+														<form method="post" action="{{route('slide.destroy',$slide->id)}}">
 															@csrf
 															@method('DELETE')
-															<a href="{{route('user.edit',$user->id)}}"class="btn btn-primary">Sửa</a>
-															<input type="submit" class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn xóa tài khoản {{$user->email}} không?');"value="Xóa">
+															
+															<input type="submit" class="btn btn-primary" onclick="return confirm('Bạn có chắc chắn xóa slide {{$slide->id}} không?');"value="Xóa">
 														</form>
 													</td>
 												</tr>
 												@endforeach
 												<tr>
-													<td colspan="12"><div align="center">{{$users->links()}}</div></td>
+													<td colspan="12">
+														<form method="post" action="{{route('slide.store')}}" enctype="multipart/form-data" >
+															@csrf
+														<table width="100%">
+															<tr>
+																<td >
+																	<label>Thêm Slide:</label>
+																<td>
+																<input type="file" name="image" class="form-control">
+																</td>
+																<td>
+																<input type="submit" class="btn btn-primary" value="Lưu">
+																</td>
+															</tr>
+														</table>
+														</form>
+														
+													</td>
 												</tr>
 											</tbody>
 										</table>
@@ -156,16 +136,16 @@
 			document.getElementById("sort").selectedIndex = 0;
 			var searchname=document.getElementById("searchname").value;
 			if(searchname === "") {searchname="null";}
-			$.get('searchuser/'+searchname,function(data){
-				$("#getUser").html(data);
+			$.get('searchslide/'+searchname,function(data){
+				$("#getslide").html(data);
 			});
 		})
 		$("#sort").on('change',function(e){
 			console.log(e);
 			var sort= e.target.value;
 
-			$.get('sortuser/'+sort,function(data){
-				$("#getUser").html(data);
+			$.get('sortslide/'+sort,function(data){
+				$("#getslide").html(data);
 			});
 		});
 	</script>

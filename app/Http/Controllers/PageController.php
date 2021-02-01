@@ -22,6 +22,7 @@ use Carbon\Carbon;
 
 class PageController extends Controller
 {
+    //function lấy dữ liệu
     public function insertVisitor(Request $request)
     {
         $ip_user=$request->ip();
@@ -70,13 +71,14 @@ class PageController extends Controller
         }
     }
     
-    
+    //--------------------------------------------------------
     //-------------------load các trang web-----------------
     public function showHomePage(Request $request){
         $this->insertVisitor($request);
         $slide = Slide::all();
         $new_product = Product::where('new',1) -> paginate(5);
-        return view('trangchu', compact('slide', 'new_product'));
+        $news= News::orderBy('created_at','DESC')->take(2)->get();
+        return view('trangchu', compact('slide', 'new_product','news'));
     }
 
     public function getFilterProduct($id,$from,$to){
@@ -139,6 +141,22 @@ class PageController extends Controller
         return view('company-product',$this->getCompany(7));
     }
     
+    public function getNewsDetail(Request $request,$id)
+    {
+        $this->insertVisitor($request);
+        $news=News::find($id);
+        if(is_null($news)) return redirect()->route('trangchu');
+        
+        return view('news-show',compact('news'));
+    }
+    public function getNewsIndex(Request $request)
+    {
+        $this->insertVisitor($request);
+        $news=News::paginate(10);
+        return view('news',compact('news'));
+    }
+
+
     //----------------------------------------------------------------------------------
     //Ajax web product
     public function getBonusPrice($id)

@@ -30,16 +30,13 @@
 					<a href=""><img src="/image/banner/iPhoneDOCQUYEN-398-110-398x110.png"></a>
 
 					<div class="blog-card">
-						<div class="blog-card-title"> <span>TIN CÔNG NGHỆ</span><a href="tincongnghe">Xem tất cả...</a></div>
+						<div class="blog-card-title"> <span>TIN CÔNG NGHỆ</span><a href="{{route('newsindex')}}">Xem tất cả...</a></div>
+						@foreach($news as $n)
 						<div class="row-card-news ">
-							<div class="col-img"><img src="/image/news/iphone-12.jpg" alt="..." /></div>
-							<div class="col-title"><a href="#">24h công nghệ có gì HOT 6/10: iPhone 12 Pro Max lộ ảnh rõ nét cùng thời điểm mở bán chính thức, chi tiết cụm 5 camera trên Galaxy A72</a></div>
+							<div class="col-img"><img src="/image/news/{{$n->image}}" alt="..." /></div>
+							<div class="col-title"><a href="{{route('shownews',$n->id)}}">{{$n->title}}</a></div>
 						</div>
-						<div class="row-card-news">
-							<div class="col-img"><img src="/image/news/vivov20den.jpg" alt="..." /></div>
-							<div class="col-title"><a href="#">Vivo V20 Pro 5G phiên bản RAM 8GB lộ ảnh thực tế bên cạnh hộp đựng, thiết kế được xác nhận với cụm 3 camera mặt sau</a></div>
-							
-						</div>
+						@endforeach
 					</div>
 
 				</div>

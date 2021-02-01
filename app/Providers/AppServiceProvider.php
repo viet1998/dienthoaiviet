@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $slides = Slide::all();
+        view()->share('slides', $slides);
         view()->composer('trangchu',function($view){
             
             $slides=Slide::all();

@@ -11,10 +11,9 @@
 	.status{ float: right; margin: 10px 0;}
 	.sl_stt{ width: 200px; height: 35px; }
 </style>
-<script src="/adminjs/jquery2.0.3.min.js"></script>
-<script src="js/jquery2.0.3.min.js"></script>
-<script src="js/raphael-min.js"></script>
-<script src="js/morris.js"></script>
+<script src="/admin/js/jquery2.0.3.min.js"></script>
+<script src="/admin/js/raphael-min.js"></script>
+<script src="/admin/js/morris.js"></script>
 	<section id="container">
 <!--main content start-->
 <section id="main-content">
@@ -35,6 +34,7 @@
 								<div class="panel-body">
 									<div class="col-md-12">
 									<section class="contai">
+											<div style="overflow: auto">
 											@if(count($errors)>0)
 											<div class="alert alert-danger">
 												@foreach($errors->all() as $err)
@@ -45,9 +45,10 @@
 											@if(Session::has('thanhcong'))
 											<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 											@endif
+											</div>
 											<div class="card">
 												<p style="margin: 10px; font-weight: bold;">Thông tin khách hàng</p>
-												<div>
+												<div style="overflow: auto">
 													<table class="list1">
 														<tr>
 															<td>Thông tin người đặt hàng</td>
@@ -76,7 +77,7 @@
 
 													</table>
 												</div>
-												<div>
+												<div style="overflow: auto">
 													<table class="list2">
 														<tr>
 															<td width="30">STT</td>
@@ -100,7 +101,8 @@
 														</tr>
 													</table>
 												</div>
-												<div class="status">
+												<div style="float:right;width: 100%">
+													<div style="overflow: auto;float:right;">
 													<strong>Trạng thái giao hàng: </strong>
 													<form action="{{route('bill.update',$bill->id)}}" method="post" enctype="multipart/form-data">
 														@csrf
@@ -112,8 +114,10 @@
 														</SELECT>
 														<input type="submit" class="btn btn-primary" value="Xử lý">
 													</form>
+													</div>
 												</div>
-												<div style="clear:right" align="center"><a href="{{route('bill.index')}}" class="btn btn-primary" >Quay Lại</a></div>
+												<br>
+												<div style="clear:right;overflow: auto" align="center"><a href="{{route('bill.index')}}" class="btn btn-primary" >Quay Lại</a></div>
 											</div>
 
 										</section>
@@ -141,5 +145,18 @@
 </section>
 <!--main content end-->
 </section>
+<script src="/admin/js/bootstrap.js"></script>
+<script src="/admin/js/jquery.dcjqaccordion.2.7.js"></script>
+<script src="/admin/js/scripts.js"></script>
+<script src="/admin/js/jquery.slimscroll.js"></script>
+<script src="/admin/js/jquery.nicescroll.js"></script>
+<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
+<script src="/admin/js/jquery.scrollTo.js"></script>
+<!-- morris JavaScript -->	
 
+<!-- script đồ thị -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 @endsection

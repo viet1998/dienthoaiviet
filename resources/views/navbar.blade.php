@@ -78,7 +78,7 @@
 						<div class="row" style="margin: 0;">
 							<div class="col-lg-2 home" style="padding: 8px;"><a href="{{route('trangchu')}}"><i class="fas fa-home"></i>&nbsp TRANG CHỦ</a></div>
 							<div class="col-lg-2" style="padding: 8px;"><a href="{{route('smartphone')}}"><i class="fas fa-mobile"></i>&nbsp ĐIỆN THOẠI</a></div>
-							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-piggy-bank"></i>&nbsp TRẢ GÓP</a></div>
+							<div class="col-lg-2" style="padding: 8px;"><a href="{{route('newsindex')}}"><i class="fas fa-piggy-bank"></i>&nbsp Tin Tức</a></div>
 							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-tools"></i>&nbsp SỬA CHỮA</a></div>
 							<div class="col-lg-2" style="padding: 8px;"><a href=""><i class="fas fa-gift"></i>&nbsp KHUYẾN MÃI</a></div>
 							<div class="col-lg-2 dropdown" style="padding: 8px;"><a style="text-decoration: none;" class=" dropdown-toggle" id="dropdowntk" data-toggle="dropdown" aria-haspopup="true" aria-exspanded="false" href="taikhoan"><i class="fas fa-user"></i>@if(Auth::check()) Xin chào {{Auth::user()->full_name}} @else Tài khoản @endif</a>

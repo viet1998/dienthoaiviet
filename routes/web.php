@@ -7,6 +7,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SlideController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\PhoneproductController;
 use App\Http\Controllers\TabletproductController;
 use App\Http\Controllers\AccessoriesproductController;
@@ -82,6 +84,9 @@ Route::get('dtdd/checkoutofstock/{id}',[PageController::class,'getCheckOutOfStoc
 Route::get('search',[PageController::class,'getSearch'])->name('search');
 Route::get('dtdd/filter/{id}/{from}/{to}',[PageController::class,'getFilterProduct'])->name('filter');
 
+
+Route::get('news/{id}',[PageController::class,'getNewsDetail'])->name('shownews');
+Route::get('newsindex',[PageController::class,'getNewsIndex'])->name('newsindex');
 // ---------------------------
 
 // show trang phụ kiện
@@ -110,6 +115,9 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::group(['middleware'=>'adminUser'],function(){
 		Route::resource('user', UserController::class);
 	});
+	Route::resource('slide', SlideController::class);
+	Route::resource('news', NewsController::class);
+
 	// quản lý product variant
 	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
 	Route::get('createvariant/{id}',[ProductController::class,'createVariant'])->name('product.createvariant');
@@ -133,6 +141,7 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::get('sortuser/{id}',[UserController::class,'getSortUser'])->name('sortuser');
 	Route::get('searchuser/{searchname}',[UserController::class,'getSearchUser'])->name('searchuser');
 	//show trang dashboard
+
 
 	Route::get('dashboard',[AdminController::class,'getAdminDashboard'])->name('admin_dashboard');
 	Route::get('tinhtongtien',[AdminController::class,'getSumTotalForDay']);
