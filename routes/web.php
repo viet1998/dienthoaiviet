@@ -66,6 +66,7 @@ Route::get('checkout',[PageController::class,'getCheckout'])->name('checkout');
 Route::post('checkout',[PageController::class,'postCheckout'])->name('savecheckout');
 Route::get('confirmcheckorder',[PageController::class,'getConfirmCheckOrder'])->name('confirmcheckorder');
 Route::get('checkorder',[PageController::class,'getCheckOrder'])->name('checkorder');
+Route::post('cancelorder/{id}',[PageController::class,'cancelOrder'])->name('cancelorder');
 
 // ---------------------------
 

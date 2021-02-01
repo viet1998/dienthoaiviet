@@ -24,7 +24,9 @@ Tìm đơn hàng
 			<div class="col-12">
 				<div class="card" style="padding: 10px;">
 					<h2>Đơn hàng online đã mua gần đây</h2>
-					
+					@if(Session::has('thanhcong'))
+						<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
+					@endif
 					<div class="row title-phone-oder" >
 						<div class="col-1" style="width:20px">Mã sản phẩm</div>
 						<div class="col-4">Sản phẩm</div>
@@ -58,12 +60,19 @@ Tìm đơn hàng
 						<div class="col-2">
 							@switch($bill->status)
 							@case(0)
-							<p style="color: #fff; border: 1px solid #000; border-radius: 15px; padding: 2px; background-color: #EED202;  text-align: center;">Chưa Giao hàng</p>@break
+							<p style="color: #fff; border: 1px solid #000; border-radius: 15px; padding: 2px; background-color: #EED202;  text-align: center;">Chưa Giao hàng</p>
+							<br>
+							<form action="{{route('cancelorder',$bill->id)}}" method="post" enctype="multipart/form-data">
+								@csrf
+								<button type="submit" class="btn btn-danger">Hủy</button>
+							</form>
+							@break
 							@case(1)
 							<p style="color: #fff; border: 1px solid #000; border-radius: 15px; padding: 2px; background-color: red;  text-align: center;">Đã Hủy</p>@break
 							@case(2)
 							<p style="color: #fff; border: 1px solid #000; border-radius: 15px; padding: 2px; background-color: #48FB05;  text-align: center;">Đã Giao hàng</p>@break
 							@endswitch
+
 						</div>
 					</div>
 					@endforeach		

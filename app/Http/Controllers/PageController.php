@@ -362,7 +362,13 @@ class PageController extends Controller
         }
 
     }
-
+    public function cancelOrder(Request $request,$id)
+    {
+        $bill=Bill::find($id);
+        $bill->status=1;
+        $bill->save();
+        return redirect()->back()->with(['thanhcong'=>'Hủy đơn hàng thành công','flag'=>'success']);
+    }
     // Phần đăng nhập
 
     public function postLogin(Request $req)                             
