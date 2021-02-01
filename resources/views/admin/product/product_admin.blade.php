@@ -35,13 +35,13 @@
 										<div style="overflow: auto">
 										<table class="table">
 											<tr style="padding-left: 10px">
-												<td colspan="9" width="">
+												<td colspan="7" width="">
 													<input type="text" id="searchname" class="form-control"  name="name" placeholder="Search" >
 												</td>
 												<td colspan="2" width="10%">
 													<input type="button" id="search" class="form-control" value="Tìm">
 												</td>
-												<td colspan="2" width="10%">
+												<td colspan="2" width="15%">
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>
@@ -58,6 +58,12 @@
 														<option value="11">Ngày Sửa Đổi</option>
 													</select>
 													</h3>
+												</td>
+												<td colspan="1" width="10%">
+													<a href="{{route('product.index')}}" class="btn btn-primary">Thêm Loại</a>
+												</td>
+												<td colspan="1" width="10%">
+													<a href="{{route('product.index')}}" class="btn btn-primary">Thêm Hãng</a>
 												</td>
 												<td colspan="1" width="10%">
 													<a href="{{route('product.index')}}" class="btn btn-primary">Refresh</a>

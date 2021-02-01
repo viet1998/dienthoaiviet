@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+
 use Collective\Html\FormFacade as Form;
+use Illuminate\Support\Facades\Auth;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -121,6 +125,7 @@ class UserController extends Controller
         $user->address=$request->address;
         $user->last_modified_by_user=Auth::user()->id;
         $user->update();
+        saveHistory("Update",$id);
         return redirect()->back()->with('thanhcong','Sửa tài khoản thành công');
     }
 
@@ -138,6 +143,7 @@ class UserController extends Controller
             return redirect()->back()->with('thatbai','Tạm thời không thể xóa tài khoản khách hàng');
         else{
             $user->delete();
+            saveHistory("Delete",$id);
             return redirect()->back()->with('thanhcong','Xóa tài khoản '.$email.' thành công');
         }
     }
@@ -173,7 +179,7 @@ class UserController extends Controller
                 $users=User::where('level',1)->get();
                 break;
 
-            case 4:
+            case 5:
                 $users=User::where('level',2)->get();
                 break;
 
@@ -232,7 +238,7 @@ class UserController extends Controller
             }
             ?>
         </td>
-        <td><?php echo $user['last_modified_by_user'].' - '.$user['parent']['full_name'] ?></td>
+        <td><?php if(isset($user['last_modified_by_user'])) echo $user['last_modified_by_user'].' - '.$user['parent']['full_name'] ?></td>
         <td><?php echo $user['created_at'] ?></td>
         <td><?php echo $user['updated_at'] ?></td>
         <td>
@@ -244,5 +250,15 @@ class UserController extends Controller
         </td>
         </tr>
         <?php
+     }
+
+     public function saveHistory($method,$id){
+        $history= new History_change;
+        $history->table_change="User";
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
      }
 }

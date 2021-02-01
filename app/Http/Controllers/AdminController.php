@@ -10,6 +10,7 @@ use App\Models\Bill;
 use App\Models\Bill_detail;
 use App\Models\Customer;
 use App\Models\News;
+use App\Models\History_change;
 use App\Models\Type_product;
 use App\Models\User;
 use App\Models\Cart;
@@ -28,14 +29,9 @@ class AdminController extends Controller
     	return view('admin.login');
     }
 
-    public function showindex(){
-        $endLastMonth=Carbon::now()->endOfMonth()->subMonth()->toDateString();
-        $startLastMonth=Carbon::now()->startOfMonth()->subMonth()->toDateString();
-        return $endLastMonth+$startLastMonth;
-     //    $visitor=[count(Visitor::where('date_visitor',Carbon::now('Asia/Ho_Chi_Minh')->toDateString())),
-     //        count(Visitor::where('date_visitor','>=',Carbon::now('Asia/Ho_Chi_Minh')->toDateString()))
-     //    ];
-    	// return view('admin.dashboard');
+    public function getHistoryChange(){
+        $histories=History_change::paginate(10);
+        return view('admin.history',compact('histories'));
     }
 
     public function getStatistical(){

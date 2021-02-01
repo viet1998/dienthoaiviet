@@ -32,6 +32,7 @@
 										<div class="alert alert-danger">{{Session::get('thatbai')}}</div>
 										@endif
 										</div>
+										<div style="overflow: auto">
 										<table class="table">
 											<tr style="padding-left: 10px">
 												<td colspan="9" width="">
@@ -40,7 +41,7 @@
 												<td colspan="2" width="10%">
 													<input type="button" id="search" class="form-control" value="Tìm">
 												</td>
-												<td colspan="2" width="10%">
+												<td colspan="2" width="15%">
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>
@@ -59,7 +60,7 @@
 										</table>
 										</div>
 										<div style="overflow: auto">
-										<table  class="table" style="overflow: auto">
+										<table  class="table">
 											<thead >
 												<tr >
 													<th style="text-align: center;">ID</th>

@@ -62,7 +62,8 @@
                     Route::currentRouteName()=='product.create' ||
                     Route::currentRouteName()=='product.createvariant' || 
                     Route::currentRouteName()=='product.editvariant' ||
-                    Route::currentRouteName()=='product.index') class="active" @endif href="javascript:;">
+                    Route::currentRouteName()=='product.index'||
+                    Route::currentRouteName()=='typeandbrand') class="active" @endif href="javascript:;">
                         <i class="fa fa-book"></i>
                         <span>Quản lý sản phẩm</span>
                     </a>
@@ -71,6 +72,7 @@
                         <li><a @if(Route::currentRouteName()=='product.index') class="active" @endif href="{{route('product.index')}}">Danh sách sản phẩm</a></li>
                         <li><a @if(Route::currentRouteName()=='productvariants') class="active" @endif href="{{route('productvariants')}}">Danh sách biến thể của sản phẩm</a></li>
                         <li><a @if(Route::currentRouteName()=='product.create') class="active" @endif href="{{route('product.create')}}">Thêm sản phẩm</a></li>
+                        <li><a @if(Route::currentRouteName()=='typeandbrand') class="active" @endif href="{{route('typeandbrand')}}">Danh sách loại và hãng</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu">
@@ -120,6 +122,14 @@
                         <li><a @if(Route::currentRouteName()=='user.index') class="active" @endif href="{{route('user.index')}}">Danh sách tài khoản</a></li>
                         <li><a @if(Route::currentRouteName()=='user.create') class="active" @endif href="{{route('user.create')}}">Thêm tài khoản</a></li>
                     </ul>
+                </li>
+                @endif
+                @if(Auth::user()->level==2)
+                <li>
+                    <a @if(Route::currentRouteName()=='history') class="active" @endif href="{{route('history')}}">
+                        <i class="fa fa-user"></i>
+                        <span>Danh sách lịch sử thay đổi</span>
+                    </a>
                 </li>
                 @endif
                 <li>

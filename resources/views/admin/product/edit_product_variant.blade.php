@@ -41,7 +41,7 @@
 												@endif
 											</div>
 											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">ID Sản Phẩm</label>
+												<label  class="col-sm-2 col-form-label">ID Sản Phẩm Gốc</label>
 												<div class="col-sm-10">
 													<input type="number" name="id_product" class="form-control"  placeholder="" value="{{$product_variant->product->id}}" disabled="disabled">
 												</div>

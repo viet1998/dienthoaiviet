@@ -1,5 +1,7 @@
 @extends('admin.master-admin')
 @section('content')
+<script type="text/javascript" src="/admin/js/nicEdit.js"></script>
+<script type="text/javascript" src="http://js.nicedit.com/nicEdit-latest.js"></script>
 <script src="/admin/js/jquery2.0.3.min.js"></script>
 <script src="/admin/js/raphael-min.js"></script>
 <script src="/admin/js/morris.js"></script>
@@ -8,6 +10,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<!-- //market-->
+		
 		<div class="row">
 			<div class="panel-body">
 				<div class="col-md-12 w3ls-graph">
@@ -15,78 +18,73 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Sửa Khách Hàng<span id="getTotal"></span></h3>
+									<h3>Sửa Bài Viết <span id="getTotal"></span>
+									</h3>
 								</header>
 								<div class="panel-body">
 									<div class="col-md-12">
-										<form action="{{route('customer.update',$customer->id)}}" method="post" enctype="multipart/form-data">
-										@csrf
-										@method('PUT')
+										<form action="{{route('news.update',$news->id)}}" method="post" enctype="multipart/form-data">
+											@csrf
+											@method('PUT')
 											<div class="form-group row">
 												@if(count($errors)>0)
-													<div class="alert alert-danger">
-														@foreach($errors->all() as $err)
-														{{$err}}<br>
-														@endforeach
-													</div>
+												<div class="alert alert-danger">
+													@foreach($errors->all() as $err)
+													{{$err}}<br>
+													@endforeach
+												</div>
 												@endif
 												@if(Session::has('thanhcong'))
-													<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
+												<div class="alert alert-success">{{Session::get('thanhcong')}}</div>
 												@endif
 											</div>
 											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Tên Khách Hàng</label>
+												<label  class="col-sm-2 col-form-label">Tiêu Đề</label>
 												<div class="col-sm-10">
-													<input type="text" name="name" class="form-control"  placeholder="" value="{{$customer->name}}">
+													<input placeholder="Tiêu Đề" type="text" name="title" class="form-control" value="{{$news->title}}">
+
 												</div>
 											</div>
+											
 											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Giới Tính</label>
+												<label  class="col-sm-2 col-form-label">Hình Ảnh</label>
 												<div class="col-sm-10">
-													<SELECT class="form-control" name="gender">
-														<option value="Nam" @if($customer->gender=='Nam') selected @endif>Nam</option>
-														<option value="Nữ" @if($customer->gender=='Nữ') selected @endif>Nữ</option>
-													</SELECT>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Email</label>
-												<div class="col-sm-10">
-													<input type="text" name="email" class="form-control"  placeholder="" value="{{$customer->email}}" disabled>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Địa Chỉ</label>
-												<div class="col-sm-10">
-													<input type="text" name="address" class="form-control"  placeholder="" value="{{$customer->address}}">
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Số Điện Thoại</label>
-												<div class="col-sm-10">
-													<input type="text" name="phone_number" class="form-control"  placeholder="" value="{{$customer->phone_number}}" disabled>
-												</div>
-											</div>
-											<div class="form-group row">
-												<label  class="col-sm-2 col-form-label">Ghi Chú</label>
-												<div class="col-sm-10">
-													<input type="text" name="note" class="form-control"  placeholder="" value="{{$customer->note}}">
+													<input type="file" name="image" class="form-control"  placeholder="" >
+													<img src="/image/news/{{$news->image}}" width="140px" height="80px"></a>
 												</div>
 											</div>
 
+											<div class="form-group row">
+												<script type="text/javascript">
+													bkLib.onDomLoaded(function() {
+													        new nicEditor({maxHeight : 1000}).panelInstance('content');
+													});
+												</script>
+												<label  class="col-sm-2 col-form-label">Nội Dung</label>
+												<div class="col-sm-10">
+													<div style="overflow: auto">
+													<textarea name="content" style="min-height: 300px;background-color: #FFF " id="content" class="form-control"  placeholder="" >
+														{{$news->content}}
+													</textarea> 
+													</div>
+												</div>
+											</div>
+											
 											
 											<div class="form-group row">
 												<div  align="center">
-													<input type="submit" class="btn btn-primary" value="Nhập">
-													<a href="{{route('customer.index')}}" class="btn btn-primary">Quay Lại</a>
+													<input type="submit" class="btn btn-primary" value="Lưu">
+													<a href="{{route('news.index')}}" class="btn btn-primary">Quay Lại</a>
 												</div>
 
 											</div>
 										</form>
+
 									</div>
 								</div>
 							</div>
 						</div>
+						
 				<!--//agileinfo-grap-->
 				</div>
 			</div>

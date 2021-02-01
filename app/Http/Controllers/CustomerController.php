@@ -102,36 +102,17 @@ class CustomerController extends Controller
             [
                 'name'=>'required',
                 'gender'=>'required',
-                'email'=>'required|email',
                 'address'=>'required',
-                'phone_number'=>'required'
             ],
             [
                 'name.required'=>'Nhập tên',
                 'gender.required'=>'Nhập giới tính',
-                'email.required'=>'Nhập email',
                 'address.required'=>'Nhập địa chỉ',
-                'phone_number.required'=>'Nhập số điện thoại',
-                'email.email'=>'Email không đúng định dạng'
                 
             ]);
         $customer=Customer::find($id);
         $customer->name=$request->name;
         $customer->gender=$request->gender;
-        $customer->email=$request->email;
-        if($customer->phone_number!=$request->phone_number){
-            $checkcus=Customer::where('phone_number',$request->phone_number)->get();
-            if($checkcus->count()==0)
-                $customer->phone_number=$request->phone_number;
-            else
-                $this->validate($request,
-                [
-                    'phone_number'=>'unique:customer,phone_number'
-                ],
-                [
-                    'phone_number.unique'=>'Số điện thoại đã có trong danh sách khách hàng'
-                ]);
-        }
         $customer->address=$request->address;
         $customer->last_modified_by_user=Auth::user()->id;
         $customer->note=$request->note;

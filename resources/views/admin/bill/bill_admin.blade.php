@@ -38,7 +38,7 @@
 												<td colspan="2" width="10%">
 													<input type="button" id="search" class="form-control" value="Tìm">
 												</td>
-												<td colspan="2" width="10%">
+												<td colspan="2" width="15%">
 													<h3 style="font-size: 25px">
 													<select name="sort" id="sort" class="form-control">
 														<option value="0">Sắp Xếp</option>

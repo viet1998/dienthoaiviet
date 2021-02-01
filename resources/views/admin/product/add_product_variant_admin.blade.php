@@ -16,7 +16,7 @@
 						<div class="agileinfo-grap">
 							<div class="agileits-box">
 								<header class="agileits-box-header clearfix">
-									<h3>Thêm Sản Phẩm <span id="getTotal"></span>
+									<h3>Thêm Biến Thể Của Sản Phẩm {{$product->name}} <span id="getTotal"></span>
 									</h3>
 									
 										

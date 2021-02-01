@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Slide;
 use Illuminate\Support\Facades\Auth;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 class SlideController extends Controller
 {
@@ -100,6 +102,17 @@ class SlideController extends Controller
         $slide=Slide::find($id);
         $name=$slide->id;
         $slide->delete();
+        saveHistory("Delete",$id);
         return redirect()->back()->with('thanhcong','Xóa slide '.$name.' thành công');
     }
+
+    public function saveHistory($method,$id){
+        $history= new History_change;
+        $history->table_change="Slide";
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
+     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Company;
+use App\Models\Type_product;
 use App\Models\Product_variant;
 use App\Models\Bill_detail;
 use App\Models\Image;
@@ -11,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Collective\Html\FormFacade as Form;
+use App\Models\History_change;
+use Carbon\Carbon;
 
 
 class ProductController extends Controller
@@ -463,5 +467,73 @@ class ProductController extends Controller
         </td>
         </tr>
         <?php
+     }
+
+
+     // loại và hãng
+     public function getTypeAndBrand(){
+        $types=Type_product::all();
+        $companies=Company::all();
+        return view('admin.product.type_brand_admin',compact('types','companies'));
+     }
+
+     public function storeType(Request $request){
+        $this->validate($request,
+            [
+                'name'=>'required'
+            ],
+            [
+                'name.required'=>'Vui lòng nhập tên để thêm!'
+            ]);
+        $type=new Type_product;
+        $type->name=$request->name;
+        $type->save();
+        return redirect()->back()->with('thanhcong','Thêm loại mới thành công');
+     }
+     public function storeBrand(Request $request){
+        $this->validate($request,
+            [
+                'name'=>'required'
+            ],
+            [
+                'name.required'=>'Vui lòng nhập tên để thêm!'
+            ]);
+        $brand=new Company;
+        $brand->name=$request->name;
+        $brand->save();
+        return redirect()->back()->with('thanhcong','Thêm hãng mới thành công');
+     }
+     public function destroyType($id){
+        $products=Product::where('id_type',$id)->get();
+        if(count($products)>0)
+            return redirect()->back()->with('thatbai','Không thể xóa loại đã có sản phẩm!');
+        else{
+            $type=Type_product::find($id);
+            $name=$type->name;
+            $type->delete();
+        }
+        return redirect()->back()->with('thanhcong','Xóa loại '.$name.' thành công');
+     }
+     public function destroyBrand($id){
+        $products=Product::where('id_company',$id)->get();
+        if(count($products)>0)
+            return redirect()->back()->with('thatbai','Không thể xóa hãng đã có sản phẩm!');
+        else{
+            $brand=Company::find($id);
+            $name=$brand->name;
+            $brand->delete();
+            saveHistory("Delete",$id,"Company");
+        }
+        return redirect()->back()->with('thanhcong','Xóa loại '.$name.' thành công');
+     }
+
+     public function saveHistory($method,$id,$table){
+        $history= new History_change;
+        $history->table_change=$table;
+        $history->id_item=$id;
+        $history->id_user=Auth::user()->id;
+        $history->method=$method;
+        $history->date=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $history->save();
      }
 }

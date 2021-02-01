@@ -114,10 +114,16 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 	Route::resource('bill', BillController::class);
 	Route::group(['middleware'=>'adminUser'],function(){
 		Route::resource('user', UserController::class);
+		Route::get('history',[AdminController::class,'getHistoryChange'])->name('history');
 	});
 	Route::resource('slide', SlideController::class);
 	Route::resource('news', NewsController::class);
 
+	Route::get('typeandbrand',[ProductController::class,'getTypeAndBrand'])->name('typeandbrand');
+	Route::post('typestore',[ProductController::class,'storeType'])->name('type.store');
+	Route::delete('typedestroy/{id}',[ProductController::class,'destroyType'])->name('type.destroy');
+	Route::post('brandstore',[ProductController::class,'storeBrand'])->name('brand.store');
+	Route::delete('branddestroy/{id}',[ProductController::class,'destroyBrand'])->name('brand.destroy');
 	// quản lý product variant
 	Route::get('productvariants',[ProductController::class,'getProductVariant'])->name('productvariants');
 	Route::get('createvariant/{id}',[ProductController::class,'createVariant'])->name('product.createvariant');
@@ -140,6 +146,8 @@ Route::group(['prefix'=>'admin','middleware'=>'adminLogin'],function(){
 
 	Route::get('sortuser/{id}',[UserController::class,'getSortUser'])->name('sortuser');
 	Route::get('searchuser/{searchname}',[UserController::class,'getSearchUser'])->name('searchuser');
+
+	Route::get('searchnews/{searchname}',[NewsController::class,'getSearchNews'])->name('searchnews');
 	//show trang dashboard
 
 
