@@ -13,7 +13,8 @@
 						
 						<section class="nav-col2">
 							<div class="search-form">
-							<form action="{{route('search')}}" role="search" method="get" >
+							<form role="search" method="get" action="{{route('search')}}" id="ff">
+								@csrf
 								<input type="text" name="key" placeholder="Bạn muốn tìm gì?">
 								<button type="submit"><i class="fas fa-search"></i></button>
 							</form>

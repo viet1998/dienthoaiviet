@@ -76,9 +76,18 @@ class PageController extends Controller
     public function showHomePage(Request $request){
         $this->insertVisitor($request);
         $slide = Slide::all();
-        $new_product = Product::where('new',1) -> paginate(5);
+        $new_product = Product::where('new',1) -> take(5)->get();
         $news= News::orderBy('created_at','DESC')->take(2)->get();
-        return view('trangchu', compact('slide', 'new_product','news'));
+        $promo_product = Product::where('promotion_price','>',0)->orderBy('promotion_price','DESC')-> take(8)->get();
+        $hot_product = Product::Join('product_variants', 'product_variants.id_product', '=', 'products.id')
+            ->Join('bill_detail', 'product_variants.id', '=', 'bill_detail.id_product_variant')
+            ->select('products.id','products.name','products.id_type','products.id_company','products.image','products.description','products.promotion_price','products.new','products.unit_price','products.last_modified_by_user','products.created_at','products.updated_at',Bill_detail::raw('sum(bill_detail.quantity) as product_count'))
+            ->groupBy('product_variants.id_product')
+            ->orderByDesc('product_count')
+            ->take(5)
+            ->get();
+        
+        return view('trangchu', compact('slide', 'new_product','news','promo_product','hot_product'));
     }
 
     public function getFilterProduct($id,$from,$to){

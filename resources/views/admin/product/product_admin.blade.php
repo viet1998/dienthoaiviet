@@ -94,7 +94,9 @@
 												@foreach($products as $product)
 												<tr>
 													<td>{{$product->id}}</td>
-													<td><a href="{{route('show',$product->id)}}" target="_blank">{{$product->name}}</a></td>
+													<td><a href="{{route('show',$product->id)}}" target="_blank">{{$product->name}}</a><br>
+														({{count($product->product_variants)}} Biến thể)
+													</td>
 													<td>{{$product->product_type->name}}</td>
 													<td>{{$product->company->name}}</td>
 													<td width="200px"><?php echo $product->description; ?></td>
@@ -126,7 +128,7 @@
 												</tr>
 												@endforeach
 												<tr>
-													<td colspan="8"><div align="center">{{$products->links()}}</div></td>
+													<td colspan="13"><div align="center">{{$products->links()}}</div></td>
 												</tr>
 											</tbody>
 										</table>

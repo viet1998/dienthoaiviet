@@ -58,33 +58,9 @@
 							@endforeach
 						</select>
 					</p>
-					<!-- <div class="for_slick_slider multiple-items">
-						<div class="items">
-							<label for="a1">
-							<p><input type="radio" name="other_price" id="a1">
-							64GB</p>
-							20.000.000<u>đ</u></p></label>
-						</div>
-						<div class="items" >
-							<label for="a2">
-							<p><input type="radio" name="other_price" id="a2">
-							128GB</p>
-							23.000.000<u>đ</u></p></label>
-						</div>
-						<div class="items">
-							<label for="a3">
-							<p><input type="radio" name="other_price" id="a3">
-							156GB</p>
-							26.000.000<u>đ</u></p></label>
-						</div>
-						<div class="items">
-							<label for="a4">
-							<p><input type="radio" name="other_price" id="a4">
-							Khác</p>
-							xx.xxx.000<u>đ</u></p></label>
-						</div>
-					</div> -->
+					
 					<div class="btn-buynow" id="clickbuy"><button type="submit" >Mua ngay <i class="fas fa-cart-plus"></i></button></div>
+					</form>
 					
 					<div class="btn-messbox"><button ><a href="https://www.facebook.com/thanhviet781998">Nhắn tin qua <strong style="font-weight: bold;">facebook</strong></a></button></div>
 					<!-- Khuyến mãi -->
@@ -190,16 +166,6 @@
 		});
 								
 	</script>	
-	<!-- slick giá cấu hình -->
 	<link rel="stylesheet" type="text/css" href="/css/slick.css">
-	<script type="text/javascript" src="/js/slick.min.js"></script>
-	<!-- <script type="text/javascript">
-		$(function (){
-			$('.multiple-items').slick({
-			  infinite: true,
-			  slidesToShow: 3,
-			  slidesToScroll: 1,
-			});
-		});
-	</script> -->	
+	
 @endsection

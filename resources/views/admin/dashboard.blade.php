@@ -328,39 +328,39 @@
 							</div>
 							<div class="stats-body">
 								<ul class="list-unstyled" style="width: 100%">
-									<li>Apple<span class="pull-right">{{($brand_data[1]*100)/$total}}%</span>  
+									<li>Apple<span class="pull-right">{{round(($brand_data[1]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar green" style="width:{{($brand_data[1]*100)/$total}}%;"></div> 
+											<div class="bar green" style="width:{{round(($brand_data[1]*100)/$total)}}%;"></div> 
 										</div>
 									</li>
-									<li>Samsung<span class="pull-right">{{($brand_data[2]*100)/$total}}%</span>  
+									<li>Samsung<span class="pull-right">{{round(($brand_data[2]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar yellow" style="width:{{($brand_data[2]*100)/$total}}%;"></div>
+											<div class="bar yellow" style="width:{{round(($brand_data[2]*100)/$total)}}%;"></div>
 										</div>
 									</li>
-									<li>Oppo<span class="pull-right">{{($brand_data[3]*100)/$total}}%</span>  
+									<li>Oppo<span class="pull-right">{{round(($brand_data[3]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar red" style="width:{{($brand_data[3]*100)/$total}}%;"></div>
+											<div class="bar red" style="width:{{round(($brand_data[3]*100)/$total)}}%;"></div>
 										</div>
 									</li>
-									<li>Xiaomi<span class="pull-right">{{($brand_data[4]*100)/$total}}%</span>  
+									<li>Xiaomi<span class="pull-right">{{round(($brand_data[4]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar blue" style="width:{{($brand_data[4]*100)/$total}}%;"></div>
+											<div class="bar blue" style="width:{{round(($brand_data[4]*100)/$total)}}%;"></div>
 										</div>
 									</li>
-									<li>Vivo<span class="pull-right">{{($brand_data[5]*100)/$total}}%</span>  
+									<li>Vivo<span class="pull-right">{{round(($brand_data[5]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar light-blue" style="width:{{($brand_data[5]*100)/$total}}%;"></div>
+											<div class="bar light-blue" style="width:{{round(($brand_data[5]*100)/$total)}}%;"></div>
 										</div>
 									</li>
-									<li>Realme <span class="pull-right">{{($brand_data[6]*100)/$total}}%</span>  
+									<li>Realme <span class="pull-right">{{round(($brand_data[6]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar orange" style="width:{{($brand_data[6]*100)/$total}}%%;"></div>
+											<div class="bar orange" style="width:{{round(($brand_data[6]*100)/$total)}}%;"></div>
 										</div>
 									</li>
-									<li class="last">Oneplus <span class="pull-right">{{($brand_data[7]*100)/$total}}%</span>  
+									<li class="last">Oneplus <span class="pull-right">{{round(($brand_data[7]*100)/$total)}}%</span>  
 										<div class="progress progress-striped active progress-right">
-											<div class="bar orange" style="width:{{($brand_data[7]*100)/$total}}%%;"></div>
+											<div class="bar orange" style="width:{{round(($brand_data[7]*100)/$total)}}%;"></div>
 										</div>
 									</li> 
 								</ul>

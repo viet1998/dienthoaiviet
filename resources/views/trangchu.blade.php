@@ -44,7 +44,7 @@
 			<!-- phone list product -->
 			<div class="list-product">
 				<div class="row-titel">
-					<a href="SP noi bat">sản phẩm nổi bật</a>
+					<a href="">sản phẩm nổi bật</a>
 				</div>
 				<div class="row-subtitel">
 					@foreach($new_product as $new)
@@ -66,7 +66,54 @@
 					@endforeach
 				</div>
 			</div>
-			<div class="row" style="margin: 10px auto;">{{$new_product->links('vendor/pagination/bootstrap-4')}}</div>
+			<div class="list-product">
+				<div class="row-titel">
+					<a href="">sản phẩm khuyến mãi</a>
+				</div>
+				<div class="row-subtitel" style="overflow: auto;">
+					@foreach($promo_product as $new)
+					<div class="col-product" >
+						<div class="card-product" align="center">
+							<a href="{{route('show',$new->id)}}">
+							<img src="/image/product/{{$new->image}}" />
+							<p>{{$new->name}}</p>
+							@if($new['promotion_price']==0)
+							<div class="price"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
+							@else
+							<div class="price" style="width: auto"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u> (-{{$new['promotion_price']}}%)</strong>
+							</div>
+							@endif
+							</a>
+							<div class="btn-buynow"><a href="{{route('show',$new->id)}}" class="addtocart"><button >Mua Ngay</button></a></div>
+						</div>
+					</div>
+					@endforeach
+				</div>
+			</div>
+			<div class="list-product">
+				<div class="row-titel">
+					<a href="">sản phẩm bán chạy</a>
+				</div>
+				<div class="row-subtitel" style="overflow: auto;">
+					@foreach($hot_product as $new)
+					<div class="col-product" >
+						<div class="card-product" align="center">
+							<a href="{{route('show',$new->id)}}">
+							<img src="/image/product/{{$new->image}}" />
+							<p>{{$new->name}}</p>
+							@if($new['promotion_price']==0)
+							<div class="price"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u></strong></div>
+							@else
+							<div class="price" style="width: auto"><strong>{{number_format($new['unit_price'], 0, '', '.')}}<u>đ</u> (-{{$new['promotion_price']}}%)</strong>
+							</div>
+							@endif
+							</a>
+							<div class="btn-buynow"><a href="{{route('show',$new->id)}}" class="addtocart"><button >Mua Ngay</button></a></div>
+						</div>
+					</div>
+					@endforeach
+				</div>
+			</div>
 	</section>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous"></script>
 @endsection

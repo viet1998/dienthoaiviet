@@ -73,7 +73,7 @@
 												<label  class="col-sm-2 col-form-label">Giá</label>
 
 												<div class="col-sm-10">
-													<input type="number" name="unit_price" class="form-control"  placeholder="Nhập giá" >
+													<input type="number" name="unit_price" class="form-control" value="{{$product->unit_price}}" placeholder="Nhập giá" >
 												</div>
 											</div>
 											<div class="form-group row">
